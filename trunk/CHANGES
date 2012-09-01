@@ -1,0 +1,34 @@
+2007-12-18
+TecnoballZ 0.92+
+The code was compiled with GCC 4.3
+Fix Makefile
+
+2007-11-19
+TecnoballZ 0.92
+Autoconf and automake was improved
+The code was compiled with GCC 4.1.2
+The code was considerably cleaned up and rewritten
+The source code files and C++ classes were renamed
+The names and variables names and comments are now in English 
+The simple copies use now SDL_BlitSurface
+French language support was added
+Resources files were renamed
+The graphic files were converted from BMP to PNG
+New graphics was realized for the mode 640x480
+The license was changed to the GPLv3
+Joystick and keyboard support was added
+GP2X and PSP support
+Various bugs were fixed
+
+2005-02-04
+TecnoballZ 0.91
+Berlios project was created 
+Autoconf and automake was included
+Handle alignment constraint (SPARC processor)
+Important change to score file
+Add "LEVEL COMPLETED" into guards levels
+Add config file
+
+2004-10-27
+TecnoballZ 0.90
+Initial release
