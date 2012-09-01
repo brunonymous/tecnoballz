@@ -1,0 +1,119 @@
+                                
+                                
+                                
+                                
+                                
+        START THE GAMEq         
+          ? OPTIONS ?           
+          > CREDITS <           
+         g GREETINGS g          
+             INFOS              
+          VIEW-SCORES           
+           AREA CODE            
+        u ----------? t         
+          GAME  EXITw           
+                                
+                                
+                                
+                                
+                                
+#
+                                
+                                
+                                
+                                
+--------------------------------
+ e NUMBER OF PLAYERS  u 1 t     
+ b PLAYER 1.......... u ......t 
+ b PLAYER 2.......... u ......t 
+ b PLAYER 3.......... u ......t 
+ b PLAYER 4.......... u ......t 
+ b PLAYER 5.......... u ......t 
+ b PLAYER 6.......... u ......t 
+ e DIFFICULTY........ u EASY t  
+ e NUMBER OF LIFES... u 08 t    
+ c MAIN MENUqq                  
+--------------------------------
+                                
+                                
+                                
+# credits
+--- MAIN CODING - LINUX-PORT ---
+      b BRUNO  ETHVIGNOT b      
+---- BASED ON AMIGA MC680X0 ----
+b BRUNO ETHVIGNOT;JEROME BOLOT b
+                                
+----------- MAIN GFX -----------
+bJEAN MICHEL  MARTIN DE SANTEROb
+        b DAVID IGREJA b        
+ --------- OTHER  GFX --------- 
+       b RODOLPHE  BONO b       
+                                
+---------- ALL MUSICS ----------
+        b REGIS PARRET b        
+---------SOUNDS EFFECTS---------
+       b LAURENT  GUYON  b      
+                                
+COPYRIGHT (C)1992-2007 TLK-GAMES
+TLK-GAMES/BP 24/F81150 FLORENTIN
+         LINUX.TLK.FR           
+#
+                                
+ PADDLE CONTROL:                
+ LEFT MOUSE BUTTON  : FIRE       
+ RIGHT MOUSE BUTTON : DROP BALL  
+ MIDDLE MOUSE BUTTON: TILT       
+                    OR GIGABLITZ  
+--------------------------------
+KEYS RECOGNIZED DURING THE GAME:
+ F       : FULL SCREEN          
+ P       : PAUSE                
+ CTRL ESC: QUIT TECNOBALLZ      
+ CTRL D  : DISABLE MUSICS       
+ CTRL F  : DISABLE SOUND EFFECTS
+ CTRL S  : DISABLE SOUND        
+ CTRL Q  : EXIT TO MENU         
+ CTRL X  : GO TO GAME-OVER      
+--------------------------------
+ 25,000 POINTS      : BONUS LIFE
+                                
+#
+                                
+---> BEST GREETINGS  FLY TO <---
+                                
+ b ALEXIS       b AURELIEN      
+ b BLACKGUARD   b BARTI         
+ b DAUBMAN      b DELPHINUS     
+ b DARK NIGHT   b FELBRAN       
+ b DJI          b JRC           
+ b MA DANONE    b LE CHACAL     
+ b GAEL R.      b YANIS         
+ b JMM          b ROY           
+ b PAT          b PROPERMAN     
+ b PASCAL L.    b PASCAL E.     
+ b PIXELMAN     b PIERRE DENIS  
+ b STEPHANE C.  b POPOLON       
+ b ZIBIBI       b SHAD          
+ b REGLIS       b ZE-KING       
+                                
+                                
+# high score table
+                                
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+b        BEST  TECNOBALLZ      b
+b                              b
+b POS NAME   LEVEL AREA SCORE  b
+b                              b
+b 01  ?????? ??    ?    ?????? b
+b 02  ?????? ??    ?    ?????? b
+b 03  ?????? ??    ?    ?????? b
+b 04  ?????? ??    ?    ?????? b
+b 05  ?????? ??    ?    ?????? b
+b 06  ?????? ??    ?    ?????? b
+b 07  ?????? ??    ?    ?????? b
+b 08  ?????? ??    ?    ?????? b
+b 09  ?????? ??    ?    ?????? b
+b 10  ?????? ??    ?    ?????? b
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                                
+                                

@@ -1,0 +1,131 @@
+# expand paddle      #
+ AH OUAIS C'EST BIEN
+   MIEUX AVEC UNE
+RAQUETTE PLUS GRANDE
+#fire power 1        #
+CE TIR N'EST PAS AUSSI
+PUISSANT QUE LE TIR 2
+MAIS IL EST MOINS CHER 
+#fire power 2        #
+  PLUS DE PUISSANCE  #
+  POUR DETRUIRE PLUS #  
+   PLUS DE BRIQUES   #
+#rebuild wall        #
+BIEN, LE MUR DE COTE
+VA ETRE RECONSTRUIT
+                      
+#extra balls         #
+                      
+DEUX BALLES A ATTRAPER
+                      
+# multi balls        #
+  TROIS BALLES VONT 
+  MAINTENANT DETRUIRE
+  LE MUR PLUS VITE
+# ball power 1       #
+A BALLE TRES
+RESISTANTE POUR
+BRISER LES BRIQUES
+# ball power 2       #
+AVEC CELA VOUS 
+CASSEREZ TOUT CE QUE
+VOUS VOUDREZ
+# less bricks         
+CELA FERA 10 BRIQUES
+DE MOINS A CASSER
+                      
+# extra life         #
+  VIE SUPPLEMENTAIRE  
+      AJOUTEE         
+                      
+# Info text          #
+                      
+                      
+                      
+# the wall           #
+ UN MUR POUR RETENIR
+  LES BALLES PENDANT
+   UN COURT INSTANT
+# left paddle        #
+OK POUR UNE RAQUETTE
+GAUCHE MAIS ELLE NE
+DURE QUE 3 NIVEAUX
+# top paddle         #
+OK POUR UNE RAQUETTE
+HAUTE MAIS ELLE NE
+DURE QUE 3 NIVEAUX
+# right paddle       #
+OK POUR UNE RAQUETTE
+DROITE MAIS ELLE NE
+DURE QUE 3 NIVEAUX
+# ball size 2        #
+                      
+    BIGSIZE  BALLS!   
+                      
+# ball size 3        #
+                      
+   MAXISIZE  BALLS!   
+                      
+# robot paddle       #
+          OK          
+       FOR  THE       
+     ROBOT BUMPER!    
+# blue option        #
+          OK          
+       FOR  THE       
+ CONTROL BALL OPTION  
+# blue option        #
+          OK          
+       FOR  THE       
+     GLUE  OPTION     
+# cheat mode enabled #
+      GO AND SEE      
+        MY LOVE       
+                      
+# infos messages     #
+RAQUETTE DROITE 
+RAQUETTE HAUTE
+RAQUETTE GAUCHE
+  VOUS POSSEDEZ ENCORE
+     .. VIES
+                      
+                      
+                      
+LA DIFFICULTE EST ....
+J'ESPERE QUE CETTE    
+AIDE VOUS SERA UTILE  
+                      
+      TLK  GAMES      
+      TECNOBALLZ      
+      TLK  GAMES      
+  LA CORRUPTION REVET 
+   DES  DEGUISEMENTS  
+        INFINIS       
+RAQUETTE DROITE ACTIVE
+PAS DE RAQUETTE DROITE
+ACHETER RAQUETTE DROIT
+RAQUETTE HAUTE ACTIVE 
+PAS DE RAQUETTE HAUTE 
+ACHETER RAQUETTE HAUTE
+RAQUETTE GAUCHE ACTIVE
+PAS DE RAQUETTE GAUCHE
+ACHETER RAQUETTE GAUCH
+  LE CODE D'ACCES DE  
+    CETTE ZONE EST    
+      ..........      
+  AUCUN CODE D'ACCES  
+     N'EXISTE POUR    
+      CETTE ZONE      
+#welcome message
+BIENVENUE ......      
+DANS LE MAGASIN       
+BONUS PRIX ACTIF      
+DESOLE, MAIS VOUS     
+N'AVEZ PAS ASSEZ      
+D'ARGENT POUR CELA    
+VOUS NE POUVEZ PAS    
+ ACHETER PLUS DE      
+    .. CAPSULES       
+DESOLE, CETTE OPTION  
+NET PEUT-ETRE UTILISE 
+QUE DANS LA ZONE 5    

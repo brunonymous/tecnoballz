@@ -1,0 +1,119 @@
+                                
+                                
+                                
+                                
+                                
+      COMMENCE UNE PARTIEq      
+          ? OPTIONS ?           
+          > CREDITS <           
+        g SALUTATIONS g         
+             INFOS              
+        MEILLEURS SCORES        
+           AREA CODE            
+        u ----------? t         
+            QUITTER             
+                                
+                                
+                                
+                                
+                                
+#
+                                
+                                
+                                
+                                
+--------------------------------
+ e NOMBRE DE JOUEURS  u 1 t     
+ b JOUEUR 1.......... u ......t 
+ b JOUEUR 2.......... u ......t 
+ b JOUEUR 3.......... u ......t 
+ b JOUEUR 4.......... u ......t 
+ b JOUEUR 5.......... u ......t 
+ b JOUEUR 6.......... u ......t 
+ e DIFFICULTY........ u EASY t  
+ e NOMBRE DE VIES.... u 08 t    
+ c MENU PRINCIALqq              
+--------------------------------
+                                
+                                
+                                
+# credits
+---- DEVELOPPEUR  PRINCIPAL ----
+      b BRUNO  ETHVIGNOT b      
+- BASE SUR LA VERSION AMIGA DE -
+b BRUNO ETHVIGNOT;JEROME BOLOT b
+                                
+---- PRINCIPAUX GRAPHISMES  ----
+bJEAN MICHEL  MARTIN DE SANTEROb
+        b DAVID IGREJA b        
+------ AUTRES  GRAPHISMES ------
+       b RODOLPHE  BONO b       
+                                
+----- PRINCIPALES MUSIQUES -----
+        b REGIS PARRET b        
+- BRUITAGES ET AUTRES MUSIQUES -
+       b LAURENT  GUYON  b      
+                                
+COPYRIGHT (C)1992-2007 TLK-GAMES
+TLK-GAMES/BP 24/F81150 FLORENTIN
+         LINUX.TLK.FR           
+#
+                                
+ CONTROL DE LA RAQUETTE:        
+ BOUTON GAUCHE SOURIS : TIR     
+ BOUTON DROIT SOURIS  : EJECTE   
+ BOUTON MILIEU        : TILT      
+                    OU GIGABLITZ  
+--------------------------------
+TOUCHES RECONNUES DANS LE JEU   
+ F       : PLEIN ECRAN          
+ P       : PAUSE                
+ CTRL ESC: QUIT TECNOBALLZ      
+ CTRL D  : COUPE LES MUSIQUES   
+ CTRL F  : COUPE LES BRUITAGES  
+ CTRL S  : COUPE LE SON         
+ CTRL Q  : RETOURNE AU MENU     
+ CTRL X  : FIN DE PARTIE        
+--------------------------------
+ 25 000 POINTS : GAGNE UNE VIE  
+                                
+#
+                                
+--> MEILLEURES SALUTATIONS A <--
+                                
+ b ALEXIS       b AURELIEN      
+ b BLACKGUARD   b BARTI         
+ b DAUBMAN      b DELPHINUS     
+ b DARK NIGHT   b FELBRAN       
+ b DJI          b JRC           
+ b MA DANONE    b LE CHACAL     
+ b GAEL R.      b YANIS         
+ b JMM          b ROY           
+ b PAT          b PROPERMAN     
+ b PASCAL L.    b PASCAL E.     
+ b PIXELMAN     b PIERRE DENIS  
+ b STEPHANE C.  b POPOLON       
+ b ZIBIBI       b SHAD          
+ b REGLIS       b ZE-KING       
+                                
+                                
+# high score table
+                                
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+b     LES MEILLEURS SCORES     b
+b                              b
+b POS NOM   NIVEAU ZONE SCORE  b
+b                              b
+b 01  ?????? ??    ?    ?????? b
+b 02  ?????? ??    ?    ?????? b
+b 03  ?????? ??    ?    ?????? b
+b 04  ?????? ??    ?    ?????? b
+b 05  ?????? ??    ?    ?????? b
+b 06  ?????? ??    ?    ?????? b
+b 07  ?????? ??    ?    ?????? b
+b 08  ?????? ??    ?    ?????? b
+b 09  ?????? ??    ?    ?????? b
+b 10  ?????? ??    ?    ?????? b
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                                
+                                

@@ -1,0 +1,131 @@
+# expand paddle      #
+    AH YEAH IT IS     
+   MUCH BETTER WITH A 
+ SUCH LONGER BUMPER   
+#fire power 1        #
+THIS FIRE IS NOT AS SO
+POWERFULL AS FIRE 1   
+  BUT IT IS CHEAPER   
+#fire power 2        #
+   BIGGER POWER  TO   
+  DESTROY MORE BRICS  
+                      
+#rebuild wall        #
+   OK, THE RED WALLS  
+   WILL BE REBUILT    
+                      
+#extra balls         #
+                      
+  TWO BALLS TO CATCH  
+                      
+# multi balls        #
+    THREE BALLS NOW   
+ YOU WILL BRAKE MORE  
+ AND FASTER THE WALL  
+# ball power 1       #
+  A VERY STRONG BALL  
+    TO BREAK BRIKS    
+                      
+# ball power 2       #
+  WITH THAT YOU WILL  
+  BREAK ALL YOU WANT  
+
+# less bricks         
+ THERE WILL 10 BRICKS 
+    LESS TO BREAK     
+                      
+# extra life         #
+                      
+ - EXTRA LIFE ADDED - 
+                      
+# Info text          #
+                      
+                      
+                      
+# the wall           #
+ A WALL TO KEEP THE   
+   BALLS IN PLAY      
+  FOR A BREF MOMENT   
+# left paddle        #
+ OK FOR A LEFT BUMPER 
+BUT DON'T FORGET IT IS
+ OVER AFTER 3 LEVELS  
+# top paddle         #
+  OK FOR  UP  BUMPER  
+BUT DON'T FORGET IT IS
+ OVER AFTER 3 LEVELS  
+# right paddle       #
+OK  FOR A RIGHT BUMPER
+BUT DON'T FORGET IT IS
+ OVER AFTER 3 LEVELS  
+# ball size 2        #
+                      
+    BIGSIZE  BALLS!   
+                      
+# ball size 3        #
+                      
+   MAXISIZE  BALLS!   
+                      
+# robot paddle       #
+          OK          
+       FOR  THE       
+     ROBOT BUMPER!    
+# blue option        #
+          OK          
+       FOR  THE       
+ CONTROL BALL OPTION  
+# blue option        #
+          OK          
+       FOR  THE       
+     GLUE  OPTION     
+# cheat mode enabled #
+      GO AND SEE      
+        MY LOVE       
+                      
+# infos messages     #
+RIGHT BUMPER:NO ACTIVE
+UP BUMPER   :NO ACTIVE
+LEFT BUMPER :NO ACTIVE
+     YOU ONLY HAVE    
+     .. LIVES LEFT    
+                      
+                      
+                      
+  DIFFICULTY IS ....  
+I HOPE THIS ASSISTANCE
+     WILL HELP YOU    
+                      
+      TLK  GAMES      
+      TECNOBALLZ      
+      TLK  GAMES      
+   CORRUPTION WEARS   
+       INFINITE       
+      DISGUISES!      
+RIGHT BUMPER:  ACTIVE 
+RIGHT BUMPER:NO ACTIVE
+  BUY A RIGHT BUMPER  
+UP BUMPER   :  ACTIVE 
+UP BUMPER   :NO ACTIVE
+     BUY A UP BUMPER  
+LEFT BUMPER :  ACTIVE 
+LEFT BUMPER :NO ACTIVE
+  BUY A LEFT BUMPER   
+ THE PASSWORD FOR THIS
+  AREA IS ..........  
+                      
+ NO AVAILABLE PASSWORD
+ FOR THIS AREA.       
+                      
+#welcome message      
+WELCOME ...... TO THE 
+  TECNOBALLZ SHOP     
+PRICE BONUS IS ENABLE 
+SORRY, BUT YOU HAVEN'T
+GOT ENOUGH MONEY      
+TO BUY THIS OPTION    
+  YOU CAN ONLY BUY    
+  .. CAPSULES         
+                      
+  SORRY  THIS OPTION  
+   CAN ONLY BE USED   
+      FOR AREA 5      
