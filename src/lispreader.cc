@@ -1268,7 +1268,7 @@ lisp_stream_t* lisp_stream_init_gzfile (lisp_stream_t *stream, gzFile file)
 }
 #endif
 
-lisp_object_t* lisp_read_from_gzfile(const char* filename)
+lisp_object_t* lisp_read_from_gzfile(const char* /* filename */)
 {
   return NULL;
 	/*

@@ -335,10 +335,12 @@ controller_capsules::play_animation_in_shop (Uint32 speed)
 void
 controller_capsules::check_cheat_keys ()
 {
+  printf("controller_capsules::check_cheat_keys 1\n");
   if (!is_enabled_cheat_mode)
     {
       return;
     }
+  printf("controller_capsules::check_cheat_keys 2\n");
   if (keyboard->key_is_pressed (SDLK_LSHIFT) ||
       keyboard->key_is_pressed (SDLK_LCTRL) ||
       keyboard->key_is_pressed (SDLK_RALT) ||
@@ -353,6 +355,7 @@ controller_capsules::check_cheat_keys ()
     {
       return;
     }
+  printf("controller_capsules::check_cheat_keys 3\n");
   Sint16 *keys = cheat_keys;
   /* read SDL key code */
   while (Sint16 key = *(keys++))

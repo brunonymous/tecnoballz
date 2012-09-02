@@ -378,13 +378,11 @@ controller_gigablitz::collision_with_paddle ()
  * @param xcoord x coordinate of the guardian
  * @param ycoord y coordinate of the guardian
  * @param width width of the guardian in pixels 
- * @param height height of the guardian in pixels 
  * @return true if the gigablitz was well fired, otherwise false
  */
 bool
 controller_gigablitz::shoot_guardian (Uint32 id, Sint32 xcoord,
-                                      Sint32 ycoord, Uint32 width,
-                                      Uint32 height)
+                                      Sint32 ycoord, Uint32 width)
 {
   if (gigablitz_height > 0)
     {

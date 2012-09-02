@@ -1,7 +1,7 @@
 /**
  * @file supervisor_shop.h
  * @brief Shop supervisor
- * @date 2007-11-17
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.27 $
@@ -63,7 +63,7 @@ class supervisor_shop:public supervisor
       TEXT_NO_AREA_CODE = 31,
       TEXT_NOT_ENOUGH_MONEY = 33,
       TEXT_CANNOT_BUY_MORE = 34,
-      TEXT_ONLY_FOR_AREA_5 = 35,
+      TEXT_ONLY_FOR_AREA_5 = 35
     } TEXT_ENUM;
 
     /** Enumerate differents pages of the informations option */

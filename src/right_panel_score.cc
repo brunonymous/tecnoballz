@@ -1,7 +1,7 @@
 /** 
  * @file right_panel_score.cc 
  * @brief The right panel score in the bricks levels 
- * @date 2007-10-26
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.23 $
@@ -202,9 +202,9 @@ right_panel_score::draw_gigablizt_gauge ()
     }
 
   /* draw the vertical gauge */
-  char *dest = gauge_pixel;
+  unsigned char *dest = (unsigned char *)gauge_pixel;
   Sint32 next = game_screen->get_width ();
-  char pixel = 0;
+  unsigned char pixel = 0;
   if (resolution == 1)
     {
       for (Uint32 i = 0; i < gigablitz_countdown; i++)
@@ -239,7 +239,7 @@ right_panel_score::draw_gigablizt_gauge ()
   flip_white = flip_white ? false : true;
   if (flip_white)
     {
-      char pixel = 130;
+      unsigned char pixel = 130;
       if (resolution == 1)
         {
           for (Sint32 i = 0; i < h; i++)
@@ -291,7 +291,7 @@ right_panel_score::draw_gigablizt_gauge ()
           unsigned char *e = temoinCol2;
           for (Sint32 i = 0; i < h; i++)
             {
-              char pixel = (char) e[i];
+              unsigned char pixel = e[i];
               dest[0] = pixel;
               dest[1] = pixel;
               dest[2] = pixel;

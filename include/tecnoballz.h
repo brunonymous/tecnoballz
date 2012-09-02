@@ -2,7 +2,7 @@
  * @file tecnoballz.h
  * @brief Base of all classes, and main static methods of the game 
  * @created 2002-08-18
- * @date 2007-12-18
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.77 $
@@ -48,11 +48,10 @@
 #include "SDL/SDL.h"
 #endif
 #include "../include/configfile.h"
+#include "config.h"
 #ifndef __TECNOBALLZ__
 #define __TECNOBALLZ__
 #define TECNOBALLZ_VERSION	"TECNOBALLZ 0.92+ (2007-12-18)"
-/** To define only under development  */
-/* #define UNDER_DEVELOPMENT  */
 /** Force bytes copy (SPARC unaligned memory access) */
 /* #define BYTES_COPY */
 #ifndef SCOREFILE
@@ -112,7 +111,7 @@ public:
     GUARDS_LEVEL,
     MAIN_MENU,
     MAP_EDITOR,
-    LEAVE_TECNOBALLZ,
+    LEAVE_TECNOBALLZ
   }
   GAME_PHASE;
   /** Different levels of difficulty */
@@ -121,7 +120,7 @@ public:
     DIFFICULTY_EASY = 1,
     DIFFICULTY_NORMAL,
     DIFFICULTY_MEDIUM,
-    DIFFICULTY_HARD,
+    DIFFICULTY_HARD
   }
   DIFFICULTIES_ENUM;
 

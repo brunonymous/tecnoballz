@@ -1,7 +1,7 @@
 /** 
  * @file sprite_capsule.h
  * @brief The capsule sprite which contains a bonus or a penalty 
- * @date 2007-04-13
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.10 $
@@ -110,7 +110,7 @@ typedef enum
   MAGNETIC_EYE = 56,
   LESS_BRICKS = 58,
   SOME_INFOS = 60,
-  LEAVE_SHOP = 62,
+  LEAVE_SHOP = 62
 }
 CASPULES_ENUM;
 

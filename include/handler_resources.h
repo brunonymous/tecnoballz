@@ -2,7 +2,7 @@
  * @file handler_resources.h
  * @brief Handler of the files resources 
  * @created 2004-04-20 
- * @date 2012-08-30 
+ * @date 2012-09-02
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.20 $
@@ -84,7 +84,7 @@ class handler_resources:public virtual tecnoballz
       BITMAP_BRICKS,
       BITMAP_SCORES_FONTS,
 
-      MUSICAREA1 = 8192,
+      MUSICAREA1 = 8192
 
     }
     RESOURCE_IDENTFIERS;

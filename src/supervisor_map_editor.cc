@@ -529,8 +529,8 @@ supervisor_map_editor::highlight_selection ()
     {
       return;
     }
-  Uint32 y1 = current_selection->y1 - current_selection->y_offset;
-  Uint32 y2 = current_selection->y2 - current_selection->y_offset;
+  Sint32 y1 = current_selection->y1 - current_selection->y_offset;
+  Sint32 y2 = current_selection->y2 - current_selection->y_offset;
 
   if (x1 > x2)
     {
@@ -555,7 +555,7 @@ supervisor_map_editor::highlight_selection ()
 
 
   /* top border */
-  if (y1 >= 0 && y1 < screen_height)
+  if (y1 >= 0 && y1 < (Sint32)screen_height)
     {
       screen = game_screen->get_pixel_data (x1, y1);
       cycle_delay = 0;
@@ -577,10 +577,10 @@ supervisor_map_editor::highlight_selection ()
   /* right border */
   Uint32 rowsize = game_screen->get_row_size ();
   screen = game_screen->get_pixel_data (x2 - 1, y1 + 1);
-  for (Uint32 i = 1; i < height; i++)
+  for (Sint32 i = 1; i < (Sint32)height; i++)
     {
       unsigned char pixel = cycled_colors_list[color];
-      if (y1 + i >= 0 && y1 + i < screen_height)
+      if ((y1 + i) >= 0 && (y1 + i) <  (Sint32) screen_height)
         {
           *screen = pixel;
         }
@@ -596,7 +596,7 @@ supervisor_map_editor::highlight_selection ()
     }
 
   /* bottom border */
-  if (y2 >= 0 && y2 < screen_height)
+  if (y2 >= 0 && y2 < (Sint32)screen_height)
     {
       screen = game_screen->get_pixel_data (x1, y2);
       for (Sint32 i = width - 1; i >= 0; i--)
@@ -616,10 +616,10 @@ supervisor_map_editor::highlight_selection ()
 
   /* left border */
   screen = game_screen->get_pixel_data (x1, y2 - 1);
-  for (Uint32 i = 1; i < height; i++)
+  for (Sint32 i = 1; i < (Sint32)height; i++)
     {
       unsigned char pixel = cycled_colors_list[color];
-      if (y2 - i >= 0 && y2 - i < screen_height)
+      if ((y2 - i) >= 0 && (y2 - i) < (Sint32)screen_height)
         {
           *screen = pixel;
         }

@@ -1,7 +1,7 @@
 /**
  * @file tiles_background.cc 
  * @brief Draw tiles background in bricks levels 
- * @date 2007-09-24
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.21 $
@@ -663,8 +663,8 @@ tiles_background::set_4_color_palette (Uint32 pal_index)
 
     }
   palette_index = pal_index;
-  char *color = &couleurs[0];
-  unsigned char *colPT = (unsigned char *) (color) + pal_index;
+  unsigned char *color = &couleurs[0];
+  unsigned char *colPT = (color) + pal_index;
   SDL_Color *pal = display->get_palette ();
   SDL_Color *lighted = pal + 1;
   SDL_Color *dark = lighted + 128;
@@ -702,7 +702,7 @@ tiles_background::set_4_color_palette (Uint32 pal_index)
  * 4 * 4    : 16 composantes by palette
  * 112 * 4  : 448 composantes
 */
-char
+unsigned char
 tiles_background::couleurs[448] = {
                                     0x00, 0x40, 0x20, 0x40, 0x00, 0x60, 0x40, 0x60, 0x00, 0x80, 0x60, 0x80,
                                     0x00, 0xA0, 0x80, 0xA0, 0x00, 0x00, 0x20, 0x40, 0x00, 0x20,

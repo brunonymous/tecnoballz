@@ -1,7 +1,7 @@
 /**
  * @file tiles_background.h
  * @brief Draw tiles background in bricks levels 
- * @date 2007-09-25
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.11 $
@@ -47,7 +47,7 @@ class tiles_background:public virtual tecnoballz
     static tiles_background* tiles_background_singleton;
     static Sint32 table_pos1[16];
     static Sint32 table_pos2[16];
-    static char couleurs[448];
+    static unsigned char couleurs[448];
     static const Sint32 TILES_32_WIDTH = 32;
     static const Sint32 TILES_32_HEIGHT = 32;
     static const Sint32 TILES_64_WIDTH = 64;
@@ -63,7 +63,7 @@ class tiles_background:public virtual tecnoballz
      * or TILES_32x32_WITH_4_COLORS */
     Uint32 type_of_tiles;
     /** 4 color palette index */
-    Uint32 palette_index;
+    Sint32 palette_index;
 
     bitmap_data *current_tiles;
     Uint32 *map_tiles;

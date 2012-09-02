@@ -2,7 +2,7 @@
  * @file handler_popup_menu.h
  * @brief popup menu handler (When the [Esc] is pressed)
  * @created 2004-08-08 
- * @date 2007-10-31
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.9 $
@@ -76,7 +76,7 @@ class handler_popup_menu:public virtual display_text_bitmap,
     {
       MENU_00,
       MENU_01 = 4,
-      MAX_OF_LINES = 7,
+      MAX_OF_LINES = 7
     }
     MENU_TEXTS_ENUM;
     /** Number maximum of chars by line */

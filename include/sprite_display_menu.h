@@ -1,7 +1,7 @@
 /** 
  * @file sprite_display_menu.h
  * @brief Sprite wich display text of the menu in the menu principal 
- * @date 2007-10-09
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.9 $
@@ -58,7 +58,7 @@ private:
       INFOS_SECTION = 57,
       GREETINGS_SECTION = 76,
       SCORE_SECTIONS = 95,
-      MAX_OF_LINES = 114,
+      MAX_OF_LINES = 114
     }
     MENU_TEXTS_ENUM;
 

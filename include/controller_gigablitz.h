@@ -71,7 +71,7 @@ public:
   void collision1 ();
   void run_in_guardians_level ();
   bool shoot_guardian (Uint32 id, Sint32 xcoord, Sint32 ycoord,
-                      Uint32 width, Uint32 height);
+                      Uint32 width);
   bool is_enable ();
 private: 
   void collision_with_paddle ();

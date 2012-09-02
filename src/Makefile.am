@@ -12,7 +12,7 @@ tecnoballz_CXXFLAGS = -DDATADIR=\"$(datadir)/tecnoballz\" \
                       -DSCOREFILE=\"$(scoredir)/$(score)\" \
                       @SDL_CFLAGS@ @MIKMOD_FLAGS@
 #tecnoballz_LDADD = @SDL_LIBS@ @MM_LIBS@ @MIKMOD_LIBS@
-tecnoballz_LDADD = @SDL_LIBS@ @MIKMOD_LIBS@
+tecnoballz_LDADD = @SDL_LIBS@ @MIKMOD_LIBS@ @TINYXML_LIBS@
 
 install-data-hook:
 	-chown root:games "$(DESTDIR)/$(gamesdir)/tecnoballz"
@@ -91,10 +91,6 @@ SOURCES_MAIN = \
   surface_sdl.cc \
   tecnoballz.cc \
   tiles_background.cc \
-  tilesmap_scrolling.cc \
-  tinyxml.cc \
-  tinyxmlerror.cc \
-  tinyxmlparser.cc \
-  tinystr.cc
+  tilesmap_scrolling.cc
   $(NULL)
 
