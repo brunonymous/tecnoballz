@@ -1431,11 +1431,11 @@ sprite_object::draw_shadow ()
       k = *(counters++);
       for (Sint32 j = 0; j < k; j++)
         {
-          Sint32 value = *screen32;
-          value = value | mask;
+          //Sint32 value = *screen32;
+          //value = value | mask;
           //*(screen32++) = value;
 
-          //*(screen32++) |= mask;
+          *(screen32++) |= mask;
         }
       /* number of contiguous bytes */
       k = *(counters++);

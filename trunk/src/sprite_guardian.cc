@@ -2,7 +2,7 @@
  * @file sprite_guardian.cc 
  * @brief The guardian sprite 
  * @created 2003-01-09 
- * @date 2007-09-26
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.12 $
@@ -108,7 +108,7 @@ sprite_guardian::initialize (gardlevel * guard, unsigned char *ptLis)
  * @param voffset vertical offset
  */
 void
-sprite_guardian::run (Uint32 voffset)
+sprite_guardian::run (Uint32 /* voffset */)
 {
   controller_explosions *explosions = controller_explosions::get_instance ();
 
@@ -237,7 +237,7 @@ sprite_guardian::startBlitz ()
     v = table_gga2[v];
   }
   controller_gigablitz* gigablitz = controller_gigablitz::get_instance ();
-  if (gigablitz->shoot_guardian (v, x_coord, y_coord, sprite_width, sprite_height))
+  if (gigablitz->shoot_guardian (v, x_coord, y_coord, sprite_width))
   {
     gigablitz_delay_counter = gigablitz_frequency;
   } 

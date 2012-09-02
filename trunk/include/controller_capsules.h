@@ -1,7 +1,7 @@
 /** 
  * @file controller_capsules.h
  * @brief Capsules controller 
- * @date 2007-10-29
+ * @date 2012-09-02 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.15 $

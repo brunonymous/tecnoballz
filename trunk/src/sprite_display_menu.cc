@@ -1,7 +1,7 @@
 /**
  * @file sprite_display_menu.cc 
  * @brief Sprite wich display text of the menu in the menu principal 
- * @date 2012-08-19
+ * @date 2012-09-02
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.24 $
@@ -700,8 +700,8 @@ sprite_display_menu::draw_input_cursor ()
     {
       return;
     }
-  char z = 0xEE;
-  char *d =
+  unsigned char z = 0xEE;
+  unsigned char *d = (unsigned char *)
     text_offscreen->get_pixel_data (clear_zone_xcoord + xcurs * font_width,
                                     clear_zone_ycoord);
   Uint32 n = row_size;
