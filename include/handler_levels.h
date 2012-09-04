@@ -2,7 +2,7 @@
  * @file handler_levels.h
  * @brief manage levels data
  * @created 2004-04-06
- * @date 2007-11-18
+ * @date 2012-09-04
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.4 $
@@ -32,7 +32,7 @@
 class handler_levels;
 
 #include "../include/tecnoballz.h"
-#include "../include/tinyxml.h"
+#include <tinyxml.h>
 #include <string.h>
 
 typedef struct
