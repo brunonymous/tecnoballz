@@ -1,7 +1,7 @@
 /**
  * @file handler_keyboard.cc
  * @brief Handler of the keyboard and mouse
- * @date 2007-11-19
+ * @date 2012-09-04 
  * @copyright 1991-2007 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision: 1.20 $
@@ -210,13 +210,16 @@ handler_keyboard::get_instance ()
  * directly to the application
  * @param mode true to enable grab input, false to disable it
  */
+#ifdef UNDER_DEVELOPMENT
+void
+handler_keyboard::set_grab_input (bool)
+{
+  return;
+}
+#else
 void
 handler_keyboard::set_grab_input (bool mode)
 {
-
-#ifdef UNDER_DEVELOPMENT
-  return;
-#else
   if (mode)
     {
       is_grab_input = true;
@@ -230,8 +233,8 @@ handler_keyboard::set_grab_input (bool mode)
       is_grab_input = false;
       SDL_WM_GrabInput (SDL_GRAB_OFF);
     }
-#endif
 }
+#endif
 
 /**
  * Handle buttons of handheld video game console
