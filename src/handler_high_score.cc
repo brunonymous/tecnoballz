@@ -3,13 +3,13 @@
  * @brief high score handler 
  * @created 2004-04-30 
  * @date 2007-10-08
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.6 $
+ * @version $Revision$
  */
 /*
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: handler_high_score.cc,v 1.6 2007-10-08 05:44:03 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

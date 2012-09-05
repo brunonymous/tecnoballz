@@ -1,4 +1,4 @@
-/* $Id: lispreader.h,v 1.2 2005-02-04 13:31:09 gurumeditation Exp $ */
+/* $Id$ */
 /*
  * lispreader.h
  *

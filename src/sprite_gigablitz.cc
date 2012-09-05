@@ -2,13 +2,13 @@
  * @file sprite_gigablitz.cc 
  * @brief The sprite of the Gigablitz 
  * @date 2007-02-05
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: sprite_gigablitz.cc,v 1.2 2007-09-12 06:32:48 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
