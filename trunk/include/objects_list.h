@@ -4,11 +4,11 @@
  * @date 2007-10-21
  * @copyright 1998-2007 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.17 $
+ * @version $Revision$
  */
 /*
  * copyright (c) 1998-2007 TLK Games all rights reserved
- * $Id: objects_list.h,v 1.17 2007-10-29 13:18:53 gurumeditation Exp $
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

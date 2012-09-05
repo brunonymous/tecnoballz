@@ -3,13 +3,13 @@
  * @brief Magectic eyes controller 
  * @created 2004-09-17 
  * @date 2007-04-08
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: controller_magnetic_eyes.h,v 1.5 2007-09-12 06:32:48 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

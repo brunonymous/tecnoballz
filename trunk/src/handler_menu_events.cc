@@ -3,13 +3,13 @@
  * @brief Handler the events of the menu
  * @created 2007-1O-29
  * @date 2007-11-17
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.6 $
+ * @version $Revision$
  */
 /*
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: handler_menu_events.cc,v 1.6 2007-11-18 21:26:30 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -3,13 +3,13 @@
  * @brief Guardians level supervisor 
  * @created 2003-01-09
  * @date 2007-11-18
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.54 $
+ * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: supervisor_guards_level.cc,v 1.54 2007-11-18 16:13:20 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

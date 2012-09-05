@@ -2,13 +2,13 @@
  * @file controller_viewfinders.cc 
  * @brief Paddles viewfinders controller 
  * @date 2007-10-21
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.8 $
+ * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: controller_viewfinders.cc,v 1.8 2007-10-29 13:18:53 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

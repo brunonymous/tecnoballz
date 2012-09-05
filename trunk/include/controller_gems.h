@@ -3,13 +3,13 @@
  * @brief The gems controller
  * @created 2004-04-12
  * @date 2007-11-18
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.8 $
+ * @version $Revision$
  */
 /*
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: controller_gems.h,v 1.8 2007-11-18 16:13:19 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

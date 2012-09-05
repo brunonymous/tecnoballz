@@ -2,13 +2,13 @@
  * @file supervisor_bricks_level.cc 
  * @brief Bricks levels supervisor 
  * @date 2007-11-18
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.66 $
+ * @version $Revision$
  */
 /*
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: supervisor_bricks_level.cc,v 1.66 2007-11-18 16:13:20 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

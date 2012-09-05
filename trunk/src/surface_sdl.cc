@@ -3,13 +3,13 @@
  * @brief an drawing surface
  * @created 2007-02-15
  * @date 2007-09-30
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.13 $
+ * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: surface_sdl.cc,v 1.13 2007-09-30 07:23:39 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

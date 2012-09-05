@@ -3,13 +3,13 @@
  * @brief Handle the bitmap 
  * @created 1996-06-29 
  * @date 2007-09-11
- * @copyright 1991-2007 TLK Games
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 1.20 $
+ * @version $Revision$
  */
 /*
- * copyright (c) 1991-2007 TLK Games all rights reserved
- * $Id: bitmap_data.cc,v 1.20 2007-09-12 06:32:48 gurumeditation Exp $
+ * copyright (c) 1991-2012 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
