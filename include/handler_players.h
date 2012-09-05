@@ -1,7 +1,7 @@
 /** 
  * @file handler_players.h
  * @brief players handler 
- * @date 2007-10-06
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -111,7 +111,7 @@ private:
 public:
   void initialize (Uint32 lifes, Uint32 areaN,
                    Uint32 level, Uint32 monay, Uint32 grdPt);
-  void set_name (char *playername);
+  void set_name (const char *playername);
   char *get_name ();
   Uint32 get_area_number ();
   Uint32 get_level_number ();

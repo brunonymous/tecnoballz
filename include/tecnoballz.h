@@ -2,7 +2,7 @@
  * @file tecnoballz.h
  * @brief Base of all classes, and main static methods of the game 
  * @created 2002-08-18
- * @date 2012-09-02 
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -51,7 +51,13 @@
 #include "config.h"
 #ifndef __TECNOBALLZ__
 #define __TECNOBALLZ__
-#define TECNOBALLZ_VERSION	"TECNOBALLZ 0.92+ (2007-12-18)"
+
+#if !defined(PACKAGE_STRING)
+#define PACKAGE_STRING "TECNOBALLZ 0.93"
+#endif
+#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2012-09-05)"
+
+
 /** Force bytes copy (SPARC unaligned memory access) */
 /* #define BYTES_COPY */
 #ifndef SCOREFILE

@@ -1,7 +1,7 @@
 /** 
  * @file handler_players.cc 
  * @brief players handler 
- * @date 2007-10-06
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -158,7 +158,7 @@ handler_players::reset_members ()
  * @param name the name of the player
  */
 void
-handler_players::set_name (char *name)
+handler_players::set_name (const char *name)
 {
   for (Uint32 i = 0; i < PLAYER_NAME_LENGTH; i++)
     {

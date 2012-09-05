@@ -1,7 +1,7 @@
 /**
  * @file supervisor_main_menu.cc 
  * @brief TecnoballZ's main menu supervisor 
- * @date 2007-10-21
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -315,18 +315,18 @@ supervisor_main_menu::check_area_code ()
 
 /**
  * Static method which return a area code
- * @param aera_num area number from 2 to 5
+ * @param area_num area number from 2 to 5
  * @param difficulty 0 to 3
  * @return the area code
  */
 const char *
-supervisor_main_menu::get_area_code (Uint32 aera_num, Uint32 difficulty)
+supervisor_main_menu::get_area_code (Uint32 area_num, Uint32 difficulty)
 {
-  if (aera_num < 2)
+  if (area_num < 2)
     {
       return NULL;
     }
-  return &area_codes[(aera_num - 2) * 40 + (difficulty - 1) * 10];
+  return &area_codes[(area_num - 2) * 40 + (difficulty - 1) * 10];
 }
 
 /**

@@ -2,7 +2,7 @@
  * @file configfile.h
  * @brief Config file handler 
  * @created 2005-01-22
- * @date 2007-09-29
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -87,8 +87,8 @@ public:
   void load ();
   void save ();
   Sint32 scan_arguments (Sint32 arg_count, char **arg_values);
-  char *get_player_name (Uint32 playernum);
-  void set_player_name (Uint32 playernum, char *name);
+  const char *get_player_name (Uint32 playernum);
+  void set_player_name (Uint32 playernum, const char *name);
   const char * get_language ();
 
 private:

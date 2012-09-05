@@ -2,7 +2,7 @@
  * @file configfile.cc 
  * @brief Config file handler 
  * @created 2005-01-22
- * @date 2007-11-19
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -48,12 +48,12 @@ configfile::language_to_string[MAX_OF_LANGUAGES] =
  */
 configfile::configfile ()
 {
-  thePlayers[0] = &thePlayer1[0];
-  thePlayers[1] = &thePlayer2[1];
-  thePlayers[2] = &thePlayer3[2];
-  thePlayers[3] = &thePlayer4[3];
-  thePlayers[4] = &thePlayer5[4];
-  thePlayers[5] = &thePlayer6[5];
+  thePlayers[0] = thePlayer1;
+  thePlayers[1] = thePlayer2;
+  thePlayers[2] = thePlayer3;
+  thePlayers[3] = thePlayer4;
+  thePlayers[4] = thePlayer5;
+  thePlayers[5] = thePlayer6;
   for (Uint32 i = 0; i < handler_players::MAX_OF_PLAYERS; i++)
     {
       char *p = thePlayers[i];
@@ -308,7 +308,7 @@ configfile::load ()
  * @param playernum Player number from 0 to 5
  * @return Pointer to a player name 
  */
-char *
+const char *
 configfile::get_player_name (Uint32 playernum)
 {
   if (playernum >= handler_players::MAX_OF_PLAYERS)
@@ -324,7 +324,7 @@ configfile::get_player_name (Uint32 playernum)
  * @param name Pointer to a string
  */
 void
-configfile::set_player_name (Uint32 playernum, char *name)
+configfile::set_player_name (Uint32 playernum, const char *name)
 {
   if (playernum >= handler_players::MAX_OF_PLAYERS)
     {
