@@ -1,7 +1,7 @@
 /**
  * @file supervisor_main_menu.h
  * @brief TecnoballZ's main menu supervisor 
- * @date 2007-10-08
+ * @date 2012-09-05 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -68,7 +68,7 @@ class supervisor_main_menu:public virtual supervisor
     ~supervisor_main_menu ();
     void first_init ();
     Uint32 main_loop ();
-    static const char *get_area_code (Uint32 aera_num, Uint32 difficulty);
+    static const char *get_area_code (Uint32 area_num, Uint32 difficulty);
     static char *get_current_area_code ();
     static void copy_current_area_code (char *destination);
 

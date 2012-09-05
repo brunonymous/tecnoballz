@@ -1,5 +1,5 @@
 AC_PREREQ([2.68])
-AC_INIT([tecnoballz], [0.93], [info@tlkgames.com])
+AC_INIT([TecnoballZ], [0.93], [info@tlkgames.com])
 dnl AC_CONFIG_SRCDIR([src/list_sprites.cc])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign])
