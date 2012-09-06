@@ -2,7 +2,7 @@
  * @file controller_sides_bricks.cc 
  * @brief Sides bricks controller. The small bricks on the side, the walls top
  *        left and right
- * @date 2007-10-17
+ * @date 2012-09-06 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -61,7 +61,7 @@ controller_sides_bricks::controller_sides_bricks ()
   background_top_side = NULL;
   background_right_side = NULL;
   background_left_side = NULL;
-  restore_background = (restaure_struct *) NULL;
+  restore_background = (restore_struct *) NULL;
   restore_save_index = 0;
   restore_index = 0;
   for (Uint32 i = 0; i < MAX_OF_SIDES_BRICKS; i++)
@@ -239,7 +239,7 @@ controller_sides_bricks::initialize ()
   /* allocate memory for background restoration under sides bricks */
   try
     {
-      restore_background = new restaure_struct[MAX_OF_RESTORED_BRICKS];
+      restore_background = new restore_struct[MAX_OF_RESTORED_BRICKS];
     }
   catch (std::bad_alloc &)
     {

@@ -35,7 +35,7 @@ class supervisor:public virtual tecnoballz
 
   public:
     supervisor ();
-    virtual ~ supervisor ();
+    virtual ~ supervisor () = 0;
     void initialize ();
     void release ();
     virtual void first_init ();

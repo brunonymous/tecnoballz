@@ -2,7 +2,7 @@
  * @file handler_audio.cc 
  * @brief Handler of the sound and music
  * @created 2004-03-22
- * @date 2012-08-19
+ * @date 2012-09-06 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -73,7 +73,7 @@ handler_audio::handler_audio ()
 {
   object_init ();
   initialize ();
-  aera_number = 0;
+  area_number = 0;
   level_number = 0;
   song_module = NULL;
   is_only_music = true;
@@ -263,20 +263,20 @@ handler_audio::query_spec ()
 
 /**
  * Play the music of a bricks level
- * @param aera_num area number 1 to 5
+ * @param area_num area number 1 to 5
  * @param level level number 1 to 12
  * @return error code, 0 if no error
  */
 void
-handler_audio::play_level_music (Uint32 aera_num, Uint32 level)
+handler_audio::play_level_music (Uint32 area_num, Uint32 level)
 {
   if (!is_audio_enable)
     {
       return;
     }
-  aera_number = aera_num;
+  area_number = area_num;
   level_number = level;
-  Uint32 music = area_music (aera_num);
+  Uint32 music = area_music (area_num);
   Uint32 paire = level & 0x1;
   if ((level <= 5 && paire) || (level > 5 && !paire))
     {
@@ -298,17 +298,17 @@ handler_audio::play_level_music (Uint32 aera_num, Uint32 level)
 
 /**
  * Play the music of the shop
- * @param aera_num area number
+ * @param area_num area number
  */
 void
-handler_audio::play_shop_music (Uint32 aera_num)
+handler_audio::play_shop_music (Uint32 area_num)
 {
   if (!is_audio_enable || NULL == song_module)
     {
       return;
     }
-  aera_number = aera_num;
-  Uint32 music = area_music (aera_num);
+  area_number = area_num;
+  Uint32 music = area_music (area_num);
   music_1_position = ptMusicpos[music].shop_music;
   music_2_position = song_module->numpos - 1;
   restart_position = music_1_position;
@@ -327,7 +327,7 @@ handler_audio::play_win_music ()
     {
       return;
     }
-  Uint32 music = area_music (aera_number);
+  Uint32 music = area_music (area_number);
   music_1_position = ptMusicpos[music].level_completed;
   music_2_position = ptMusicpos[music].pos_losing - 1;
   restart_position = music_1_position;
@@ -345,7 +345,7 @@ handler_audio::play_lost_music ()
     {
       return;
     }
-  Uint32 music = area_music (aera_number);
+  Uint32 music = area_music (area_number);
   music_1_position = ptMusicpos[music].pos_losing;
   music_2_position = ptMusicpos[music].shop_music - 1;
   restart_position = music_1_position;
@@ -363,7 +363,7 @@ handler_audio::stop_lost_music ()
     {
       return;
     }
-  play_level_music (aera_number, level_number);
+  play_level_music (area_number, level_number);
 }
 
 /**
@@ -688,7 +688,7 @@ handler_audio::control_music_position ()
           (song_module->patpos >= 63
            && song_module->sngpos == music_2_position))
         {
-          play_level_music (aera_number, level_number);
+          play_level_music (area_number, level_number);
         }
       break;
 
@@ -709,9 +709,9 @@ handler_audio::control_music_position ()
 }
 
 /**
-  * Return music aera identifier
+  * Return music area identifier
   * @param narea area number, form 1 to 5
-  * @return music aera identifier
+  * @return music area identifier
 */
 Uint32 handler_audio::area_music (Uint32 narea)
 {
