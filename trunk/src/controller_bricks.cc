@@ -2,7 +2,7 @@
  * @file controller_bricks.cc 
  * @brief Control the bricks in bricks levels
  * @created 1996-11-13
- * @date 2007-11-18
+ * @date 2012-09-06 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -61,10 +61,10 @@ controller_bricks::controller_bricks ()
   brick_size = brick_width * brick_height;
   brkyoffset = BRKYOFFSET * resolution;
   indestructible_offset = 8 * brick_height * bricks_height;
-  ombre_deca = 3 * resolution;
-  ombre_left = (BRICK_HEIGHT * resolution) - ombre_deca;
-  ombre_yoff = (BRKYOFFSET - BRICK_HEIGHT) * resolution;
-  ombre_top1 = ombre_deca - ombre_yoff;
+  shadow_offset = 3 * resolution;
+  shadow_left = (BRICK_HEIGHT * resolution) - shadow_offset;
+  shadow_yoff = (BRKYOFFSET - BRICK_HEIGHT) * resolution;
+  shadow_top1 = shadow_offset - shadow_yoff;
   cycling_count = 0;
   is_cycling = true;
   were_sprites_added = false;
@@ -411,11 +411,11 @@ controller_bricks::draw_bricks_shadows ()
       return;
     }
   brick_info *map = bricks_map;
-  Sint32 xmax = MAX_OF_BRICKS_HORIZONTALLY * brick_width - ombre_deca;
-  for (Uint32 j = ombre_deca; j < MAX_OF_BRICKS_VERTICALLY * brkyoffset + ombre_deca;
+  Sint32 xmax = MAX_OF_BRICKS_HORIZONTALLY * brick_width - shadow_offset;
+  for (Uint32 j = shadow_offset; j < MAX_OF_BRICKS_VERTICALLY * brkyoffset + shadow_offset;
        j += brkyoffset)
     {
-      for (Sint32 i = -ombre_deca; i < xmax; i += brick_width)
+      for (Sint32 i = -shadow_offset; i < xmax; i += brick_width)
         {
           if (map->source_offset)
             {
@@ -725,33 +725,33 @@ bool controller_bricks::update ()
   if ((map + offBri_BB)->is_displayed)
     {
       /* there is a bottom brick (2 lines to clear) */
-      j = ombre_yoff;
+      j = shadow_yoff;
     }
   else
     {
       /* there is not bottom brick: (6 lines to clear) */
-      j = ombre_deca;
+      j = shadow_offset;
     }
   Sint32
     decal = display->ecran_next (adres, 0, brick_height);
-  display->clr_shadow (decal, brick_width - ombre_deca, j);
+  display->clr_shadow (decal, brick_width - shadow_offset, j);
   /* left-bottom */
   if ((map + offBri_BG)->is_displayed)
     {
-      j = ombre_yoff;
+      j = shadow_yoff;
     }
   else
     {
-      j = ombre_deca;
+      j = shadow_offset;
     }
-  decal = display->ecran_next (adres, -ombre_deca, brick_height);
-  display->clr_shadow (decal, ombre_deca, j);
+  decal = display->ecran_next (adres, -shadow_offset, brick_height);
+  display->clr_shadow (decal, shadow_offset, j);
 
   /* left */
   if (!(map + offBri_GG)->is_displayed)
     {
-      decal = display->ecran_next (adres, -ombre_deca, ombre_deca);
-      display->clr_shadow (decal, ombre_deca, ombre_left);
+      decal = display->ecran_next (adres, -shadow_offset, shadow_offset);
+      display->clr_shadow (decal, shadow_offset, shadow_left);
     }
 
    /*
@@ -760,22 +760,22 @@ bool controller_bricks::update ()
   /* exists a top brick? */
   if ((map + offBri_HH)->is_displayed)
     {
-      display->set_shadow (adres, brick_width - ombre_deca, ombre_top1);
+      display->set_shadow (adres, brick_width - shadow_offset, shadow_top1);
     }
 
   /* exists a right-top brick? */
   if ((map + offBri_HD)->is_displayed)
     {
-      decal = display->ecran_next (adres, brick_width - ombre_deca, 0);
-      display->set_shadow (decal, ombre_deca, ombre_top1);
+      decal = display->ecran_next (adres, brick_width - shadow_offset, 0);
+      display->set_shadow (decal, shadow_offset, shadow_top1);
     }
 
   /* exists a right-top brick? */
   if ((map + offBri_DD)->is_displayed)
     {
       decal =
-        display->ecran_next (adres, brick_width - ombre_deca, ombre_deca);
-      display->set_shadow (decal, ombre_deca, ombre_left);
+        display->ecran_next (adres, brick_width - shadow_offset, shadow_offset);
+      display->set_shadow (decal, shadow_offset, shadow_left);
     }
 
   return true;

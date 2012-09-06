@@ -2,7 +2,7 @@
  * @file controller_bricks.h
  * @brief Control the bricks in bricks levels
  * @created 1996-11-13
- * @date 2007-09-16
+ * @date 2012-09-06 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -165,10 +165,10 @@ private:
   /** Pixels offset on the first indestructible brick */
   Sint32 indestructible_offset;
   Sint32 brkyoffset;            //y-offset between 2 bricks 
-  Sint32 ombre_deca;            //size of shadow in pixels (3 or 6)
-  Sint32 ombre_left;            //(4 or 8)
-  Sint32 ombre_yoff;            //space between 2 bricks (1 or 2)
-  Sint32 ombre_top1;            //(2 or 4)
+  Sint32 shadow_offset;         //size of shadow in pixels (3 or 6)
+  Sint32 shadow_left;            //(4 or 8)
+  Sint32 shadow_yoff;            //space between 2 bricks (1 or 2)
+  Sint32 shadow_top1;            //(2 or 4)
   brick_redraw * bricks_redraw;    // table de reaffichage 
   Sint32 briqueSave;            // pointeur sur "bricks_redraw"
 

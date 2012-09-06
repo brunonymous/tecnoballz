@@ -2,7 +2,7 @@
  * @file handler_audio.h
  * @brief Handler of the sound and music
  * @created 2004-03-22
- * @date 2007-10-07
+ * @date 2012-09-06 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -166,7 +166,7 @@ private:
 
 private:
   /** Current area number (1 to 5) */
-  Uint32 aera_number;
+  Uint32 area_number;
   /** Current level number (1 to 12) */
   Uint32 level_number;
   /** Position of the first music of a bricks level

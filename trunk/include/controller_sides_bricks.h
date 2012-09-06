@@ -2,7 +2,7 @@
  * @file controller_sides_bricks.h
  * @brief Sides bricks controller. The small bricks on the side, the walls top
  *        left and right
- * @date 2007-09-30
+ * @date 2012-09-06 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -126,9 +126,9 @@ class controller_sides_bricks:public objects_list < sprite_object,
         /** Index of the side brick from 0 to 11 */
         Uint32 side_brick_index;
       }
-    restaure_struct;
+    restore_struct;
     /** Structures used for restore background under sides bricks */
-    restaure_struct *restore_background;
+    restore_struct *restore_background;
     /** Index to save the next brick */
     Uint32 restore_save_index;
     /** Index to save the current brick */
