@@ -2,7 +2,7 @@
  * @file tecnoballz.h
  * @brief Base of all classes, and main static methods of the game 
  * @created 2002-08-18
- * @date 2012-09-05 
+ * @date 2012-09-08 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -55,7 +55,7 @@
 #if !defined(PACKAGE_STRING)
 #define PACKAGE_STRING "TECNOBALLZ 0.93"
 #endif
-#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2012-09-05)"
+#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2012-09-08)"
 
 
 /** Force bytes copy (SPARC unaligned memory access) */
@@ -210,7 +210,7 @@ public:
   static void release_all_objects (configfile * pConf);
   static void integer_to_ascii (Sint32 value, Uint32 padding, char *str); 
     tecnoballz ();
-   ~tecnoballz ();
+  virtual ~tecnoballz ();
   void object_init ();
   void object_free ();
   void int_to_big_endian (Uint32 *, Uint32 *);

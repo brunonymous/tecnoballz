@@ -1,8 +1,8 @@
 /**
- * @file controller_bricks.cc 
+ * @file controller_bricks.cc
  * @brief Control the bricks in bricks levels
  * @created 1996-11-13
- * @date 2012-09-06 
+ * @date 2012-09-08
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -125,9 +125,6 @@ controller_bricks::first_init ()
 
 /**
  * Initialize new level and draw bricks
- * @param areaN area number
- * @param tablo level number
- * @param lbrik true if "less bricks" bonus bought into the shop 
  */
 void
 controller_bricks::initialize ()
@@ -147,7 +144,7 @@ controller_bricks::initialize ()
       less_bricks_count = current_player->get_less_bricks ();
       current_player->set_less_bricks (0);
 
-      /* clear restauration list */
+      /* clear the restore list */
       briqueSave = 0;
       brique_clr = 0;
       brick_redraw *redraw = bricks_redraw;
@@ -216,16 +213,18 @@ controller_bricks::initialize ()
       if (is_verbose)
         {
           std::cout << "**** controller_bricks::initialize() " <<
-          "bposx: " << bposx << " bposy: " << bposy << std::endl;
+                    "bposx: " << bposx << " bposy: " << bposy << std::endl;
         }
       bitmap_bricks =
-        bmp_bricks->cut_to_surface (bposx, bposy, bricks_height, bricks_width);
+        bmp_bricks->cut_to_surface (bposx, bposy, bricks_height,
+                                    bricks_width);
       delete bmp_bricks;
 
-      /* replace color 0 by color 29 for color cycling */ 
+      /* replace color 0 by color 29 for color cycling */
       char *pixels = bitmap_bricks->get_pixel_data ();
-      Uint32 count = bitmap_bricks->get_height() * bitmap_bricks->get_width();
-      for (Uint32 i  = 0; i < count; i++, pixels++)
+      Uint32 count =
+        bitmap_bricks->get_height () * bitmap_bricks->get_width ();
+      for (Uint32 i = 0; i < count; i++, pixels++)
         {
           if (*pixels == 0)
             {
@@ -257,7 +256,8 @@ controller_bricks::initialize ()
  * Return the number of bricks in the current level
  * @return number of bricks
  */
-Uint32 controller_bricks::get_num_of_bricks ()
+Uint32
+controller_bricks::get_num_of_bricks ()
 {
   return num_of_bricks;
 }
@@ -273,14 +273,15 @@ controller_bricks::load_level (Sint32 area_nu, Sint32 level_nu)
   if (is_verbose)
     {
       std::cout << "controller_bricks::load_level() area_nu: " <<
-      area_nu << "level_nu: " << level_nu << std::endl;
+                area_nu << "level_nu: " << level_nu << std::endl;
     }
   /* a table has 17 lines of 10 columns, 172 * 2 = 340 bytes */
   /* clear he number of bricks of the level */
   num_of_bricks = 0;
 
   /* load bricks levels (34000 bytes => 100 levels) */
-  char *all_levels = resources->load_data (handler_resources::DATA_BRICKS_LEVELS);
+  char *all_levels =
+    resources->load_data (handler_resources::DATA_BRICKS_LEVELS);
   if (level_nu >= 6)
     {
       level_nu--;
@@ -322,10 +323,10 @@ controller_bricks::load_level (Sint32 area_nu, Sint32 level_nu)
           char pos_y = *(level++);
           /* y position in the bitmap source from 0 to 12, step 2 */
           char pos_x = *(level++);
-	  //pos_x = 12; pos_y = 1; //test only
+          //pos_x = 12; pos_y = 1; //test only
 
           if (pos_x > 0 || pos_y > 0)
-            { 
+            {
               //pos_x = 12; pos_y = 1;    // test only
               /* save X-coordinate into bricks_map */
               map->h_pos = pos_x;
@@ -355,11 +356,11 @@ controller_bricks::load_level (Sint32 area_nu, Sint32 level_nu)
                       sprite_template->duplicate_to (sprite);
                     }
                   sprites_list[bobindex] = sprite;
-                  sprite->set_x_coord(xcoord);
-                  sprite->set_y_coord(ycoord);
+                  sprite->set_x_coord (xcoord);
+                  sprite->set_y_coord (ycoord);
                   sprite->enable ();
                   sprite->set_image (pos_y * 7 + (pos_x >> 1));
-		  sprite->set_color (map->color);
+                  sprite->set_color (map->color);
                   map->sprite = sprite;
                 }
             }
@@ -384,7 +385,7 @@ controller_bricks::load_level (Sint32 area_nu, Sint32 level_nu)
 void
 controller_bricks::add_to_sprites_list ()
 {
-  if (were_sprites_added  || has_background)
+  if (were_sprites_added || has_background)
     {
       return;
     }
@@ -412,7 +413,8 @@ controller_bricks::draw_bricks_shadows ()
     }
   brick_info *map = bricks_map;
   Sint32 xmax = MAX_OF_BRICKS_HORIZONTALLY * brick_width - shadow_offset;
-  for (Uint32 j = shadow_offset; j < MAX_OF_BRICKS_VERTICALLY * brkyoffset + shadow_offset;
+  for (Uint32 j = shadow_offset;
+       j < MAX_OF_BRICKS_VERTICALLY * brkyoffset + shadow_offset;
        j += brkyoffset)
     {
       for (Sint32 i = -shadow_offset; i < xmax; i += brick_width)
@@ -444,17 +446,16 @@ controller_bricks::draw_bricks ()
       for (Uint32 i = 0; i < MAX_OF_BRICKS_HORIZONTALLY * brick_width;
            i += brick_width, map++)
         {
-	  /* range from x >=0 to x <= 14 */
+          /* range from x >=0 to x <= 14 */
           Sint32 pos_x = map->h_pos;
-	  /* range from y >=0 to y <= 8 */
+          /* range from y >=0 to y <= 8 */
           Sint32 pos_y = map->v_pos;
           if (pos_x != 0 || pos_y != 0)
             {
-	      /* convert planar to chunky */
+              /* convert planar to chunky */
               pos_x *= 8 * resolution;
               pos_y *= brick_height;
-              char *source =
-                bitmap_bricks->get_pixel_data (pos_x, pos_y);
+              char *source = bitmap_bricks->get_pixel_data (pos_x, pos_y);
               draw_brick (source, map->pixel_offset, map->color);
             }
         }
@@ -464,7 +465,7 @@ controller_bricks::draw_bricks ()
 /**
  * Draw one brick
  * @param pixels pointer on the graphics of the brick
- * @param offset relative pointer on the graphics of the offscreen 
+ * @param offset relative pointer on the graphics of the offscreen
  * @param color colormap number from 239 to 255
  */
 void
@@ -502,7 +503,9 @@ controller_bricks::draw_brick (char *pixels, Sint32 offset, Sint32 color)
 /**
  * Enable the bricks color cycling
  */
-void controller_bricks::start_cycling() {
+void
+controller_bricks::start_cycling ()
+{
   if (has_background)
     {
       return;
@@ -514,19 +517,22 @@ void controller_bricks::start_cycling() {
  * Cycle color of all bricks
  */
 void
-controller_bricks::color_cycling()
+controller_bricks::color_cycling ()
 {
-  if (has_background or !is_cycling)
+  if (has_background or ! is_cycling)
     {
       return;
     }
   brick_info *map = bricks_map;
   map += ((6 + BRICKS_MAP_HEIGHT - 9) * MAX_OF_BRICKS_HORIZONTALLY + 3) - 1;
-  map = bricks_map + ((6 + BRICKS_MAP_HEIGHT - 1) * MAX_OF_BRICKS_HORIZONTALLY) + 3 + BRICKS_MAP_WIDTH - 1; 
+  map =
+    bricks_map + ((6 + BRICKS_MAP_HEIGHT - 1) * MAX_OF_BRICKS_HORIZONTALLY) +
+    3 + BRICKS_MAP_WIDTH - 1;
   Sint32 count = cycling_count++;
-  for(Uint32 i = 0; i < BRICKS_MAP_HEIGHT; i++, map-=MAX_OF_BRICKS_HORIZONTALLY)
+  for (Uint32 i = 0; i < BRICKS_MAP_HEIGHT;
+       i++, map -= MAX_OF_BRICKS_HORIZONTALLY)
     {
-      if (count >= (Sint32)BRICKS_MAP_WIDTH)
+      if (count >= (Sint32) BRICKS_MAP_WIDTH)
         {
           if (i == BRICKS_MAP_HEIGHT - 1)
             {
@@ -539,9 +545,9 @@ controller_bricks::color_cycling()
           if (map[-count].sprite != NULL)
             {
               if (!map[-count].sprite->is_cycling ())
-                 {
-                   map[-count].sprite->touch();
-                 }
+                {
+                  map[-count].sprite->touch ();
+                }
             }
         }
       if (count == 0)
@@ -562,7 +568,7 @@ controller_bricks::set_bricks_palette ()
 }
 
 /**
- * save background under bricks 
+ * save background under bricks
  */
 void
 controller_bricks::save_background ()
@@ -570,12 +576,14 @@ controller_bricks::save_background ()
   Sint32 *save = (Sint32 *) background_under_bricks;
   brick_info *map = bricks_map;
   Uint32 offs = game_screen->get_row_size () - brick_width;
-  for (Uint32 y = 0; y < MAX_OF_BRICKS_VERTICALLY * brkyoffset; y += brkyoffset)
+  for (Uint32 y = 0; y < MAX_OF_BRICKS_VERTICALLY * brkyoffset;
+       y += brkyoffset)
     {
       for (Uint32 x = 0; x < MAX_OF_BRICKS_HORIZONTALLY * brick_width;
            x += brick_width, map++)
         {
-          Sint32 *screen = (Sint32 *) background_screen->get_pixel_data (x, y);
+          Sint32 *screen =
+            (Sint32 *) background_screen->get_pixel_data (x, y);
           map->save_background = save;
           for (Uint32 i = 0; i < brick_height;
                i++, screen = (Sint32 *) ((char *) screen + offs))
@@ -591,7 +599,7 @@ controller_bricks::save_background ()
 
 /**
  * Decrease the counter of bricks to be destroyed
- * It is an option bought from the shop 
+ * It is an option bought from the shop
  */
 void
 controller_bricks::less_bricks ()
@@ -615,17 +623,18 @@ controller_bricks::less_bricks ()
 
 /**
  * Display a brick or restore the background under the brick
- * @return true if the update is not finished 
+ * @return true if the update is not finished
  */
-bool controller_bricks::update ()
+bool
+controller_bricks::update ()
 {
 
-  right_panel_score * panel = right_panel_score::get_instance ();
-  controller_capsules * capsules = controller_capsules::get_instance ();
-  controller_moneys * moneys = controller_moneys::get_instance ();
+  right_panel_score *panel = right_panel_score::get_instance ();
+  controller_capsules *capsules = controller_capsules::get_instance ();
+  controller_moneys *moneys = controller_moneys::get_instance ();
 
 
-  brick_redraw * redraw = bricks_redraw + brique_clr;
+  brick_redraw *redraw = bricks_redraw + brique_clr;
   /* offscreen offset for drawing brick */
   Sint32 adres = redraw->pixel_offset;
   if (0 == adres)
@@ -651,21 +660,21 @@ bool controller_bricks::update ()
       moneys->send_money_from_brick (redraw);
       if (!has_background)
         {
-            map->sprite->update_image(redraw->brick_map->h_pos);     
+          map->sprite->update_image (redraw->brick_map->h_pos);
         }
       else
         {
-          char * pixels = bitmap_bricks->get_pixel_data ();
+          char *pixels = bitmap_bricks->get_pixel_data ();
           draw_brick (pixels + redraw->number, adres, map->color);
         }
       return true;
     }
- 
+
 
   /*
-  * a brick is destroyed
-  */
-  
+   * a brick is destroyed
+   */
+
   /* destroyed indestructible brick */
   if (redraw->is_indestructible)
     {
@@ -690,16 +699,16 @@ bool controller_bricks::update ()
 
   if (!has_background)
     {
-      map->sprite->disable();
+      map->sprite->disable ();
       return true;
     }
 
   /**
-   * restaure background
+   * restore background
    */
   Sint32 line2 = offsDestin;
-  Sint32 * desP1 = adr_desti1;
-  Sint32 * desP2 = adr_desti2;
+  Sint32 *desP1 = adr_desti1;
+  Sint32 *desP2 = adr_desti2;
   desP1 = (Sint32 *) ((char *) desP1 + adres);
   desP2 = (Sint32 *) ((char *) desP2 + adres);
   Sint32 *srcPT = map->save_background;
@@ -732,8 +741,7 @@ bool controller_bricks::update ()
       /* there is not bottom brick: (6 lines to clear) */
       j = shadow_offset;
     }
-  Sint32
-    decal = display->ecran_next (adres, 0, brick_height);
+  Sint32 decal = display->ecran_next (adres, 0, brick_height);
   display->clr_shadow (decal, brick_width - shadow_offset, j);
   /* left-bottom */
   if ((map + offBri_BG)->is_displayed)
@@ -754,9 +762,9 @@ bool controller_bricks::update ()
       display->clr_shadow (decal, shadow_offset, shadow_left);
     }
 
-   /*
-    * redraw drop shadow (if needed)
-    */
+  /*
+   * redraw drop shadow (if needed)
+   */
   /* exists a top brick? */
   if ((map + offBri_HH)->is_displayed)
     {
@@ -774,7 +782,8 @@ bool controller_bricks::update ()
   if ((map + offBri_DD)->is_displayed)
     {
       decal =
-        display->ecran_next (adres, brick_width - shadow_offset, shadow_offset);
+        display->ecran_next (adres, brick_width - shadow_offset,
+                             shadow_offset);
       display->set_shadow (decal, shadow_offset, shadow_left);
     }
 
@@ -814,34 +823,34 @@ controller_bricks::clr_bricks ()
 }
 
 /**
- * Return pointer to the bricks map of the current level 
+ * Return pointer to the bricks map of the current level
  * @return a pointer to the bricks bricks_map
  */
-brick_info*
+brick_info *
 controller_bricks::get_bricks_map ()
 {
   return bricks_map;
 }
 
 /**
- * Return pointer to the bricks map of the current level 
+ * Return pointer to the bricks map of the current level
  * @param xcoord X-Coordinate in the screen
  * @param ycoord Y-Coordinate in the screen
  * @return a pointer to the bricks bricks_map
  */
-brick_info*
+brick_info *
 controller_bricks::get_bricks_map (Sint32 xcoord, Sint32 ycoord)
 {
   return bricks_map +
-    (xcoord / brick_width) +
-    (ycoord / brkyoffset * MAX_OF_BRICKS_HORIZONTALLY);
+         (xcoord / brick_width) +
+         (ycoord / brkyoffset * MAX_OF_BRICKS_HORIZONTALLY);
 }
 
 /**
  * Return pointer to the bricks redraw list
- * @return a pointer to the bricks 
+ * @return a pointer to the bricks
  */
-brick_redraw*
+brick_redraw *
 controller_bricks::get_bricks_redraw ()
 {
   return bricks_redraw + (briqueSave & (MAXBRIKCLR - 1));
@@ -849,9 +858,9 @@ controller_bricks::get_bricks_redraw ()
 
 /**
  * Return pointer to the bricks redraw list
- * @return a pointer to the bricks 
+ * @return a pointer to the bricks
  */
-brick_redraw*
+brick_redraw *
 controller_bricks::get_bricks_redraw_next ()
 {
   Sint32 save = briqueSave;
@@ -862,7 +871,7 @@ controller_bricks::get_bricks_redraw_next ()
 
 /**
  * Return pointer to the bricks redraw list
- * @return a pointer to the bricks 
+ * @return a pointer to the bricks
  */
 void
 controller_bricks::bricks_redraw_next ()
@@ -875,18 +884,18 @@ controller_bricks::bricks_redraw_next ()
  * Return the width of a brick in pixels
  * @return width of a brick in pixels
  */
-Sint32 controller_bricks::get_brick_width ()
+Sint32
+controller_bricks::get_brick_width ()
 {
   return brick_width;
 }
 
 /**
- * Return pixels offset of the indestructible bricks 
+ * Return pixels offset of the indestructible bricks
  * @return pixels offset distance from the upper left corner
  *         of the bricks bitmap (25088 in 640x480 resolution)
  */
-Sint32
-controller_bricks::get_indestructible_offset ()
+Sint32 controller_bricks::get_indestructible_offset ()
 {
   return indestructible_offset;
 }
@@ -894,7 +903,8 @@ controller_bricks::get_indestructible_offset ()
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-Sint32 controller_bricks::getYOffset ()
+Sint32
+controller_bricks::getYOffset ()
 {
   return brkyoffset;
 }

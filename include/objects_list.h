@@ -1,8 +1,8 @@
 /**
  * @file objects_list.h
  * @brief Template of management of objects list
- * @date 2007-10-21
- * @copyright 1998-2007 TLK Games
+ * @date 2012-09-08 
+ * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -47,7 +47,7 @@ template < class X, class T > class objects_list:public virtual tecnoballz
 
   public:
     objects_list ();
-    ~objects_list ();
+    virtual ~objects_list ();
     static T * get_instance ();
     void littleInit ();
     void release_sprites_list ();
@@ -74,7 +74,7 @@ template < class X, class T > objects_list < X, T >::objects_list ()
 }
 
 /**
- * Release the lits objects
+ * Release the list objects
  */
 template < class X, class T > objects_list < X, T >::~objects_list ()
 {
@@ -87,7 +87,7 @@ template < class X, class T > T* objects_list < X, T >::get_instance ()
     {
       singleton = new T ();
     }
-  return (static_cast< T*> (singleton));
+  return singleton;
 }
 
 /**

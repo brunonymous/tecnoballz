@@ -2,7 +2,7 @@
  * @file handler_levels.h
  * @brief manage levels data
  * @created 2004-04-06
- * @date 2012-09-04
+ * @date 2012-09-08
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -161,7 +161,7 @@ class handler_levels:public virtual tecnoballz
     TiXmlDocument * xml_levels;
     guardians_level_desc *guardians_levels;
     bricks_level_desc *bricks_levels;
-    capsules_struct *caspsules_list;
+    capsules_struct *capsules_list;
     level_desc *levels_list;
   };
 #endif
