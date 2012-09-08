@@ -113,7 +113,7 @@ controller_capsules::initialize (Uint32 delay,
 
 /**
  * Check if send a bonus or penalty capsule from brick
- * @param brick Pointer to the brick which touched by a ball
+ * @param brick Pointer to the brick touched by a ball
  */
 void
 controller_capsules::send_capsule_from_brick (brick_redraw * brick)

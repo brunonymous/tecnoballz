@@ -2,7 +2,7 @@
  * @file surface_sdl.cc 
  * @brief an drawing surface
  * @created 2007-02-15
- * @date 2007-09-30
+ * @date 2012-09-08 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -56,7 +56,7 @@ surface_sdl::~surface_sdl ()
   if (NULL == surface)
     {
       SDL_FreeSurface (surface);
-      surface = NULL;;
+      surface = NULL;
     }
   object_free ();
 }

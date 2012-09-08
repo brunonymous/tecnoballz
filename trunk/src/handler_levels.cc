@@ -2,7 +2,7 @@
  * @file handler_levels.cc 
  * @brief Levels handler
  * @created 2004-04-06 
- * @date 2012-09-04 
+ * @date 2012-09-08
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -44,7 +44,7 @@ handler_levels::handler_levels ()
   levels_list = NULL;
   bricks_levels = NULL;
   guardians_levels = NULL;
-  caspsules_list = NULL;
+  capsules_list = NULL;
   levels_counter = 0;
   bricks_levels_counter = 0;
   guardians_levels_counter = 0;
@@ -80,7 +80,7 @@ handler_levels::handler_levels ()
   {
     bricks_levels = new bricks_level_desc[bricks_levels_counter];
     guardians_levels = new guardians_level_desc[guardians_levels_counter];
-    caspsules_list = new capsules_struct[capsules_lists_counter];
+    capsules_list = new capsules_struct[capsules_lists_counter];
     levels_list = new level_desc[levels_counter];
   }
   catch (bad_alloc &)
@@ -316,13 +316,13 @@ handler_levels::parse (TiXmlNode * parent, Uint32 node)
         case CAPSULES_NODE:
           if (last_element == "identifier")
             {
-              caspsules_list[capsule_list_index].id = value;
+              capsules_list[capsule_list_index].id = value;
             }
           if (last_element == "id")
             {
               /* collect all the codes caspules */
               capsule_index++;
-              caspsules_list[capsule_list_index].codes[capsule_index] = value;
+              capsules_list[capsule_list_index].codes[capsule_index] = value;
             }
           break;
         case BRICKS_LEVEL_NODE:
@@ -378,7 +378,7 @@ handler_levels::parse (TiXmlNode * parent, Uint32 node)
           if (last_element == "penalties_list_id")
             {
               bricks_levels[bricks_level_index].malusListe =
-                get_capsules_list (value);;
+                get_capsules_list (value);
             }
           if (last_element == "starting_speed")
             {
@@ -516,7 +516,7 @@ handler_levels::get_capsules_list (Uint32 id)
 {
   for (Uint32 i = 0; i < capsules_lists_counter; i++)
     {
-      capsules_struct *capsule = &caspsules_list[i];
+      capsules_struct *capsule = &capsules_list[i];
       if (capsule->id == id)
         {
           return &capsule->codes[0];
@@ -544,10 +544,10 @@ handler_levels::~handler_levels ()
       delete[]bricks_levels;
       bricks_levels = NULL;
     }
-  if (NULL != caspsules_list)
+  if (NULL != capsules_list)
     {
-      delete[]caspsules_list;
-      caspsules_list = NULL;
+      delete[]capsules_list;
+      capsules_list = NULL;
     }
   if (NULL != guardians_levels)
     {
