@@ -1061,6 +1061,10 @@ sprite_object::draw_with_tables ()
   restore_ptr = background_screen->get_pixel_data (x_coord, y_coord);
 #ifndef BYTES_COPY
   Sint32 *screen32 = (Sint32 *) game_screen->get_pixel_data (x_coord, y_coord);
+  
+  //SDL_Surface *s = game_screen->get_surface();
+  //printf("T screen32: %p, surface->pixels: %p\n", (void*)screen32, s->pixels); 
+
   screen_ptr = (char *) screen32;
   /* pixels data of the sprite image */
   Sint32 *pixels32 = (Sint32 *) current_drawing_data;
@@ -1072,7 +1076,9 @@ sprite_object::draw_with_tables ()
     {
       /* offset */
       Sint16 k = *(counters++);
+//printf("T screen32: %p; k = %i\n", (void*)screen32, k); 
       screen32 = (Sint32 *) ((char *) screen32 + k);
+//printf("T screen32: %p\n", (void*)screen32); 
       /* number of contiguous long words */
       k = *(counters++);
       for (Sint32 j = 0; j < k; j++)
@@ -1418,15 +1424,19 @@ sprite_object::draw_shadow ()
   Uint32 h = (Uint32) * (counters++);
   Uint32 mask = ombrepixe4;
 #ifndef BYTES_COPY
+//SDL_Surface *s = game_screen->get_surface();
   Sint32 *screen32 =
     (Sint32 *) game_screen->get_pixel_data (x_coord + ombredecax,
                                             y_coord + ombredecay);
+//printf("screen32: %p, surface->pixels: %p\n", (void*)screen32, s->pixels); 
   shadow_screen_ptr = (char *) screen32;
   for (Uint32 i = 0; i < h; i++)
     {
       /* offset */
       Sint16 k = *(counters++);
+//printf("screen32: %p; k = %i\n", (void*)screen32, k); 
       screen32 = (Sint32 *) ((char *) screen32 + k);
+//printf("screen32: %p\n", (void*)screen32); 
       /* number of contiguous long words */
       k = *(counters++);
       for (Sint32 j = 0; j < k; j++)
