@@ -2,7 +2,7 @@
  * @file surface_sdl.h
  * @brief an surface drawing surface
  * @created 2007-02-15
- * @date 2007-12-11
+ * @date 2012-09-15
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -46,9 +46,9 @@ class surface_sdl:public virtual tecnoballz
     ~surface_sdl ();
     SDL_Surface* get_surface ();
     char* get_pixel_data ();
-    char* get_pixel_data (Uint32 xcoord, Uint32 ycoord);
+    char* get_pixel_data (Sint32 xcoord, Sint32 ycoord);
     Uint32 get_row_size ();
-    Uint32 get_offset (Uint32 xcoord, Uint32 ycoord);
+    Uint32 get_offset (Sint32 xcoord, Sint32 ycoord);
     void clear (Uint32 color = 0);
     void clear (Uint32 color, Uint32 xcoord, Uint32 ycoord, Uint32 w,
                 Uint32 height);

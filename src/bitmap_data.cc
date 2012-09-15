@@ -2,7 +2,7 @@
  * @file bitmap_data.cc 
  * @brief Handle the bitmap 
  * @created 1996-06-29 
- * @date 2007-09-11
+ * @date 2012-09-15 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
