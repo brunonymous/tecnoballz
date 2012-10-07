@@ -1,7 +1,7 @@
 /**
  * @file sprite_object.h
  * @brief Draw sprites on the screen 
- * @date 2007-10-31
+ * @date 2012-10-07 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -363,6 +363,7 @@ class sprite_object:public virtual tecnoballz
     void create_sprite (Sint32 type_id, surface_sdl * bitmap, bool shadow,
                         bool by_pixel = false);
     void make_sprite (surface_sdl * image, bool shadow = false);
+    void init_coords_max_min(Uint32 width_less = 0);
     void set_x_coord (Sint32 xcoord);
     void set_y_coord (Sint32 ycoord);
     void move_x (Sint32 x_offset);

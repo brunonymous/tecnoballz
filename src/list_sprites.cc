@@ -144,6 +144,7 @@ list_sprites::add (sprite_object * sprite)
 void
 list_sprites::draw ()
 {
+  
   /* draw the shahows of the objects */
   for (Sint32 i = 0; i < num_of_shadows; i++)
     {

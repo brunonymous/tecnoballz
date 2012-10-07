@@ -114,9 +114,10 @@ main (Sint32 arg_count, char **arg_values)
  
 a faire
 importer le fichier lispreader.c de powermanga et l'encapsuler en c++
-afficher le noiveau de difficulte dans le magasin
+afficher le niveau de difficulte dans le magasin
 retoucher les briques
 ameliorer la gestion du clavier (genre sdlmame) 
+supprimer l'inverseur apres la perte d'une balle
 [OK] desactiver le tilt pour les balles controles
 [OK] utiliser les tilemaps de 16x16 originales dans le definlement menu/gardiens pour eviter
      d'utiliser les tilemaps 32x32 (qui ont ete doubles avec GIMP) refaire donc un mapeditor

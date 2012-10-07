@@ -1,7 +1,7 @@
 /**
 * @file sprite_object.cc 
 * @brief Draw a sprite on the screen 
-* @date 2007-10-31
+* @date 2012-10-07
 * @copyright 1991-2012 TLK Games
 * @author Bruno Ethvignot
 * @version $Revision$
@@ -36,6 +36,14 @@ sprite_object::sprite_object ()
   ombredecay = handler_display::SHADOWOFFY * resolution;
   ombrepixel = handler_display::SHADOW_PIX;
   ombrepixe4 = handler_display::SHADOWLONG;
+  sprite_height = 0;
+  sprite_width = 0;
+  screen_height = 0;
+  screen_width = 0;
+  x_maximum = 0;
+  y_maximum = 0;
+  x_minimum = 0;
+  y_minimum = 0;
   clear_sprite_members ();
 }
 
@@ -131,24 +139,16 @@ sprite_object::clear_sprite_members ()
   max_of_images = 0;
   frame_index = 0;
   is_enabled = false;
-  sprite_height = 0;
-  sprite_width = 0;
   drawing_values = (Sint16 **) NULL;
   drawing_data = (char **) NULL;
   drawing_pixels = (Sint16 **) NULL;
   collision_height = 0;
   collision_width = 0;
-  screen_height = 0;
-  screen_width = 0;
   frame_period = 1;
   x_coord = 0;
   y_coord = 0;
   display_pos = 0;
-  x_maximum = 0;
-  y_maximum = 0;
   frame_index_max = 0;
-  x_minimum = 0;
-  y_minimum = 0;
   frame_index_min = 0;
   offsetDest = 0;
   offsetSrce = 0;
@@ -304,8 +304,8 @@ sprite_object::init_common (surface_sdl * bitmap, bool shadow)
   max_of_images = 1;
   collision_height = sprite_height;
   collision_width = sprite_width;
-  x_maximum = screen_width - (Sint32) collision_width;
-  y_maximum = screen_height - (Sint32) collision_height;
+  x_maximum = screen_width -  collision_width;
+  y_maximum = screen_height - collision_height;
   offsetSrce = bitmap->get_line_modulo (sprite_width);
   offsetDest = game_screen->get_line_modulo (sprite_width);
 }
@@ -670,6 +670,25 @@ sprite_object::set_coordinates (Sint32 xcoord, Sint32 ycoord)
 {
   x_coord = xcoord;
   y_coord = ycoord;
+}
+
+/**
+ * Initializes the maximum and minimum coordinates of the sprite
+ */
+void
+sprite_object::init_coords_max_min(Uint32 width_less)
+{
+  if (sprite_has_shadow)
+    {
+      x_minimum = ombredecax;
+    }
+  else 
+    {
+      x_minimum = 0;
+      y_minimum = 0;
+    }
+  x_maximum = screen_width - collision_width - width_less;
+  y_maximum = screen_height - collision_height;
 }
 
 /**
@@ -1061,10 +1080,6 @@ sprite_object::draw_with_tables ()
   restore_ptr = background_screen->get_pixel_data (x_coord, y_coord);
 #ifndef BYTES_COPY
   Sint32 *screen32 = (Sint32 *) game_screen->get_pixel_data (x_coord, y_coord);
-  
-  //SDL_Surface *s = game_screen->get_surface();
-  //printf("T screen32: %p, surface->pixels: %p\n", (void*)screen32, s->pixels); 
-
   screen_ptr = (char *) screen32;
   /* pixels data of the sprite image */
   Sint32 *pixels32 = (Sint32 *) current_drawing_data;
@@ -1076,9 +1091,7 @@ sprite_object::draw_with_tables ()
     {
       /* offset */
       Sint16 k = *(counters++);
-//printf("T screen32: %p; k = %i\n", (void*)screen32, k); 
       screen32 = (Sint32 *) ((char *) screen32 + k);
-//printf("T screen32: %p\n", (void*)screen32); 
       /* number of contiguous long words */
       k = *(counters++);
       for (Sint32 j = 0; j < k; j++)
@@ -1424,28 +1437,20 @@ sprite_object::draw_shadow ()
   Uint32 h = (Uint32) * (counters++);
   Uint32 mask = ombrepixe4;
 #ifndef BYTES_COPY
-//SDL_Surface *s = game_screen->get_surface();
   Sint32 *screen32 =
     (Sint32 *) game_screen->get_pixel_data (x_coord + ombredecax,
                                             y_coord + ombredecay);
-//printf("screen32: %p, surface->pixels: %p\n", (void*)screen32, s->pixels); 
   shadow_screen_ptr = (char *) screen32;
   for (Uint32 i = 0; i < h; i++)
     {
       /* offset */
       Sint16 k = *(counters++);
-//printf("screen32: %p; k = %i\n", (void*)screen32, k); 
       screen32 = (Sint32 *) ((char *) screen32 + k);
-//printf("screen32: %p\n", (void*)screen32); 
       /* number of contiguous long words */
       k = *(counters++);
       for (Sint32 j = 0; j < k; j++)
         {
-          //Sint32 value = *screen32;
-          //value = value | mask;
-          //*(screen32++) = value;
-
-          *(screen32++) |= mask;
+           *(screen32++) |= mask;
         }
       /* number of contiguous bytes */
       k = *(counters++);

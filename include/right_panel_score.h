@@ -1,7 +1,7 @@
 /** 
  * @file right_panel_score.h
  * @brief The right panel score in the bricks levels 
- * @date 2007-10-05
+ * @date 2012-10-07 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -77,6 +77,8 @@ private:
   Uint32 delay_gigablitz_countdown;
   /** Height of the gigablitz gauge in pixels */
   Uint32 gauge_height;
+  /** Width panel scores in pixels */
+  Uint32 panel_width;
   static unsigned char temoinCol1[GAUGE_HEIGHT];
   static unsigned char temoinCol2[GAUGE_HEIGHT * 2];
 
@@ -93,6 +95,7 @@ public:
   void set_bricks_counter  (Uint32 counter);
   void draw_gigablizt_gauge ();
   void reset_gigablitz_countdown ();
+  Uint32 get_width ();
 private:
   void draw_background ();
 

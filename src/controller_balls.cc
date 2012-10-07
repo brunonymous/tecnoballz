@@ -1,7 +1,7 @@
 /** 
  * @file controller_balls.cc 
  * @brief Control the balls. Move and collisions 
- * @date 2007-11-03
+ * @date 2012-09-15 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -118,7 +118,6 @@ controller_balls::init (Uint32 start,
 void
 controller_balls::run_in_bricks_levels ()
 {
-  check_outside_balls ();
   activate_tilt ();
   bricks_collision ();
   move_balls ();
@@ -132,11 +131,12 @@ controller_balls::run_in_bricks_levels ()
   collisions_with_eyes ();
   /* control balls with the left mouse button */
   controll_balls ();
+  accelerate ();
+  check_outside_balls ();
   if (!balls_are_controlled)
     {
       check_tilt_availability ();
     }
-  accelerate ();
 }
 
 /**
@@ -185,15 +185,21 @@ controller_balls::check_outside_balls ()
         }
       else
         {
-          if (j > max_x)
-            paddle = paddle_right;
+          if (j >= (max_x - ball->collision_width))
+            {
+              paddle = paddle_right;
+            }
           else
             {
               j = ball->y_coord;
               if (j < min_y)
-                paddle = paddle_top;
+                {
+                  paddle = paddle_top;
+                }
               else if (j > max_y)
-                paddle = paddle_bottom;
+               { 
+                  paddle = paddle_bottom;
+               }
             }
         }
 

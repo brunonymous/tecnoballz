@@ -1,7 +1,7 @@
 /**
  * @file sprite_ball.h
  * @brief The ball sprite
- * @date 2007-10-01
+ * @date 2012-09-15 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -80,7 +80,7 @@ class sprite_ball:public sprite_object
     /** Left limit of ball in low-res */
     static const Sint32 X_MINIMUM = 5;
     /** Right limit of ball in low-res */
-    static const Sint32 X_MAXIMUM = 250;
+    static const Sint32 X_MAXIMUM = 256;
     /** Top limit of ball in low-res */
     static const Sint32 Y_MINIMUM = 0;
     /** Bottom limit of ball low-res */
