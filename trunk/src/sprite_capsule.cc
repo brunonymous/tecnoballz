@@ -1,7 +1,7 @@
 /** 
  * @file sprite_capsule.cc
  * @brief The capsule sprite which contains a bonus or a penalty 
- * @date 2007-09-13
+ * @date 2012-10-07 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -52,10 +52,8 @@ sprite_capsule::~sprite_capsule ()
 void
 sprite_capsule::init_members ()
 {
-  x_maximum = screen_width - ((64 + 16) * resolution);
-  x_minimum = 3 * resolution;
-  y_maximum = screen_height - 10 * resolution;
-  y_minimum = 0 * resolution;
+  right_panel_score* panel_score = right_panel_score::get_instance ();
+  init_coords_max_min (panel_score->get_width());
   /* speed of the animation */
   frame_period = 6;
   /* time delay before each image */

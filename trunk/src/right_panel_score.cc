@@ -1,7 +1,7 @@
 /** 
  * @file right_panel_score.cc 
  * @brief The right panel score in the bricks levels 
- * @date 2012-09-02 
+ * @date 2012-10-07 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -41,6 +41,8 @@ right_panel_score::right_panel_score ()
   gigablitz_countdown = gauge_height;
   delay_gigablitz_countdown = 0; 
   flip_white = false;
+  gauge_height = 0;
+  panel_width = 0;
 }
 
 /**
@@ -99,6 +101,7 @@ right_panel_score::draw_background ()
     {
       screen = game_screen;
     }
+  panel_width = bmp->get_width ();
   screen->blit_surface (bmp, 0, 0, 256 * resolution, 0,
                         bmp->get_width (), 240 * resolution);
   delete bmp;
@@ -315,6 +318,16 @@ void
 right_panel_score::reset_gigablitz_countdown ()
 {
   gigablitz_countdown = gauge_height;
+}
+
+/**
+ * Return the width of the panel
+ * @return Width panel scores in pixels 
+ */
+Uint32
+right_panel_score::get_width ()
+{
+  return panel_width;
 }
 
 /** List of 54 couleurs from gigablitz */

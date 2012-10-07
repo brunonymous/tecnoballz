@@ -2,7 +2,7 @@
  * @file tecnoballz.cc
  * @brief Base of all classes, and main static methods of the game
  * @created 2002-08-18
- * @date 2012-09-15 
+ * @date 2012-10-07
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -85,6 +85,9 @@ tecnoballz::first_init (configfile * pConf)
 
   if (arg_jumper > 0)
     {
+#ifdef UNDER_DEVELOPMENT
+      is_enabled_cheat_mode = true;
+#endif
       current_phase = arg_jumper;
     }
   if (is_verbose)

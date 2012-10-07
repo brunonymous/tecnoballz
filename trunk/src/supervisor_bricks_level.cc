@@ -1,7 +1,7 @@
 /**
- * @file supervisor_bricks_level.cc 
- * @brief Bricks levels supervisor 
- * @date 2007-11-18
+ * @file supervisor_bricks_level.cc
+ * @brief Bricks levels supervisor
+ * @date 2012-09-15 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -118,8 +118,8 @@ supervisor_bricks_level::first_init ()
   if (is_verbose)
     {
       std::cout << "supervisor_bricks_level::first_init() area_number:"
-      << area_number << "level_number:" << level_number
-      << " difficulty_level:" << difficulty_level << std::endl;
+                << area_number << "level_number:" << level_number
+                << " difficulty_level:" << difficulty_level << std::endl;
     }
 
   /* generation of paddles graphics shapes tables */
@@ -142,7 +142,7 @@ supervisor_bricks_level::first_init ()
   ejectors_corners->create_ejectors_sprites ();
 
   initialize_background ();
-  bricks->add_to_sprites_list();
+  bricks->add_to_sprites_list ();
 
   game_over->create_sprites_list ();
   balls->create_sprites_list ();
@@ -191,10 +191,8 @@ supervisor_bricks_level::first_init ()
                               panel_score, player_indicators);
 
   /* initialize the object which handles bonus and penalty capsules */
-  power_up_capsules->initialize (
-    level_desc->penalties_frequency * difficulty_level,
-    level_desc->malusListe
-    );
+  power_up_capsules->initialize (level_desc->penalties_frequency *
+                                 difficulty_level, level_desc->malusListe);
   gem_stones->initialize ();
   /* initialize sprite fonts "LEVEL x COMPLETED" */
   font_game->initialize (level_number);
@@ -216,17 +214,18 @@ supervisor_bricks_level::first_init ()
 void
 supervisor_bricks_level::init_level ()
 {
-  level_desc = ptLev_data->get_bricks_levels_params (area_number, level_number);
+  level_desc =
+    ptLev_data->get_bricks_levels_params (area_number, level_number);
 }
 
 /**
  * Main loop in the bricks level
  * @return
  */
-Uint32
-supervisor_bricks_level::main_loop ()
+Uint32 supervisor_bricks_level::main_loop ()
 {
-  Sint32 Ecode = -1;
+  Sint32
+  Ecode = -1;
 
   /*
    * the player has no more lives: Game Over
@@ -248,13 +247,14 @@ supervisor_bricks_level::main_loop ()
           balls->disable_sprites ();
           sprite_projectile::disable_sprites ();
           info_messages->clear_messages_request ();
-          tiles_ground->set_scroll_type(tiles_background::TILES_SCROLL_GAMEOVER);
+          tiles_ground->
+          set_scroll_type (tiles_background::TILES_SCROLL_GAMEOVER);
           gameover_counter++;
         }
       if (has_background)
-	{
+        {
           info_messages->run ();
-	}
+        }
       display->wait_frame ();
       head_anim->play ();
       display->lock_surfaces ();
@@ -292,7 +292,8 @@ supervisor_bricks_level::main_loop ()
       display->window_update ();
       if (keyboard->wait_key () && gameover_counter > 60)
         {
-          current_player = handler_players::get_next_player (current_player, &next_phase, 1);
+          current_player =
+            handler_players::get_next_player (current_player, &next_phase, 1);
         }
     }
 
@@ -320,10 +321,10 @@ supervisor_bricks_level::main_loop ()
 
       if (!keyboard->command_is_pressed (handler_keyboard::COMMAND_KEY_PAUSE))
         {
-	  if (has_background)
-	    {
+          if (has_background)
+            {
               info_messages->run ();
-	    }
+            }
           gigablitz->run_in_bricks_levels ();
           /* handle the "less bricks" option */
           bricks->less_bricks ();
@@ -372,7 +373,8 @@ supervisor_bricks_level::main_loop ()
           if (count_next > 0)
             {
               count_next++;
-              bool music_finished = false;
+              bool
+              music_finished = false;
               if (count_next > 350)
                 {
                   music_finished = true;
@@ -381,11 +383,12 @@ supervisor_bricks_level::main_loop ()
 #endif
                 }
               if (count_next > 20000000 ||
-                  keyboard->wait_key() || music_finished)
+                  keyboard->wait_key () || music_finished)
                 {
                   sides_bricks->save_state_of_walls ();
-                  current_player = handler_players::get_next_player (current_player,
-                                   &next_phase);
+                  current_player =
+                    handler_players::get_next_player (current_player,
+                                                      &next_phase);
 #ifndef SOUNDISOFF
                   audio->stop_music ();
 #endif
@@ -401,11 +404,13 @@ supervisor_bricks_level::main_loop ()
 #ifndef SOUNDISOFF
               audio->play_win_music ();
 #endif
-              info_messages->send_message_request (short_info_messages::NEXT_LEVEL);
+              info_messages->
+              send_message_request (short_info_messages::NEXT_LEVEL);
 #ifndef SOUNDISOFF
               audio->disable_sound ();
 #endif
-              tiles_ground->set_scroll_type(tiles_background::TILES_SCROLL_WIN);
+              tiles_ground->
+              set_scroll_type (tiles_background::TILES_SCROLL_WIN);
               count_next = 1;
             }
         }
@@ -430,11 +435,13 @@ supervisor_bricks_level::main_loop ()
 
   /* control position music's module */
 #ifndef SOUNDISOFF
-  Uint32 phase = audio->get_portion_music_played ();
+  Uint32
+  phase = audio->get_portion_music_played ();
   if (phase == handler_audio::LOST_PORTION &&
       phase != audio->get_portion_music_played ())
     {
-      info_messages->send_message_request (short_info_messages::YEAH_YOU_WHERE);
+      info_messages->
+      send_message_request (short_info_messages::YEAH_YOU_WHERE);
       paddles->release_all_balls ();
     }
 #endif
@@ -491,7 +498,7 @@ supervisor_bricks_level::switch_background ()
       if (is_verbose)
         {
           std::cout << ">supervisor_bricks_level::switch_background: " <<
-          "backgound_index: " << backgound_index << std::endl;
+                    "backgound_index: " << backgound_index << std::endl;
         }
       initialize_background (backgound_index);
       background_screen->blit_to_surface (game_screen);
@@ -514,25 +521,25 @@ supervisor_bricks_level::switch_background ()
       gigablitz->shoot_paddle ();
     }
   /*
-   
-  	if(keyboard->key_is_pressed(SDLK_w))
-   { 
-   }
-   
-   if(keyboard->key_is_pressed(SDLK_w))
-   { keyw = 1;
-   }
-   
-   
-   if(keyboard->key_is_released(SDLK_w) && keyw == 1)
-   { tiles_ground->prev_color();
-   keyw = 0;
-   }
-   if(keyboard->key_is_released(SDLK_x) && keyx == 1)
-   { tiles_ground->next_color();
-   keyx = 0;
-   }
-  */
+
+     if(keyboard->key_is_pressed(SDLK_w))
+     {
+     }
+
+     if(keyboard->key_is_pressed(SDLK_w))
+     { keyw = 1;
+     }
+
+
+     if(keyboard->key_is_released(SDLK_w) && keyw == 1)
+     { tiles_ground->prev_color();
+     keyw = 0;
+     }
+     if(keyboard->key_is_released(SDLK_x) && keyx == 1)
+     { tiles_ground->next_color();
+     keyx = 0;
+     }
+   */
 
 
 #endif
@@ -541,7 +548,7 @@ supervisor_bricks_level::switch_background ()
 /**
  * Initialize the background, draw tiles side bricks and bicks
  * @param bkg_num tileset number, if negative then the
- *                tilesset number depends on the current level number 
+ *                tilesset number depends on the current level number
  */
 void
 supervisor_bricks_level::initialize_background (Sint32 bkg_num)
@@ -549,7 +556,7 @@ supervisor_bricks_level::initialize_background (Sint32 bkg_num)
   if (is_verbose)
     {
       std::cout << ">supervisor_bricks_level::initialize_background() start! "
-      << std::endl;
+                << std::endl;
     }
   if (bkg_num < 0)
     {
@@ -561,7 +568,7 @@ supervisor_bricks_level::initialize_background (Sint32 bkg_num)
       if (is_verbose)
         {
           std::cout << "supervisor_bricks_level::initialize_background() " <<
-          "background number: " << bkg_num << std::endl;
+                    "background number: " << bkg_num << std::endl;
         }
     }
   /* initialize and draw the tiles background */
@@ -582,24 +589,23 @@ supervisor_bricks_level::initialize_background (Sint32 bkg_num)
   bricks->initialize ();
   if (is_verbose)
     {
-      std::cout << "/supervisor_bricks_level::initialize_background() start! " 
-      << std::endl;
+      std::cout << "/supervisor_bricks_level::initialize_background() start! "
+                << std::endl;
     }
 }
 
 /**
- * Draw the tiles background 
+ * Draw the tiles background
  */
 void
-supervisor_bricks_level::draw_tilesmap()
+supervisor_bricks_level::draw_tilesmap ()
 {
   if (has_background)
     {
       return;
     }
   display->unlock_surfaces ();
-  tiles_ground->draw();
+  tiles_ground->draw ();
   info_messages->run ();
   display->lock_surfaces ();
 }
-

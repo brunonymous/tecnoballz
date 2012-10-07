@@ -499,7 +499,6 @@ controller_bricks::draw_brick (char *pixels, Sint32 offset, Sint32 color)
     }
 }
 
-
 /**
  * Enable the bricks color cycling
  */

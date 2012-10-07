@@ -1,7 +1,7 @@
 /** 
  * @file sprite_money.cc 
  * @brief The money sprite 
- * @date 2007-09-25
+ * @date 2012-10-07 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -52,10 +52,8 @@ sprite_money::~sprite_money ()
 void
 sprite_money::init_members ()
 {
-  x_maximum = screen_width - ((64 + 16) * resolution);
-  x_minimum = 3 * resolution;
-  y_maximum = screen_height - 10 * resolution;
-  y_minimum = 0;
+  right_panel_score* panel_score = right_panel_score::get_instance ();
+  init_coords_max_min (panel_score->get_width());
   frame_period = 5;
   frame_delay = 1;
 

@@ -128,6 +128,7 @@ handler_players::reset_members ()
   score_value = 0;
   bonus_life_counter = 0;
   area_number = 1;
+  //area_number = 5; /*TEST*/
   /* level number into the current area */
   level_number = 1;
   number_of_lifes = initial_num_of_lifes;

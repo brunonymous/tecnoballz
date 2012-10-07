@@ -2,7 +2,7 @@
  * @file sprite_gem.cc 
  * @brief The gem sprite 
  * @created 2004-04-12 
- * @date 2012-08-19
+ * @date 2012-10-07
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -107,6 +107,8 @@ sprite_gem::init_gem (Sint32 xcoord, Sint32 ycoord, sprite_paddle * pad)
   is_indicator = false;
   sprite_has_shadow = true;
   blink_counter = 0;
+  right_panel_score* panel_score = right_panel_score::get_instance ();
+  init_coords_max_min (panel_score->get_width());
 }
 
 /**
