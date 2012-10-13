@@ -1,10 +1,11 @@
-2012-10-07
+2012-10-13
 TecnoballZ 0.92+
 The code was compiled with GCC 4.3
 Fix Makefile
 Fix bugs sprites (balls and and gems) are drawn on the right panel.
 Fixed a segfault caused by a calculation of coordinates of sprites unsigned.
-
+Fix paddle movment restriction when, or after, control reverse penality 
+(bug fixed by Celelibi Debian bug #510603)
 
 2007-11-19
 TecnoballZ 0.92

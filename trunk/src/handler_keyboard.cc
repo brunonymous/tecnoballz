@@ -64,8 +64,6 @@ handler_keyboard::handler_keyboard ()
 {
   object_init ();
   is_grab_input = false;
-  previous_mouse_x_coord = 0;
-  previous_mouse_y_coord = 0;
   mouse_x_offset = 0;
   mouse_y_offset = 0;
   /* x and y coordinates of the mouse */
@@ -567,6 +565,8 @@ handler_keyboard::read_events ()
           /* read the x and y coordinates of the mouse */
           mouse_x_coord = event.motion.x;
           mouse_y_coord = event.motion.y;
+          mouse_x_offset += event.motion.xrel;
+          mouse_y_offset += event.motion.yrel;
         }
         break;
 
@@ -1032,8 +1032,8 @@ handler_keyboard::clear_command_keys ()
     {
       SDL_WM_GrabInput (SDL_GRAB_ON);
     }
-  previous_mouse_x_coord = mouse_x_coord;
-  previous_mouse_y_coord = mouse_y_coord;
+  mouse_x_offset = 0;
+  mouse_y_offset = 0;
   is_key_waiting = true;
   wait_key_pressed = false;
 }
@@ -1145,14 +1145,25 @@ handler_keyboard::is_right_button_up (Sint32 * x_coord, Sint32 * y_coord)
 Sint32
 handler_keyboard::get_mouse_x_offset ()
 {
-  mouse_x_offset = mouse_x_coord - previous_mouse_x_coord;
-  mouse_y_offset = mouse_y_coord - previous_mouse_y_coord;
-  previous_mouse_x_coord = mouse_x_coord;
-  previous_mouse_y_coord = mouse_y_coord;
-  random_counter += previous_mouse_x_coord;
-  random_counter += previous_mouse_y_coord;
-  return mouse_x_offset;
+  Sint32 retval = mouse_x_offset;
+  random_counter += mouse_x_coord + mouse_x_offset;
+  mouse_x_offset = 0;
+  return retval;
 }
+
+/**
+* Caculate and return offset of vertical displacement of the mouse
+* @return the mouse vertical offset
+*/
+Sint32
+handler_keyboard::get_mouse_y_offset ()
+{
+  Sint32 retval = mouse_y_offset;
+  random_counter += mouse_y_coord + mouse_y_offset;
+  mouse_y_offset = 0;
+  return retval;
+}
+
 
 /**
  * Return absolute mouse y coordinate
