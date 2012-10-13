@@ -1,7 +1,7 @@
 /**
  * @file handler_keyboard.h
  * @brief Handler of the keyboard and mouse
- * @date 2007-11-18
+ * @date 2012-10-13 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -161,8 +161,6 @@ class handler_keyboard:public virtual tecnoballz
 
     Sint32 mouse_x_offset;
     Sint32 mouse_y_offset;
-    Sint32 previous_mouse_x_coord;
-    Sint32 previous_mouse_y_coord;
 
     /* x and y coordinates of the mouse pointer */
     Sint32 mouse_x_coord;
@@ -208,6 +206,7 @@ class handler_keyboard:public virtual tecnoballz
     bool is_left_button_up (Sint32 * off_x, Sint32 * off_y);
     bool is_right_button_up (Sint32 * off_x, Sint32 * off_y);
     Sint32 get_mouse_x_offset ();
+    Sint32 get_mouse_y_offset ();
     Sint32 get_mouse_x ();
     Sint32 get_mouse_y ();
     bool key_is_pressed (Sint32 code);
