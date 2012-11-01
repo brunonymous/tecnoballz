@@ -2,7 +2,7 @@
  * @file tecnoballz.h
  * @brief Base of all classes, and main static methods of the game 
  * @created 2002-08-18
- * @date 2012-10-13
+ * @date 2012-11-01
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -55,7 +55,7 @@
 #if !defined(PACKAGE_STRING)
 #define PACKAGE_STRING "TECNOBALLZ 0.93"
 #endif
-#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2012-10-13)"
+#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2012-11-01)"
 
 
 /** Force bytes copy (SPARC unaligned memory access) */

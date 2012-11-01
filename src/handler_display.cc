@@ -1,13 +1,13 @@
-/** 
- * @file handler_display.cc 
- * @briefi Handle displaying and updating with SDL 
- * @created 2002-08-17 
- * @date 2007-11-18
+/**
+ * @file handler_display.cc
+ * @briefi Handle displaying and updating with SDL
+ * @created 2002-08-17
+ * @date 2012-11-01
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
+/*
  * copyright (c) 1991-2012 TLK Games all rights reserved
  * $Id$
  *
@@ -31,9 +31,12 @@
 #include "../include/handler_audio.h"
 #include "../include/handler_resources.h"
 
-char handler_display::window_title[25] = "TecnoballZ by TLK Games\0";
-bool handler_display::optionfull = false;
-bool handler_display::optionsync = true;
+char
+handler_display::window_title[25] = "TecnoballZ by TLK Games\0";
+bool
+handler_display::optionfull = false;
+bool
+handler_display::optionsync = true;
 
 /**
  * Create the object
@@ -67,7 +70,7 @@ handler_display::~handler_display ()
       delete background_screen;
       background_screen = NULL;
     }
- SDL_Quit ();
+  SDL_Quit ();
 }
 
 /**
@@ -76,16 +79,19 @@ handler_display::~handler_display ()
 void
 handler_display::initialize ()
 {
-  set_video_mode (); 
+  set_video_mode ();
   Uint32 height = window_height + offsetplus * 2;
   /** Create the main game offscreen */
-  game_screen = new offscreen_surface (window_width, height, bitspixels, offsetplus);
+  game_screen =
+    new offscreen_surface (window_width, height, bitspixels, offsetplus);
   game_surface = game_screen->get_surface ();
   game_screen_pitch = game_surface->pitch;
-  game_screen_pixels = (char *) game_surface->pixels + game_screen_pitch * offsetplus;
+  game_screen_pixels =
+    (char *) game_surface->pixels + game_screen_pitch * offsetplus;
   /** Create the background offscreen */
-  background_screen = new offscreen_surface (window_width, height, bitspixels, offsetplus);
-  SDL_Surface * surface = background_screen->get_surface ();
+  background_screen =
+    new offscreen_surface (window_width, height, bitspixels, offsetplus);
+  SDL_Surface *surface = background_screen->get_surface ();
   background_pixels = (char *) surface->pixels + surface->pitch * offsetplus;
   previous_sdl_ticks = SDL_GetTicks ();
   delay_value = 0;
@@ -103,14 +109,16 @@ handler_display::set_video_mode ()
   if (is_verbose)
     {
       std::cout << ">handler_display::set_video_mode() " << window_width
-        << "x" << window_height << std::endl;
+                << "x" << window_height << std::endl;
     }
 
   /* initializes SDL */
-  if (SDL_Init (SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) < 0)
+  if (SDL_Init
+      (SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE | SDL_INIT_AUDIO |
+       SDL_INIT_JOYSTICK) < 0)
     {
       std::cerr << "!handler_display::set_video_mode() " <<
-        "SDL_Init() return " << SDL_GetError () << std::endl;
+                "SDL_Init() return " << SDL_GetError () << std::endl;
       throw std::runtime_error ("!handler_display::set_video_mode() "
                                 "SDL_Init() failed!");
     }
@@ -124,22 +132,23 @@ handler_display::set_video_mode ()
     {
       flag = flag | SDL_FULLSCREEN;
     }
-  Uint32 bpp = SDL_VideoModeOK (window_width, window_height, bitspixels, flag);
+  Uint32 bpp =
+    SDL_VideoModeOK (window_width, window_height, bitspixels, flag);
   if (0 == bpp)
     {
       std::cerr << "!handler_display::set_video_mode() " <<
-        "SDL_VideoModeOK() " << "return " << SDL_GetError () << std::endl;
+                "SDL_VideoModeOK() " << "return " << SDL_GetError () << std::endl;
       throw std::runtime_error ("!handler_display::set_video_mode() "
                                 "SDL_VideoModeOK() failed!");
     }
 
   /* initialize the video mode */
-  sdl_screen = SDL_SetVideoMode (window_width, window_height, bitspixels, flag);
+  sdl_screen =
+    SDL_SetVideoMode (window_width, window_height, bitspixels, flag);
   if (NULL == sdl_screen)
-{
-      std::cerr << "!handler_display::set_video_mode() " << 
-        "SDL_SetVideoMode() " << "return " << SDL_GetError ()
-        << std::endl;
+    {
+      std::cerr << "!handler_display::set_video_mode() " <<
+                "SDL_SetVideoMode() " << "return " << SDL_GetError () << std::endl;
       throw std::runtime_error ("!handler_display::set_video_mode() "
                                 "SDL_SetVideoMode() failed!");
     }
@@ -154,11 +163,10 @@ handler_display::set_video_mode ()
 }
 
 /**
- * Return the screen's width 
+ * Return the screen's width
  * @return the width of the screen in pixels
  */
-Uint32
-handler_display::get_width ()
+Uint32 handler_display::get_width ()
 {
   return sdl_screen->w;
 }
@@ -167,8 +175,7 @@ handler_display::get_width ()
  * Return the screen's height
  * @return the height of the screen in lines
  */
-Uint32
-handler_display::get_height ()
+Uint32 handler_display::get_height ()
 {
   return sdl_screen->h;
 }
@@ -192,12 +199,12 @@ handler_display::unlock_surfaces ()
   game_screen->unlock_surface ();
   background_screen->unlock_surface ();
 }
+
 /**
  * Return the number of bits per pixel
  * @return then number of bits per pixel, 8 for 256 colors
  */
-Uint32
-handler_display::get_bits_per_pixel ()
+Uint32 handler_display::get_bits_per_pixel ()
 {
   return bitspixels;
 }
@@ -229,11 +236,11 @@ handler_display::get_info ()
   SDL_WM_SetCaption ("TecnoballZ", 0);
   vi = SDL_GetVideoInfo ();
   printf
-    ("The number of bits used to represent each pixel in a surface.Usually 8, 16, 24 or 32. BitsPerPixel=%d \n",
-     vi->vfmt->BitsPerPixel);
+  ("The number of bits used to represent each pixel in a surface.Usually 8, 16, 24 or 32. BitsPerPixel=%d \n",
+   vi->vfmt->BitsPerPixel);
   printf
-    ("The number of bytes used to represent each pixel in a surface. Usually one to four BytesPerPixel=%d\n",
-     vi->vfmt->BytesPerPixel);
+  ("The number of bytes used to represent each pixel in a surface. Usually one to four BytesPerPixel=%d\n",
+   vi->vfmt->BytesPerPixel);
   printf ("Rmask=%i Gmask=%i Bmask=%i Amask=%i \n", vi->vfmt->Rmask,
           vi->vfmt->Gmask, vi->vfmt->Bmask, vi->vfmt->Amask);
   printf ("Rshift=%i Gshift=%i Bshift=%i Ashift=%i \n", vi->vfmt->Rshift,
@@ -250,15 +257,15 @@ handler_display::get_info ()
   printf ("Are hardware to hardware blits accelerated? blit_hw=%i \n",
           vi->blit_hw);
   printf
-    ("Are hardware to hardware colorkey blits accelerated? blit_hw_CC=%i \n",
-     vi->blit_hw_CC);
+  ("Are hardware to hardware colorkey blits accelerated? blit_hw_CC=%i \n",
+   vi->blit_hw_CC);
   printf ("Are hardware to hardware alpha blits accelerated? blit_hw_A=%i\n",
           vi->blit_hw_A);
   printf ("Are software to hardware blits accelerated? blit_sw=%i \n",
           vi->blit_sw);
   printf
-    ("Are software to hardware colorkey blits accelerated? blit_sw_CC=%i \n",
-     vi->blit_sw_CC);
+  ("Are software to hardware colorkey blits accelerated? blit_sw_CC=%i \n",
+   vi->blit_sw_CC);
   printf ("Are software to hardware alpha blits accelerated? blit_sw_A=%i \n",
           vi->blit_sw_A);
   printf ("Are color fills accelerated? blit_fill=%i \n", vi->blit_fill);
@@ -308,7 +315,9 @@ handler_display::wait_frame ()
       delay_ticks_amount += sdl_ticks;
       if (--delay_change_counter <= 0)
         {
-          delay_value = ((game_speed * DELAY_CHANGE_MAX) - delay_ticks_amount) / DELAY_CHANGE_MAX;
+          delay_value =
+            ((game_speed * DELAY_CHANGE_MAX) -
+             delay_ticks_amount) / DELAY_CHANGE_MAX;
           delay_change_counter = DELAY_CHANGE_MAX;
           delay_ticks_amount = 0;
           if (delay_value <= 0)
@@ -322,7 +331,7 @@ handler_display::wait_frame ()
         }
     }
   previous_sdl_ticks = SDL_GetTicks ();
-  
+
   /** Calculate the number of frames per second */
   sdl_ticks_amount += sdl_ticks;
   if (++frames_counter_modulo >= 100)
@@ -344,11 +353,10 @@ handler_display::wait_frame ()
 }
 
 /**
- * Return tne number of frames per second 
+ * Return tne number of frames per second
  * @return the frame frequency
  */
-Uint32
-handler_display::get_frames_per_second ()
+Uint32 handler_display::get_frames_per_second ()
 {
   return frames_per_second;
 }
@@ -362,15 +370,14 @@ handler_display::get_frames_per_second ()
 //                      => offsx: x coordinate
 //                      => offsy: y coordinate
 //------------------------------------------------------------------------------
-Sint32
-handler_display::ecran_next (Sint32 zbase, Sint32 offsx, Sint32 offsy)
+Sint32 handler_display::ecran_next (Sint32 zbase, Sint32 offsx, Sint32 offsy)
 {
   return (zbase + offsy * game_screen_pitch + offsx);
 }
 
 /**
  * Initialize color palette for the current screen
- * @param pal pointer to color components 
+ * @param pal pointer to color components
  */
 void
 handler_display::enable_palette (unsigned char *pal)
@@ -413,7 +420,7 @@ handler_display::enable_palette (SDL_Color * pal)
 
 /**
  * Return the current SDL palette
- * @return a pointer to a SDL_Color structure 
+ * @return a pointer to a SDL_Color structure
  */
 SDL_Color *
 handler_display::get_palette ()
@@ -428,21 +435,21 @@ void
 handler_display::window_update ()
 {
   SDL_Rect source =
-    {
-      0,
-      offsetplus + tilt_offset,
-      window_width,
-      offsetplus + window_height + tilt_offset
-    };
+  {
+    0,
+    (Sint16) (offsetplus + tilt_offset),
+    (Uint16) window_width,
+    (Uint16) (window_height + offsetplus + tilt_offset)
+  };
   SDL_Rect destination =
-    {
-      0, 0,
-      window_width, window_height
-    };
+  {
+    0, 0,
+    (Uint16) window_width, (Uint16) window_height
+  };
   if (SDL_BlitSurface (game_surface, &source, sdl_screen, &destination) < 0)
     {
       std::cerr << "(!)handler_display::window_update():" <<
-	  "BlitSurface() return " << SDL_GetError () << std::endl;
+                "BlitSurface() return " << SDL_GetError () << std::endl;
     }
   SDL_UpdateRect (sdl_screen, 0, 0, sdl_screen->w, sdl_screen->h);
   if (tilt_offset > 0)
@@ -542,7 +549,7 @@ handler_display::set_shadow (Sint32 offst, Sint32 large, Sint32 haute)
 }
 
 //------------------------------------------------------------------------------
-// buffer: copy an image of 32 width pixels into buffer memory 
+// buffer: copy an image of 32 width pixels into buffer memory
 //------------------------------------------------------------------------------
 void
 handler_display::buf_affx32 (char *srcPT, char *desPT, Sint32 width,
@@ -634,7 +641,7 @@ handler_display::tilt_screen ()
   tilt_offset = 10 * resolution;
 }
 
-/** 
+/**
  * Select colour gradation
  */
 void

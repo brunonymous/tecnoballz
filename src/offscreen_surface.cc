@@ -2,7 +2,7 @@
  * @file offscreen_surface.cc
  * @brief an offscreen drawing surface
  * @created 2007-02-15
- * @date 2012-09-15
+ * @date 2012-11-01
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -55,8 +55,7 @@ offscreen_surface::~offscreen_surface ()
  * Get the vertical offset
  * @return vertical offset
  */
-Uint32
-offscreen_surface::get_vertical_offset ()
+Uint32 offscreen_surface::get_vertical_offset ()
 {
   return vertical_offset;
 }
@@ -70,7 +69,10 @@ offscreen_surface::blit_to_surface (offscreen_surface * offscreen)
 {
   SDL_Surface *surface_dest = offscreen->get_surface ();
   SDL_Rect rect =
-  { 0, vertical_offset, surface->w, surface->h - vertical_offset };
+  {
+    0, (Sint16) vertical_offset, (Uint16) surface->w,
+    (Uint16) (surface->h - vertical_offset)
+  };
   if (SDL_BlitSurface (surface, &rect, surface_dest, &rect) < 0)
     {
       std::cerr << "(!)offscreen_surface::blit_to_surface(x=0, y=)" <<
@@ -90,7 +92,11 @@ offscreen_surface::blit_to_surface (offscreen_surface * offscreen,
                                     Uint32 width, Uint32 height)
 {
   SDL_Surface *surface_dest = offscreen->get_surface ();
-  SDL_Rect rect = { xcoord, ycoord + vertical_offset, width, height };
+  SDL_Rect rect =
+  {
+    (Sint16) xcoord, (Sint16) (ycoord + vertical_offset), (Uint16) width,
+    (Uint16) height
+  };
   if (SDL_BlitSurface (surface, &rect, surface_dest, &rect) < 0)
     {
       std::cerr << "(!)offscreen_surface::blit_to_surface() " <<

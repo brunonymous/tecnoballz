@@ -1,12 +1,12 @@
-/** 
- * @file controller_balls.cc 
- * @brief Control the balls. Move and collisions 
- * @date 2012-09-15 
+/**
+ * @file controller_balls.cc
+ * @brief Control the balls. Move and collisions
+ * @date 2012-11-01
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
+/*
  * copyright (c) 1991-2012 TLK Games all rights reserved
  * $Id$
  *
@@ -33,7 +33,7 @@
 #include "../include/handler_audio.h"
 #include "../include/list_sprites.h"
 
-/** 
+/**
  * Create the balls controller into guards levels
  */
 controller_balls::controller_balls ()
@@ -47,7 +47,7 @@ controller_balls::controller_balls ()
   sprite_type_id = sprite_object::BALLS;
 }
 
-/** 
+/**
  * Release the balls controller
  */
 controller_balls::~controller_balls ()
@@ -65,15 +65,14 @@ controller_balls::~controller_balls ()
  */
 void
 controller_balls::init (Uint32 start,
-                        Uint32 glue, Uint32 speed, Uint32 tilt,
-                        Uint32 table)
+                        Uint32 glue, Uint32 speed, Uint32 tilt, Uint32 table)
 {
 
   controller_paddles *paddles = controller_paddles::get_instance ();
 
   glue_delay = glue;
   tilt_delay = tilt;
-  Sint16* velocities = sprite_ball::get_velocities (table);
+  Sint16 *velocities = sprite_ball::get_velocities (table);
   paddle_bottom = paddles->get_paddle (controller_paddles::BOTTOM_PADDLE);
 
   Sint32 w;
@@ -91,7 +90,7 @@ controller_balls::init (Uint32 start,
       controller_bricks *bricks = controller_bricks::get_instance ();
       w = bricks->get_brick_width ();
     }
-  
+
   /* initialize all balls */
   for (Uint32 i = 0; i < max_of_sprites; i++)
     {
@@ -157,7 +156,7 @@ controller_balls::run_in_guardians_level ()
   accelerate ();
 }
 
-/** 
+/**
  * Check if balls go out of the screen of game
  */
 void
@@ -185,7 +184,7 @@ controller_balls::check_outside_balls ()
         }
       else
         {
-          if (j >= (max_x - ball->collision_width))
+          if (j >= (max_x - (Sint32) ball->collision_width))
             {
               paddle = paddle_right;
             }
@@ -197,9 +196,9 @@ controller_balls::check_outside_balls ()
                   paddle = paddle_top;
                 }
               else if (j > max_y)
-               { 
+                {
                   paddle = paddle_bottom;
-               }
+                }
             }
         }
 
@@ -240,14 +239,14 @@ controller_balls::check_outside_balls ()
       audio->play_lost_music ();
       audio->play_sound (handler_audio::LOST_LIFE);
 #endif
-      short_info_messages* messages = short_info_messages::get_instance ();
+      short_info_messages *messages = short_info_messages::get_instance ();
       messages->send_message_request (short_info_messages::LOST_FILE);
       messages->send_message_request (short_info_messages::ARE_YOU_READY);
       panel->reset_gigablitz_countdown ();
       controller_bricks *bricks = controller_bricks::get_instance ();
       bricks->start_cycling ();
       tiles_background *tiles = tiles_background::get_instance ();
-      tiles->set_scroll_type(tiles_background::TILES_SCROLL_LOST);
+      tiles->set_scroll_type (tiles_background::TILES_SCROLL_LOST);
     }
 }
 
@@ -276,7 +275,7 @@ controller_balls::check_outside_balls_guards_level ()
         }
 
       /*
-       * the player loses a life 
+       * the player loses a life
        */
       /* one starts again with only one ball */
       num_of_sprites = 1;
@@ -305,7 +304,7 @@ controller_balls::activate_tilt ()
   for (Uint32 i = 0; i < max_of_sprites; i++)
     {
       sprite_ball *ball = sprites_list[i];
-      if (!ball->is_enabled  || ball->tilt_delay_counter < delay)
+      if (!ball->is_enabled || ball->tilt_delay_counter < delay)
         {
           continue;
         }
@@ -335,7 +334,7 @@ controller_balls::activate_tilt ()
         }
       ball->tilt_delay_counter = 0;
     }
-  
+
 #ifndef SOUNDISOFF
   audio->play_sound (handler_audio::TECNOBALL);
 #endif
@@ -343,7 +342,7 @@ controller_balls::activate_tilt ()
 }
 
 /**
- * handle the acceleration of the balls 
+ * handle the acceleration of the balls
  */
 void
 controller_balls::accelerate ()
@@ -368,101 +367,100 @@ controller_balls::move_balls ()
     {
       sprite_ball *ball = sprites_list[i];
       if (!ball->is_enabled)
-	{
-	  continue;
-	}
+        {
+          continue;
+        }
 
       /*  the ball is not sticked */
       if (ball->sticky_paddle_num == 0)
-	{
-	  /* the balle moves */
-	  j = ball->direction;
-	  if (j > 64)
-	    {
-	      std::cerr << "controller_balls::" <<
-		"move_balls() ball->direction = " <<
-		j << std::endl;
-	      j = 60;
-	    }
-	  Sint16 *velocities = ball->velocities;
-	  velocities = (Sint16 *) ((char *) velocities + j);
-	  Sint32 offset = *(velocities++);
-	  ball->x_coord += (offset * resolution);
-	  offset = *velocities;
-	  ball->y_coord += (offset * resolution);
-	  continue;
-	}
+        {
+          /* the balle moves */
+          j = ball->direction;
+          if (j > 64)
+            {
+              std::cerr << "controller_balls::" <<
+                        "move_balls() ball->direction = " << j << std::endl;
+              j = 60;
+            }
+          Sint16 *velocities = ball->velocities;
+          velocities = (Sint16 *) ((char *) velocities + j);
+          Sint32 offset = *(velocities++);
+          ball->x_coord += (offset * resolution);
+          offset = *velocities;
+          ball->y_coord += (offset * resolution);
+          continue;
+        }
 
       paddle = ball->paddle_touched;
       if (--ball->start_delay_counter == 0)
-	{
-	  tiles_background *tiles = tiles_background::get_instance ();
-	  tiles->set_scroll_type(tiles_background::TILES_NO_SCROLL);
-	  ball->sticky_paddle_num = 0;
-	  if (paddle->sticky_state == sprite_paddle::BUSY_STICKY_PADDLE)
-	    {
-	      paddle->sticky_state = sprite_paddle::FREE_STICKY_PADDLE;
-	    }
-	  paddle->stuck_ball = (sprite_ball *) NULL;
-	  continue;
-	}
+        {
+          tiles_background *tiles = tiles_background::get_instance ();
+          tiles->set_scroll_type (tiles_background::TILES_NO_SCROLL);
+          ball->sticky_paddle_num = 0;
+          if (paddle->sticky_state == sprite_paddle::BUSY_STICKY_PADDLE)
+            {
+              paddle->sticky_state = sprite_paddle::FREE_STICKY_PADDLE;
+            }
+          paddle->stuck_ball = (sprite_ball *) NULL;
+          continue;
+        }
 
       /* displacement of the balls sticked to the paddle */
       switch (ball->sticky_paddle_num)
-	{
-	case controller_paddles::BOTTOM_PADDLE:
-	  j = (paddle->collision_width >> 1) -
-	    ((ball->collision_width >> 1) + 1);
-	  j += paddle->x_coord;
-	  ball->x_coord = j;
-	  j = (paddle->y_coord) - (ball->collision_height + 1);
-	  ball->y_coord = j;
-	  break;
+        {
+        case controller_paddles::BOTTOM_PADDLE:
+          j = (paddle->collision_width >> 1) -
+              ((ball->collision_width >> 1) + 1);
+          j += paddle->x_coord;
+          ball->x_coord = j;
+          j = (paddle->y_coord) - (ball->collision_height + 1);
+          ball->y_coord = j;
+          break;
 
-	case controller_paddles::RIGHT_PADDLE:
-	  j = (paddle->x_coord) - (ball->collision_width - 1);
-	  ball->x_coord = j;
-	  j =
-	    (paddle->collision_height >> 1) -
-	    ((ball->collision_height >> 1) + 1);
-	  j += paddle->y_coord;
-	  ball->y_coord = j;
-	  break;
+        case controller_paddles::RIGHT_PADDLE:
+          j = (paddle->x_coord) - (ball->collision_width - 1);
+          ball->x_coord = j;
+          j =
+            (paddle->collision_height >> 1) -
+            ((ball->collision_height >> 1) + 1);
+          j += paddle->y_coord;
+          ball->y_coord = j;
+          break;
 
-	case controller_paddles::TOP_PADDLE:
-	  j =
-	    (paddle->collision_width >> 1) -
-	    ((ball->collision_width >> 1) + 1);
-	  j += paddle->x_coord;
-	  ball->x_coord = j;
-	  j = (paddle->y_coord) + paddle->collision_height + 1;
-	  ball->y_coord = j;
-	  break;
+        case controller_paddles::TOP_PADDLE:
+          j =
+            (paddle->collision_width >> 1) -
+            ((ball->collision_width >> 1) + 1);
+          j += paddle->x_coord;
+          ball->x_coord = j;
+          j = (paddle->y_coord) + paddle->collision_height + 1;
+          ball->y_coord = j;
+          break;
 
-	case controller_paddles::LEFT_PADDLE:
-	  j = (paddle->x_coord) + (paddle->collision_width) + 1;
-	  ball->x_coord = j;
-	  j =
-	    (paddle->collision_height >> 1) -
-	    ((ball->collision_height >> 1) + 1);
-	  j += paddle->y_coord;
-	  ball->y_coord = j;
-	  break;
+        case controller_paddles::LEFT_PADDLE:
+          j = (paddle->x_coord) + (paddle->collision_width) + 1;
+          ball->x_coord = j;
+          j =
+            (paddle->collision_height >> 1) -
+            ((ball->collision_height >> 1) + 1);
+          j += paddle->y_coord;
+          ball->y_coord = j;
+          break;
 
-	}
+        }
 
 
       if (--ball->viewfinder_delay < 0)
-	{
-	  ball->viewfinder_delay = 8;
-	  if (++ball->viewfinder_direction > 13)
-	    {
-	      ball->viewfinder_direction = 0;
-	    } 
-	  paddle = ball->paddle_touched;
-    ball->direction = paddle->direct_tab[ball->viewfinder_direction];
+        {
+          ball->viewfinder_delay = 8;
+          if (++ball->viewfinder_direction > 13)
+            {
+              ball->viewfinder_direction = 0;
+            }
+          paddle = ball->paddle_touched;
+          ball->direction = paddle->direct_tab[ball->viewfinder_direction];
 
-	}
+        }
     }
 }
 
@@ -478,71 +476,71 @@ controller_balls::move_balls_in_guards_level ()
     {
       sprite_ball *ball = sprites_list[i];
       if (!ball->is_enabled)
-	{
-	  continue;
-	}
+        {
+          continue;
+        }
 
       /*  the ball is not sticked */
       if (ball->sticky_paddle_num == 0)
-	{
-	  /* the balle moves */
-	  j = ball->direction;
-	  if (j > 64)
-	    {
-	      std::cerr << "controller_balls::" <<
-		"move_balls_in_guards_level() ball->direction = " <<
-		j << std::endl;
-	      j = 60;
-	    }
-	  Sint16 *velocities = ball->velocities;
-	  velocities = (Sint16 *) ((char *) velocities + j);
-	  Sint32 offset = *(velocities++);
-	  ball->x_coord += (offset * resolution);
-	  offset = *velocities;
-	  ball->y_coord += (offset * resolution);
-	  continue;
-	}
+        {
+          /* the balle moves */
+          j = ball->direction;
+          if (j > 64)
+            {
+              std::cerr << "controller_balls::" <<
+                        "move_balls_in_guards_level() ball->direction = " <<
+                        j << std::endl;
+              j = 60;
+            }
+          Sint16 *velocities = ball->velocities;
+          velocities = (Sint16 *) ((char *) velocities + j);
+          Sint32 offset = *(velocities++);
+          ball->x_coord += (offset * resolution);
+          offset = *velocities;
+          ball->y_coord += (offset * resolution);
+          continue;
+        }
 
       paddle = ball->paddle_touched;
       if (--ball->start_delay_counter == 0)
-	{
-	  ball->sticky_paddle_num = 0;
-	  if (paddle->sticky_state == sprite_paddle::BUSY_STICKY_PADDLE)
-	    {
-	      paddle->sticky_state = sprite_paddle::FREE_STICKY_PADDLE;
-	    }
-	  paddle->stuck_ball = (sprite_ball *) NULL;
-	  continue;
-	}
-    
+        {
+          ball->sticky_paddle_num = 0;
+          if (paddle->sticky_state == sprite_paddle::BUSY_STICKY_PADDLE)
+            {
+              paddle->sticky_state = sprite_paddle::FREE_STICKY_PADDLE;
+            }
+          paddle->stuck_ball = (sprite_ball *) NULL;
+          continue;
+        }
+
       /* displacement of the balls sticked to the paddle */
       switch (ball->sticky_paddle_num)
-	{
-	case controller_paddles::BOTTOM_PADDLE:
-	  j = (paddle->collision_width >> 1) -
-	    ((ball->collision_width >> 1) + 1);
-	  j += paddle->x_coord;
-	  ball->x_coord = j;
-	  j = (paddle->y_coord) - (ball->collision_height + 1);
-	  ball->y_coord = j;
-	  break;
-	}
+        {
+        case controller_paddles::BOTTOM_PADDLE:
+          j = (paddle->collision_width >> 1) -
+              ((ball->collision_width >> 1) + 1);
+          j += paddle->x_coord;
+          ball->x_coord = j;
+          j = (paddle->y_coord) - (ball->collision_height + 1);
+          ball->y_coord = j;
+          break;
+        }
 
       if (--ball->viewfinder_delay < 0)
-	{
-	  ball->viewfinder_delay = 8;
-	  if (++ball->viewfinder_direction > 13)
-	    {
-	      ball->viewfinder_direction = 0;
-	    }
-	  paddle = ball->paddle_touched;
-    ball->direction = paddle->direct_tab[ball->viewfinder_direction];
-	}
+        {
+          ball->viewfinder_delay = 8;
+          if (++ball->viewfinder_direction > 13)
+            {
+              ball->viewfinder_direction = 0;
+            }
+          paddle = ball->paddle_touched;
+          ball->direction = paddle->direct_tab[ball->viewfinder_direction];
+        }
     }
 }
 
 /**
- * Collisions betweeb balls and paddles in bricks level 
+ * Collisions betweeb balls and paddles in bricks level
  */
 void
 controller_balls::collisions_with_paddles ()
@@ -557,116 +555,120 @@ controller_balls::collisions_with_paddles ()
   for (Uint32 i = 0; i < max_of_sprites; i++)
     {
       sprite_ball *ball = sprites_list[i];
-      if (!ball->is_enabled || ball->sticky_paddle_num > 0 || ball->direction >= 64)
+      if (!ball->is_enabled || ball->sticky_paddle_num > 0
+          || ball->direction >= 64)
         {
           continue;
         }
-          /* bottom paddle */
-          paddle = paddle_bottom;
-          touched_paddle = NULL;
+      /* bottom paddle */
+      paddle = paddle_bottom;
+      touched_paddle = NULL;
+      if (paddle->is_enabled)
+        {
+          x = paddle->x_coord;
+          y = paddle->y_coord;
+          if (ball->x_coord + (Sint32) ball->collision_width > x &&
+              ball->y_coord + (Sint32) ball->collision_height > y &&
+              ball->x_coord < x + (Sint32) paddle->collision_width &&
+              ball->y_coord < y + (Sint32) paddle->collision_height)
+            {
+              ball->y_coord = y - ball->collision_height;
+              touched_paddle = paddle;
+              panel->reset_gigablitz_countdown ();
+            }
+        }
+
+      /* right paddle */
+      if (NULL == touched_paddle)
+        {
+          paddle = paddle_right;
           if (paddle->is_enabled)
             {
               x = paddle->x_coord;
               y = paddle->y_coord;
-              if (ball->x_coord + (Sint32)ball->collision_width > x &&
-                  ball->y_coord + (Sint32)ball->collision_height > y &&
-                  ball->x_coord < x + (Sint32)paddle->collision_width &&
-                  ball->y_coord < y + (Sint32)paddle->collision_height)
+              if (ball->x_coord + (Sint32) ball->collision_width > x &&
+                  ball->y_coord + (Sint32) ball->collision_height > y &&
+                  ball->x_coord < x + (Sint32) paddle->collision_width &&
+                  ball->y_coord < y + (Sint32) paddle->collision_height)
                 {
-                  ball->y_coord = y - ball->collision_height;
+                  ball->x_coord = x - ball->collision_width;
                   touched_paddle = paddle;
-                  panel->reset_gigablitz_countdown ();
                 }
             }
+        }
 
-          /* right paddle */
-          if (NULL == touched_paddle)
+      /* top paddle */
+      if (NULL == touched_paddle)
+        {
+          paddle = paddle_top;
+          if (paddle->is_enabled)
             {
-              paddle = paddle_right;
-              if (paddle->is_enabled)
+              x = paddle->x_coord;
+              y = paddle->y_coord;
+              if (ball->x_coord + (Sint32) ball->collision_width > x &&
+                  ball->y_coord + (Sint32) ball->collision_height > y &&
+                  ball->x_coord < x + (Sint32) paddle->collision_width &&
+                  ball->y_coord < y + (Sint32) paddle->collision_height)
                 {
-                  x = paddle->x_coord;
-                  y = paddle->y_coord;
-                  if (ball->x_coord + (Sint32)ball->collision_width > x &&
-                      ball->y_coord + (Sint32)ball->collision_height > y &&
-                      ball->x_coord < x + (Sint32)paddle->collision_width &&
-                      ball->y_coord < y + (Sint32)paddle->collision_height)
-                    {
-                      ball->x_coord = x - ball->collision_width;
-                      touched_paddle = paddle;
-                    }
+                  ball->y_coord = y + paddle->collision_height;
+                  touched_paddle = paddle;
                 }
             }
+        }
 
-          /* top paddle */
-          if (NULL == touched_paddle)
+      /* left paddle */
+      if (NULL == touched_paddle)
+        {
+          paddle = paddle_left;
+          if (paddle->is_enabled)
             {
-              paddle = paddle_top;
-              if (paddle->is_enabled)
+              x = paddle->x_coord;
+              y = paddle->y_coord;
+              if (ball->x_coord + (Sint32) ball->collision_width > x &&
+                  ball->y_coord + (Sint32) ball->collision_height > y &&
+                  ball->x_coord < x + (Sint32) paddle->collision_width &&
+                  ball->y_coord < y + (Sint32) paddle->collision_height)
                 {
-                  x = paddle->x_coord;
-                  y = paddle->y_coord;
-                  if (ball->x_coord + (Sint32)ball->collision_width > x &&
-                      ball->y_coord + (Sint32)ball->collision_height > y &&
-                      ball->x_coord < x + (Sint32)paddle->collision_width &&
-                      ball->y_coord < y + (Sint32)paddle->collision_height)
-                    {
-                      ball->y_coord = y + paddle->collision_height;
-                      touched_paddle = paddle;
-                    }
+                  ball->x_coord = x + paddle->collision_width;
+                  touched_paddle = paddle;
                 }
             }
+        }
 
-          /* left paddle */
-          if (NULL == touched_paddle)
-            {
-              paddle = paddle_left;
-              if (paddle->is_enabled)
-                {
-                  x = paddle->x_coord;
-                  y = paddle->y_coord;
-                  if (ball->x_coord + (Sint32)ball->collision_width > x &&
-                      ball->y_coord + (Sint32)ball->collision_height > y &&
-                      ball->x_coord < x + (Sint32)paddle->collision_width &&
-                      ball->y_coord < y + (Sint32)paddle->collision_height)
-                    {
-                      ball->x_coord = x + paddle->collision_width;
-                      touched_paddle = paddle;
-                    }
-                }
-            }
-
-          /* does the ball touch a paddle?  */
-          if (NULL != touched_paddle)
-            {
-              touched_paddle->is_hit_ball = true;
+      /* does the ball touch a paddle?  */
+      if (NULL != touched_paddle)
+        {
+          touched_paddle->is_hit_ball = true;
 #ifndef SOUNDISOFF
-              audio->play_sound (handler_audio::BALL_HIT_PADDLE);
+          audio->play_sound (handler_audio::BALL_HIT_PADDLE);
 #endif
-              ball->paddle_touched = touched_paddle;
-              ball->tilt_delay_counter = 0;
-              j = ball->direction;
-              if (j > 64)
-                {
-                  std::cerr <<
-                    "controller_balls::collisions_with_paddles() "
-                    << "(1) ball->direction " << j;
-                  j = 64;
-                }
-              const Sint32 *bounces = touched_paddle->current_bounces;
-              bounces = (Sint32 *) ((char *) bounces + j);
-              j = *bounces;
-              ball->direction = j;
-              if (touched_paddle->sticky_state == sprite_paddle::FREE_STICKY_PADDLE && !touched_paddle->stuck_ball)
-                {
-                  /* ball is sticked on the paddle */
-                  touched_paddle->sticky_state = sprite_paddle::BUSY_STICKY_PADDLE;
-                  touched_paddle->stuck_ball = (sprite_ball *) ball;
-                  ball->stick_paddle = touched_paddle;
-                  /* time of the stick */
-                  ball->start_delay_counter = glue_delay;
-                  ball->sticky_paddle_num = paddle->paddle_number;
-                }
+          ball->paddle_touched = touched_paddle;
+          ball->tilt_delay_counter = 0;
+          j = ball->direction;
+          if (j > 64)
+            {
+              std::cerr <<
+                        "controller_balls::collisions_with_paddles() "
+                        << "(1) ball->direction " << j;
+              j = 64;
+            }
+          const Sint32 *bounces = touched_paddle->current_bounces;
+          bounces = (Sint32 *) ((char *) bounces + j);
+          j = *bounces;
+          ball->direction = j;
+          if (touched_paddle->sticky_state ==
+              sprite_paddle::FREE_STICKY_PADDLE
+              && !touched_paddle->stuck_ball)
+            {
+              /* ball is sticked on the paddle */
+              touched_paddle->sticky_state =
+                sprite_paddle::BUSY_STICKY_PADDLE;
+              touched_paddle->stuck_ball = (sprite_ball *) ball;
+              ball->stick_paddle = touched_paddle;
+              /* time of the stick */
+              ball->start_delay_counter = glue_delay;
+              ball->sticky_paddle_num = paddle->paddle_number;
+            }
         }
     }
 }
@@ -696,15 +698,15 @@ controller_balls::collisions_with_paddle ()
       touched_paddle = NULL;
       x = paddle->x_coord;
       y = paddle->y_coord;
-      if (ball->x_coord + (Sint32)ball->collision_width > x &&
-          ball->y_coord + (Sint32)ball->collision_height > y &&
-          ball->x_coord < x + (Sint32)paddle->collision_width &&
-          ball->y_coord < y + (Sint32)paddle->collision_height)
+      if (ball->x_coord + (Sint32) ball->collision_width > x &&
+          ball->y_coord + (Sint32) ball->collision_height > y &&
+          ball->x_coord < x + (Sint32) paddle->collision_width &&
+          ball->y_coord < y + (Sint32) paddle->collision_height)
         {
           ball->y_coord = y - ball->collision_height;
           touched_paddle = paddle;
         }
-      
+
       /* does the ball touch a paddle */
       if (touched_paddle == NULL)
         {
@@ -752,27 +754,27 @@ controller_balls::collisions_with_robot ()
   const Sint32 *monPT;
   Sint32 j;
   for (Uint32 i = 0; i < max_of_sprites; i++)
-  {
-    sprite_ball *ball = sprites_list[i];
-    if (!ball->is_enabled)
     {
-      continue;
-    }
-    if (ball->x_coord + (Sint32)ball->collision_width > x1 &&
-        ball->y_coord + (Sint32)ball->collision_height > y1 &&
-        ball->x_coord < x2 && ball->y_coord < y2)
-    {
-      ball->y_coord = y1 - ball->collision_height;
-      paddle->is_hit_ball = true;
-      j = ball->direction;
-      monPT = paddle->current_bounces;
-      monPT = (Sint32 *) ((char *) monPT + j);
-      ball->direction = *monPT;
+      sprite_ball *ball = sprites_list[i];
+      if (!ball->is_enabled)
+        {
+          continue;
+        }
+      if (ball->x_coord + (Sint32) ball->collision_width > x1 &&
+          ball->y_coord + (Sint32) ball->collision_height > y1 &&
+          ball->x_coord < x2 && ball->y_coord < y2)
+        {
+          ball->y_coord = y1 - ball->collision_height;
+          paddle->is_hit_ball = true;
+          j = ball->direction;
+          monPT = paddle->current_bounces;
+          monPT = (Sint32 *) ((char *) monPT + j);
+          ball->direction = *monPT;
 #ifndef SOUNDISOFF
-      audio->play_sound (handler_audio::BALL_HIT_PADDLE);
+          audio->play_sound (handler_audio::BALL_HIT_PADDLE);
 #endif
+        }
     }
-  }
 }
 
 /**
@@ -792,70 +794,70 @@ controller_balls::handle_ejectors ()
     ejectors->get_ejector (controller_ejectors::TOP_RIGHT_EJECTOR);
 
   for (Uint32 i = 0; i < max_of_sprites; i++)
-  {
-    sprite_ball *ball = sprites_list[i];
-    if (!ball->is_enabled)
     {
-      continue;
-    }
-    
-   /* the ball is on an ejector */
-    if (ball->ejector_table != NULL)
-      {
-	ball->ejector_delay++;
-	if (ball->ejector_delay >= 200)
-	  {
-	    ball->ejector_delay = 0;
-	    ball->ejector_table = NULL;
-	  }
-	/* time before ejection */
-	else if (ball->ejector_delay == 160)
-	  {
-             ball->direction = ball->ejector_table[random_counter & 0xF];
-	  }
-	continue;
-      }
+      sprite_ball *ball = sprites_list[i];
+      if (!ball->is_enabled)
+        {
+          continue;
+        }
 
-    /*
-     * if not test if a ball is aspired by an ejector
-     */
+      /* the ball is on an ejector */
+      if (ball->ejector_table != NULL)
+        {
+          ball->ejector_delay++;
+          if (ball->ejector_delay >= 200)
+            {
+              ball->ejector_delay = 0;
+              ball->ejector_table = NULL;
+            }
+          /* time before ejection */
+          else if (ball->ejector_delay == 160)
+            {
+              ball->direction = ball->ejector_table[random_counter & 0xF];
+            }
+          continue;
+        }
+
+      /*
+       * if not test if a ball is aspired by an ejector
+       */
       /* top-left */
       if (ball->collision (eject0))
-      {
-        ball->pull (eject0, 10 * resolution, 10 * resolution);
-        ball->set_on_ejector(controller_ejectors::TOP_LEFT_EJECTOR);
-      }
+        {
+          ball->pull (eject0, 10 * resolution, 10 * resolution);
+          ball->set_on_ejector (controller_ejectors::TOP_LEFT_EJECTOR);
+        }
       else
-      {
-        /* top-right */
-        if (ball->collision (eject3))
         {
-          ball->pull (eject3, 5 * resolution,
-              10 * resolution);
-          ball->set_on_ejector(controller_ejectors::TOP_RIGHT_EJECTOR);
-        }
-        else
-        {
-          /* bottom-left */
-          if (ball->collision (eject1))
-          {
-            ball->pull (eject1, 10 * resolution,
-                5 * resolution);
-            ball->set_on_ejector(controller_ejectors::BOTTOM_LEFT_EJECTOR);
-          }
-          else
-          {
-            /* bottom-right */
-            if (ball->collision (eject2))
+          /* top-right */
+          if (ball->collision (eject3))
             {
-              ball->pull (eject2, 5 * resolution,
-                  5 * resolution);
-              ball->set_on_ejector(controller_ejectors::BOTTOM_RIGHT_EJECTOR);
+              ball->pull (eject3, 5 * resolution, 10 * resolution);
+              ball->set_on_ejector (controller_ejectors::TOP_RIGHT_EJECTOR);
             }
-          }
+          else
+            {
+              /* bottom-left */
+              if (ball->collision (eject1))
+                {
+                  ball->pull (eject1, 10 * resolution, 5 * resolution);
+                  ball->
+                  set_on_ejector (controller_ejectors::BOTTOM_LEFT_EJECTOR);
+                }
+              else
+                {
+                  /* bottom-right */
+                  if (ball->collision (eject2))
+                    {
+                      ball->pull (eject2, 5 * resolution, 5 * resolution);
+                      ball->
+                      set_on_ejector (controller_ejectors::
+                                      BOTTOM_RIGHT_EJECTOR);
+                    }
+                }
+            }
         }
-      }
-  }
+    }
 }
 
 /**
@@ -884,7 +886,7 @@ controller_balls::collisions_with_walls ()
       Sint32 *monPT = NULL;
 
       /* collision with the bottom wall, if it's enable */
-      if (is_wall && y > (bottom_ycoord - (Sint32)ball->collision_height))
+      if (is_wall && y > (bottom_ycoord - (Sint32) ball->collision_height))
         {
           monPT = rb7;
         }
@@ -954,54 +956,54 @@ controller_balls::collisions_with_sides ()
     {
       sprite_ball *ball = sprites_list[i];
       if (!ball->is_enabled)
-	{
-	  continue;
-	}
+        {
+          continue;
+        }
       Sint32 x = ball->x_coord;
       Sint32 y = ball->y_coord;
       Sint32 *bounce = NULL;
       if (x < left_xcoord)
-	{
-	  bounce = rb5;
-	  ball->x_coord = left_xcoord;
+        {
+          bounce = rb5;
+          ball->x_coord = left_xcoord;
 #ifndef SOUNDISOFF
-	  audio->play_sound (handler_audio::BALL_HIT_SIDE);
+          audio->play_sound (handler_audio::BALL_HIT_SIDE);
 #endif
-	  ball->last_hited_wall = controller_sides_bricks::LEFT_WALL;
-	}
+          ball->last_hited_wall = controller_sides_bricks::LEFT_WALL;
+        }
       else
-	{
-	  if (x > right_xcoord)
-	    {
-	      bounce = rb1;
-	      ball->x_coord = right_xcoord;
+        {
+          if (x > right_xcoord)
+            {
+              bounce = rb1;
+              ball->x_coord = right_xcoord;
 #ifndef SOUNDISOFF
-	      audio->play_sound (handler_audio::BALL_HIT_SIDE);
+              audio->play_sound (handler_audio::BALL_HIT_SIDE);
 #endif
-	      ball->last_hited_wall = controller_sides_bricks::RIGHT_WALL;
-	    }
-	  else
-	    {
-	      if (y < top_ycoord)
-		{
-		  bounce = rb3;
-		  ball->y_coord = top_ycoord;
+              ball->last_hited_wall = controller_sides_bricks::RIGHT_WALL;
+            }
+          else
+            {
+              if (y < top_ycoord)
+                {
+                  bounce = rb3;
+                  ball->y_coord = top_ycoord;
 #ifndef SOUNDISOFF
-		  audio->play_sound (handler_audio::BALL_HIT_SIDE);
+                  audio->play_sound (handler_audio::BALL_HIT_SIDE);
 #endif
-		  ball->last_hited_wall = controller_sides_bricks::TOP_WALL;
-		}
-	      else
-		{
-		  ball->last_hited_wall = 0;
-		}
-	    }
-	}
+                  ball->last_hited_wall = controller_sides_bricks::TOP_WALL;
+                }
+              else
+                {
+                  ball->last_hited_wall = 0;
+                }
+            }
+        }
       if (bounce != NULL)
-	{
-	  bounce = (Sint32 *) ((char *) bounce + ball->direction);
-	  ball->direction = *bounce;
-	}
+        {
+          bounce = (Sint32 *) ((char *) bounce + ball->direction);
+          ball->direction = *bounce;
+        }
     }
 }
 
@@ -1015,17 +1017,18 @@ controller_balls::prevent_horizontal_blocking ()
     {
       sprite_ball *ball = sprites_list[i];
       if (!ball->is_enabled)
-	{
+        {
           continue;
-	}
+        }
       Sint32 direction = ball->direction;
       if (direction >= 32)
-	{
+        {
           direction -= 32;
-	}
+        }
       if (direction == ball->previous_direction)
         {
-          if (ball->change_direction_count++ > 360 && direction == 0 && ball->last_hited_wall > 0)
+          if (ball->change_direction_count++ > 360 && direction == 0
+              && ball->last_hited_wall > 0)
             {
               if (ball->direction == 32)
                 {
@@ -1045,8 +1048,8 @@ controller_balls::prevent_horizontal_blocking ()
     }
 }
 
-/** 
- * Check for collision balls with bricks 
+/**
+ * Check for collision balls with bricks
  */
 void
 controller_balls::bricks_collision ()
@@ -1087,7 +1090,7 @@ controller_balls::bricks_collision ()
           redraw->ycoord_collision = y;
           x /= brick_width;
           y /= byoff;
-	  /* 16 bricks per lines */
+          /* 16 bricks per lines */
           y *= controller_bricks::MAX_OF_BRICKS_HORIZONTALLY;
           x += y;
           brick_info *brick = (bricks_map + x);
@@ -1096,27 +1099,28 @@ controller_balls::bricks_collision ()
           //if (0 == x)
           if (brick->source_offset == 0)
             {
-	      /* no collision */
+              /* no collision */
               continue;
             }
           redraw->is_gigablitz_destroyed = false;
           redraw->paddle = ball->paddle_touched;
-	  if (!has_background)
-	    {
-	       brick->sprite->touch();
-	    }
+          if (!has_background)
+            {
+              brick->sprite->touch ();
+            }
           //x = x - indestructible; x = x - 25088
           //if (x >= 0)
           if (brick->source_offset >= indestructible)
             {
-              /* 
+              /*
                * indestructible brick touched!
                */
               /* collision with indestructible brick */
               indes_col = true;
               /* indestructible/destructible bricks? */
               //if ((x -= brick_width) > 0)
-              if (brick->source_offset > (Sint32)(indestructible + brick_width))
+              if (brick->source_offset >
+                  (Sint32) (indestructible + brick_width))
                 {
                   if (ball->type == sprite_ball::POWER_2)
                     {
@@ -1128,28 +1132,30 @@ controller_balls::bricks_collision ()
                       redraw->is_background = true;
                       /* clear brick code */
                       brick->source_offset = 0;
-		      /* restore background under brick */
-		      bricks->bricks_redraw_next ();
+                      /* restore background under brick */
+                      bricks->bricks_redraw_next ();
                     }
                   else
                     {
                       //x = 2;
 #ifndef SOUNDISOFF
-                      audio->play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK2);
+                      audio->
+                      play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK2);
 #endif
                     }
                 }
               else
                 {
-		  /* brick's really indestructible */
-                  //x = 1; 
+                  /* brick's really indestructible */
+                  //x = 1;
 #ifndef SOUNDISOFF
-                  audio->play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK1);
+                  audio->
+                  play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK1);
 #endif
                 }
             }
 
-          /* 
+          /*
            * normal brick touched
            */
           else
@@ -1170,12 +1176,13 @@ controller_balls::bricks_collision ()
                 }
               else
                 {
-                  brick->source_offset = brick->source_offset - ball->strength2;
+                  brick->source_offset =
+                    brick->source_offset - ball->strength2;
                   redraw->number = brick->pixel_offset;
                   /* redraw a new brick */
                   redraw->is_background = false;
                 }
-	      bricks->bricks_redraw_next ();
+              bricks->bricks_redraw_next ();
             }
           /* inc. bounce index */
           bounce_index += bounce_inc;
@@ -1189,7 +1196,7 @@ controller_balls::bricks_collision ()
               ball->direction = *rebPT;
             }
         }
-  }
+    }
 }
 
 /**
@@ -1234,13 +1241,13 @@ controller_balls::collisions_with_eyes ()
           if (delta_y == 0)
             {
               if (delta_x < 0)
-               {
+                {
                   ball->direction = 32;
-               }
+                }
               else
-               {
+                {
                   ball->direction = 0;
-               }
+                }
             }
 
           if (delta_y > 0)
@@ -1527,7 +1534,7 @@ controller_balls::add_balls (Uint32 nball)
     }
 }
 
-/** 
+/**
  * Add 3 balls starting from the first enable ball
  */
 void
@@ -1554,7 +1561,7 @@ controller_balls::multi_balls ()
     }
 }
 
-/** 
+/**
  * Transform all the enable balls into balls power 1
  */
 void
@@ -1571,7 +1578,7 @@ controller_balls::set_power_1 ()
     }
 }
 
-/** 
+/**
  * Transform all the enable balls into balls power 2
  */
 void
@@ -1588,7 +1595,7 @@ controller_balls::set_power_2 ()
     }
 }
 
-/** 
+/**
  * Transform all the enable balls into balls size 2 (7*7 or 14*14)
  */
 void
@@ -1706,13 +1713,14 @@ controller_balls::controll_balls ()
  * Check if there remains at least a ball glue
  * @return True if remains at least a ball glue
  */
-bool
-controller_balls::is_sticky_balls_remains ()
+bool controller_balls::is_sticky_balls_remains ()
 {
-  sprite_ball **balls = sprites_list;
+  sprite_ball **
+  balls = sprites_list;
   for (Uint32 i = 0; i < max_of_sprites; i++)
     {
-      sprite_ball *ball = *(balls++);
+      sprite_ball *
+      ball = *(balls++);
       if (ball->sticky_paddle_num > 0)
         {
           return 1;
@@ -1724,46 +1732,67 @@ controller_balls::is_sticky_balls_remains ()
 /*
  * directions of the ball after a rebound on a brick
  */
-Sint32 controller_balls::rb0[16] =
+Sint32
+controller_balls::rb0[16] =
 {
   64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64
 };
+
 /* right rebound */
-Sint32 controller_balls::rb1[16] =
+Sint32
+controller_balls::rb1[16] =
 {
   32, 28, 24, 20, 20, 24, 24, 28, 32, 36, 40, 40, 44, 44, 40, 36
 };
-Sint32 controller_balls::rb2[16] =
+
+Sint32
+controller_balls::rb2[16] =
 {
   48, 36, 40, 44, 32, 44, 24, 28, 32, 36, 40, 44, 48, 48, 44, 40
 };
+
 /* top rebond */
-Sint32 controller_balls::rb3[16] = {
+Sint32
+controller_balls::rb3[16] =
+{
   60, 60, 56, 52, 48, 44, 40, 36, 36, 40, 40, 44, 48, 52, 56, 56
 };
-Sint32 controller_balls::rb4[16] =
+
+Sint32
+controller_balls::rb4[16] =
 {
   0, 4, 8, 0, 0, 52, 56, 60, 48, 52, 56, 44, 48, 52, 56, 60
 };
+
 /* left rebond */
-Sint32 controller_balls::rb5[16] =
+Sint32
+controller_balls::rb5[16] =
 {
   0, 4, 8, 8, 12, 12, 8, 4, 0, 60, 56, 52, 52, 36, 56, 60
 };
-Sint32 controller_balls::rb6[16] = {
+
+Sint32
+controller_balls::rb6[16] =
+{
   0, 4, 8, 12, 16, 20, 24, 12, 16, 12, 8, 4, 0, 4, 8, 60
 };
+
 /* bottom rebond */
-Sint32 controller_balls::rb7[16] =
+Sint32
+controller_balls::rb7[16] =
 {
   4, 8, 12, 12, 16, 20, 20, 24, 28, 28, 24, 20, 16, 12, 8, 4
 };
-Sint32 controller_balls::rb8[16] =
+
+Sint32
+controller_balls::rb8[16] =
 {
   16, 20, 24, 12, 16, 20, 24, 28, 32, 36, 40, 28, 32, 20, 24, 28
 };
+
 Sint32 *
-  controller_balls::brick_jump[15] =
-  { rb1, rb3, rb2, rb5, rb1, rb4, rb3, rb7, rb8, rb2, rb1, rb6, rb7, rb5,
+controller_balls::brick_jump[15] =
+{
+  rb1, rb3, rb2, rb5, rb1, rb4, rb3, rb7, rb8, rb2, rb1, rb6, rb7, rb5,
   rb1
 };
