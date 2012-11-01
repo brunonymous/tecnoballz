@@ -2,7 +2,7 @@
  * @file surface_sdl.cc
  * @brief an drawing surface
  * @created 2007-02-15
- * @date 2012-09-15
+ * @date 2012-11-01
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -125,7 +125,7 @@ char *
 surface_sdl::get_pixel_data (Sint32 xcoord, Sint32 ycoord)
 {
   Sint32 offset = ycoord * surface->pitch + xcoord * bytes_per_pixel;
-  char *data = pixel_data + offset; 
+  char *data = pixel_data + offset;
   return data;
 }
 
@@ -133,7 +133,8 @@ surface_sdl::get_pixel_data (Sint32 xcoord, Sint32 ycoord)
  * Return size of line in bytes
  * @return row size in bytes
  */
-Uint32 surface_sdl::get_row_size ()
+Uint32
+surface_sdl::get_row_size ()
 {
   return surface->pitch;
 }
@@ -144,7 +145,8 @@ Uint32 surface_sdl::get_row_size ()
  * @param ycoord y coordinate in the surface
  * @return offset to the pixel data
  */
-Uint32 surface_sdl::get_offset (Sint32 xcoord, Sint32 ycoord)
+Uint32
+surface_sdl::get_offset (Sint32 xcoord, Sint32 ycoord)
 {
   return ycoord * surface->pitch + xcoord * bytes_per_pixel;
 }
@@ -175,7 +177,8 @@ void
 surface_sdl::clear (Uint32 color, Uint32 xcoord, Uint32 ycoord, Uint32 w,
                     Uint32 h)
 {
-  SDL_Rect rect = { xcoord, ycoord, w, h };
+  SDL_Rect rect =
+  { (Sint16) xcoord, (Sint16) ycoord, (Uint16) w, (Uint16) h };
   SDL_FillRect (surface, &rect, color);
 }
 
@@ -183,7 +186,8 @@ surface_sdl::clear (Uint32 color, Uint32 xcoord, Uint32 ycoord, Uint32 w,
  * Return the width of the surface
  * @return width in pixels
  */
-Uint32 surface_sdl::get_width ()
+Uint32
+surface_sdl::get_width ()
 {
   return surface->w;
 }
@@ -192,7 +196,8 @@ Uint32 surface_sdl::get_width ()
  * Return the height of the surface
  * @return the height of the surface in pixels
  */
-Uint32 surface_sdl::get_height ()
+Uint32
+surface_sdl::get_height ()
 {
   return surface->h;
 }
@@ -202,7 +207,8 @@ Uint32 surface_sdl::get_height ()
  * @param w width of source element in bytes
  * return modulo line
  */
-Uint32 surface_sdl::get_line_modulo (Uint32 w)
+Uint32
+surface_sdl::get_line_modulo (Uint32 w)
 {
   return surface->pitch - w * bytes_per_pixel;
 }
@@ -237,7 +243,7 @@ void
 surface_sdl::blit_to_surface (surface_sdl * dest)
 {
   SDL_Surface *surface_dest = dest->get_surface ();
-  SDL_Rect rect = { 0, 0, surface->w, surface->h };
+  SDL_Rect rect = { 0, 0, (Uint16) surface->w, (Uint16) surface->h };
   if (SDL_BlitSurface (surface, &rect, surface_dest, &rect) < 0)
     {
       std::cerr << "(!)surface_sdl::blit_to_surface() " <<
@@ -258,7 +264,8 @@ surface_sdl::blit_to_surface (surface_sdl * dest, Uint32 xcoord,
                               Uint32 ycoord, Uint32 w, Uint32 h)
 {
   SDL_Surface *surface_dest = dest->get_surface ();
-  SDL_Rect rect = { xcoord, ycoord, w, h };
+  SDL_Rect rect =
+  { (Sint16) xcoord, (Sint16) ycoord, (Uint16) w, (Uint16) h };
   if (SDL_BlitSurface (surface, &rect, surface_dest, &rect) < 0)
     {
       std::cerr << "(!)surface_sdl::blit_to_surface() " <<
@@ -285,8 +292,8 @@ surface_sdl::blit_to_surface (surface_sdl * dest, Uint32 x1, Uint32 y1,
      << ") dest(" << x2 << "," << y2 << ") size(" << w << ", " << h << ")" << std::endl;
    */
   SDL_Surface *dest_surface = dest->get_surface ();
-  SDL_Rect src_rect = { x1, y1, w, h };
-  SDL_Rect dest_rect = { x2, y2, w, h };
+  SDL_Rect src_rect = { (Sint16) x1, (Sint16) y1, (Uint16) w, (Uint16) h };
+  SDL_Rect dest_rect = { (Sint16) x2, (Sint16) y2, (Uint16) w, (Uint16) h };
   if (SDL_BlitSurface (surface, &src_rect, dest_surface, &dest_rect) < 0)
     {
       std::cerr << "(!)surface_sdl::blit_to_surface() " <<
@@ -355,8 +362,8 @@ surface_sdl::blit_surface (surface_sdl * dest, Uint32 x1, Uint32 y1,
      << ") dest(" << x2 << "," << y2 << ") size(" << w << ", " << h << ")" << std::endl;
    */
   SDL_Surface *source_surface = dest->get_surface ();
-  SDL_Rect src_rect = { x1, y1, w, h };
-  SDL_Rect dest_rect = { x2, y2, w, h };
+  SDL_Rect src_rect = { (Sint16) x1, (Sint16) y1, (Uint16) w, (Uint16) h };
+  SDL_Rect dest_rect = { (Sint16) x2, (Sint16) y2, (Uint16) w, (Uint16) h };
   if (SDL_BlitSurface (source_surface, &src_rect, surface, &dest_rect) < 0)
     {
       std::cerr << "(!)surface_sdl::blit_to_surface(x1=" << x1 <<
@@ -418,7 +425,8 @@ surface_sdl::cut_to_surface (surface_sdl * dest, Sint32 xcoord, Sint32 ycoord,
                              Uint32 w, Uint32 h)
 {
   SDL_Surface *surface_dest = dest->get_surface ();
-  SDL_Rect rect = { xcoord, ycoord, w, h };
+  SDL_Rect rect =
+  { (Sint16) xcoord, (Sint16) ycoord, (Uint16) w, (Uint16) h };
   if (1 == bytes_per_pixel)
     {
       SDL_SetPalette (surface_dest, SDL_LOGPAL | SDL_PHYSPAL,
