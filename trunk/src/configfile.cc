@@ -84,7 +84,7 @@ configfile::resetvalue ()
   resolution = 2;
   has_background = false;
   is_verbose = false;
-  handler_display::optionfull = 1;
+  handler_display::optionfull = false; 
   difficulty_level = DIFFICULTY_NORMAL;
   initial_num_of_lifes = 5;
   number_of_players = 1;
@@ -170,7 +170,19 @@ configfile::load ()
             (getenv ("HOME") ? getenv ("HOME") : "."), CONFIG_DIR_NAME);
 #endif
 
+  lispreader *parser = new lispreader();
+
+  sprintf (configname, "%s/%s", config_dir, CONFIG_FILE_NAME);
+  lisp_object_t * root_obj = parser->lisp_read_file (configname);
+  if (root_obj == NULL)
+    {
+       std::cerr << "lispreader::lisp_read_file (" << configname << ") was failed" << std::endl;
+       return;
+    }
+
+
   /* read configuration file from a user directory */       
+  /*
   FILE *pfile = NULL;
   sprintf (configname, "%s/%s", config_dir, CONFIG_FILE_NAME);
   pfile = fopen_data (configname, "r");
@@ -179,10 +191,12 @@ configfile::load ()
       return;
     }
 
+
   lisp_stream_t stream;
   lisp_object_t *root_obj = NULL;
   lisp_stream_init_file (&stream, pfile);
   root_obj = lisp_read (&stream);
+  */
 
   if (root_obj->type == LISP_TYPE_EOF
       || root_obj->type == LISP_TYPE_PARSE_ERROR)
@@ -233,7 +247,8 @@ configfile::load ()
       absolute_mouse_positioning = false;
     }
 
-  /* read window resolution: 1 = 320*240; 2 = 640*480 */
+  
+  // read window resolution: 1 = 320*240; 2 = 640*480 
   Sint32 res = 0;
   if (!reader.read_int ("resolution", &res))
     {
@@ -254,7 +269,7 @@ configfile::load ()
     }
   has_background = false;
 
-  /* read number of lifes from 1 to 9 */
+  // read number of lifes from 1 to 9 
   if (!reader.read_int ("lifes", &initial_num_of_lifes))
     {
       initial_num_of_lifes = 5;
@@ -264,8 +279,8 @@ configfile::load ()
       initial_num_of_lifes = 5;
     }
 
-  /* read difficulty DIFFICULTY_EASY, DIFFICULTY_NORMAL,
-   * DIFFICULTY_MEDIUM or DIFFICULTY_HARD */
+  // read difficulty DIFFICULTY_EASY, DIFFICULTY_NORMAL,
+  // DIFFICULTY_MEDIUM or DIFFICULTY_HARD 
   if (!reader.read_int ("difficulty", &difficulty_level))
     {
       difficulty_level = DIFFICULTY_NORMAL;
@@ -275,7 +290,7 @@ configfile::load ()
       difficulty_level = DIFFICULTY_NORMAL;
     }
 
-  /* read number of players from 1 to 6 */
+  //  read number of players from 1 to 6 
   if (!reader.read_int ("players", &number_of_players))
     {
       number_of_players =  handler_players::MAX_OF_PLAYERS;
@@ -286,7 +301,7 @@ configfile::load ()
       number_of_players = 1;
     }
 
-  /* read players names */
+  // read players names 
   std::string sName (6, ' ');
   char cName[8] = { "......." };
   for (Uint32 i = 0; i < 6; i++)
@@ -298,6 +313,7 @@ configfile::load ()
         }
     }
   lisp_free (root_obj);
+  */
 #ifdef TECNOBALLZ_GP2X
   resolution = 1;
 #endif

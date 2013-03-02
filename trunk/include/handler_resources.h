@@ -2,7 +2,7 @@
  * @file handler_resources.h
  * @brief Handler of the files resources 
  * @created 2004-04-20 
- * @date 2012-09-02
+ * @date 2013-02-23 
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -33,6 +33,7 @@
 class handler_resources:public virtual tecnoballz
   {
   private:
+    static handler_resources *handler_resources_singleton;
     static const char *folderlist[];
     static const char *bitmap_files[];
     static const char *texts_files[];
@@ -96,9 +97,10 @@ class handler_resources:public virtual tecnoballz
   private:
     /** Size last file loaded in memory */
     Uint32 last_filesize_loaded;
+    handler_resources ();
 
   public:
-    handler_resources ();
+    static handler_resources *get_instance ();
     ~handler_resources ();
     char *load_data (Uint32 resource_id);
     char *get_music_filename (Uint32 resource_id);
@@ -108,6 +110,7 @@ class handler_resources:public virtual tecnoballz
     void load_sprites_bitmap (Uint32 resource_id = BITMAP_ALL_SPRITES);
     void release_sprites_bitmap ();
     Uint32 get_filesize_loaded ();
+    char *read_complete_file (const char *filename);
     void load_sinus ();
     char *load_high_score_file ();
     void save_high_score_file (char *buffer, Uint32 size);
@@ -120,6 +123,7 @@ class handler_resources:public virtual tecnoballz
     char *loadfile_with_lang (const char *const filename, Uint32 * const fsize);
     char *load_file (const char *fname);
     char *load_file (const char *fname, Uint32 * fsize);
+    void set_filesize_loaded (Uint32 size);
   };
 
 #endif
