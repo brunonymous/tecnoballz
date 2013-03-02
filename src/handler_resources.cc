@@ -2,7 +2,7 @@
  * @file handler_resources.cc 
  * @brief Handler of the files resources 
  * @created 2004-04-20 
- * @date 2012-08-30 
+ * @date 2012-11-10
  * @copyright 1991-2012 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -30,6 +30,7 @@
 #include "../include/bitmap_data.h"
 #include "../config.h"
 #include <string>
+#include <fstream>
 
 #ifndef DATADIR
 #define DATADIR "/usr/share/games/tecnoballz"
@@ -44,6 +45,9 @@
 #define _S_ISDIR(m) (((m) & _S_IFMT) == _S_IFDIR)
 #endif
 #endif
+
+handler_resources *
+handler_resources::handler_resources_singleton = NULL;
 
 const char * handler_resources::fnamescore = SCOREFILE;
 const char *
@@ -174,6 +178,23 @@ const char * handler_resources::texts_files[] =
  */
 handler_resources::handler_resources ()
 {
+  last_filesize_loaded = 0;
+  set_filesize_loaded(0);
+}
+
+/**
+ * Get the object instance
+ * handler_resources is a singleton
+ * @return the handler_resources object 
+ */
+handler_resources *
+handler_resources::get_instance ()
+{
+  if (NULL == handler_resources_singleton)
+    {
+      handler_resources_singleton = new handler_resources ();
+    }
+  return handler_resources_singleton;
 }
 
 /**
@@ -687,7 +708,7 @@ handler_resources::load_file (const char *fname, Uint32 * fsize)
         << "strerror:" << strerror (errno) << std::endl;
       throw std::ios_base::failure ("(!)handler_resources::load_file() "
                                     "can't read a file!");
-      return 0;
+      return NULL;
     }
 
   /* close the file */
@@ -703,6 +724,51 @@ Uint32
 handler_resources::get_filesize_loaded ()
 {
   return last_filesize_loaded;
+}
+
+
+void
+handler_resources::set_filesize_loaded (Uint32 size)
+{
+  Uint32 i = size;
+  i++;
+  last_filesize_loaded = size;
+}
+
+char*
+handler_resources::read_complete_file (const char* filename )
+{
+  std::ifstream file (filename, std::ios::ate);
+  if (! file.is_open () )
+    {
+      std::cerr << "(!)handler_ressources::read_complete_file()"  
+        "can't open file '" << filename << "'" << std::endl;
+      //throw std::ios_base::failure ("(!)handler_ressources::read_complete_file() can't read a file!");
+      return NULL;
+    }
+  //Uint32 size = (Uint32) file.tellg();
+  std::ifstream::pos_type size = file.tellg();
+  //int filesize = (int)size;
+  //last_filesize_loaded = 1;
+  //last_filesize_loaded = 2;
+  //last_filesize_loaded = size;
+  char *buffer = NULL; 
+  try
+  {
+    buffer = new char[size];
+  }
+  catch (std::bad_alloc &)
+  {
+    file.close();
+    std::cerr << "(!)handler_resources::read_complete_file() " <<
+      "not enough memory to allocate " <<
+      size << " bytes!" << std::endl;
+    throw;
+  }
+  file.seekg (0, std::ios::beg);
+  file.read (buffer, size);
+  file.close();
+  return buffer;
 }
 
 /**

@@ -60,7 +60,7 @@ tecnoballz::first_init (configfile * pConf)
 #else
   random_counter = (Sint32) first_init;
 #endif
-  resources = new handler_resources ();
+  resources = handler_resources::get_instance ();
   high_score = handler_high_score::get_instance ();
   resources->load_sinus ();
 #ifndef SOUNDISOFF
