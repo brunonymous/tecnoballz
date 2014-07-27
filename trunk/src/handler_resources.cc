@@ -2,8 +2,8 @@
  * @file handler_resources.cc 
  * @brief Handler of the files resources 
  * @created 2004-04-20 
- * @date 2012-11-10
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-20 
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -668,7 +668,7 @@ handler_resources::load_file (const char *fname, Uint32 * fsize)
     {
       std::cerr << "(!)handler_resources::load_file() " <<
         "can't open file " << fname
-        << "strerror:" << strerror (errno) << std::endl;
+        << "; error: " << strerror (errno) << std::endl;
       throw std::ios_base::failure ("(!)handler_resources::load_file() "
                                     "can't open a file!");
     }

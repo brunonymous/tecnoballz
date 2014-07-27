@@ -1,9 +1,9 @@
 /**
- * @file lispreader.c 
- * @brief Parse configuration file 
+ * @file lispreader.c
+ * @brief Parse configuration file
  * @created 2007-06-15
- * @date 2012-08-26 
- * @author Mark Probst 
+ * @date 2014-07-27
+ * @author Mark Probst
  * @author Ingo Ruhnke <grumbel@gmx.de>
  * @author Bruno Ethvignot
  */
@@ -30,6 +30,7 @@
  */
 #include "../include/lispreader.h"
 #include "../include/handler_resources.h"
+#include <assert.h>
 
 typedef enum
 {
@@ -86,6 +87,31 @@ static lisp_object_t dot_marker = { LISP_TYPE_PARSE_ERROR, {{0, 0}} };
 //static float lisp_real (lisp_object_t * obj);
 //static Sint32 lisp_type (lisp_object_t * obj);
 //static void lisp_dump (lisp_object_t * obj, FILE * out);
+//
+
+
+/**
+ * Create the lispreader object
+ */
+lispreader::lispreader ()
+{
+  root_obj = NULL;
+  lst = NULL;
+  object_init ();
+}
+
+/**
+ * Create the lispreader object
+ */
+lispreader::~lispreader ()
+{
+  if (root_obj != NULL)
+    {
+      lisp_free (root_obj);
+      root_obj = NULL;
+    }
+  object_free ();
+}
 
 /**
  * Clear the current string
@@ -107,7 +133,7 @@ lispreader::_token_append (char c)
   //assert (token_length < MAX_TOKEN_LENGTH);
   if (token_length >= MAX_TOKEN_LENGTH)
     {
-     throw std::out_of_range("token_length < MAX_TOKEN_LENGTH failed");
+      throw std::out_of_range ("token_length < MAX_TOKEN_LENGTH failed");
     }
   token_string[token_length++] = c;
   token_string[token_length] = '\0';
@@ -127,20 +153,20 @@ lispreader::_next_char (lisp_stream_t * stream)
     case LISP_STREAM_FILE:
       return getc (stream->v.file);
     case LISP_STREAM_STRING:
-      {
-        c = stream->v.string.buf[stream->v.string.pos];
-        if (c == 0)
-          {
-            return EOF;
-          }
-        ++stream->v.string.pos;
-        return c;
-      }
+    {
+      c = stream->v.string.buf[stream->v.string.pos];
+      if (c == 0)
+        {
+          return EOF;
+        }
+      ++stream->v.string.pos;
+      return c;
+    }
     case LISP_STREAM_ANY:
       return stream->v.any.next_char (stream->v.any.data);
     }
   //assert (0);
-  throw std::runtime_error("Bad value for the variable stream->type");
+  throw std::runtime_error ("Bad value for the variable stream->type");
   return EOF;
 }
 
@@ -164,13 +190,13 @@ lispreader::_unget_char (char c, lisp_stream_t * stream)
       stream->v.any.unget_char (c, stream->v.any.data);
       break;
     default:
-      throw std::runtime_error("Bad value for the variable stream->type");
+      throw std::runtime_error ("Bad value for the variable stream->type");
       //assert (0);
     }
 }
 
 /**
- * Scan the configuration file 
+ * Scan the configuration file
  * @input stream A pointer to a lisp_stream_t struture
  * @return A return code
  */
@@ -420,7 +446,7 @@ lispreader::lisp_stream_init_string (lisp_stream_t * stream, char *buf)
 /**
  * Create a integer type
  * @param value A interger value
- * @return A pointer to a lisp_object_t structure 
+ * @return A pointer to a lisp_object_t structure
  */
 lisp_object_t *
 lispreader::lisp_make_integer (Sint32 value)
@@ -433,7 +459,7 @@ lispreader::lisp_make_integer (Sint32 value)
 /**
  * Create a real type
  * @param value A real value
- * @return A pointer to a lisp_object_t structure 
+ * @return A pointer to a lisp_object_t structure
  */
 lisp_object_t *
 lispreader::lisp_make_real (float value)
@@ -446,34 +472,34 @@ lispreader::lisp_make_real (float value)
 /**
  * Create a symbol type
  * @param value
- * @return A pointer to a lisp_object_t structure 
+ * @return A pointer to a lisp_object_t structure
  */
 lisp_object_t *
 lispreader::lisp_make_symbol (const char *value)
 {
   lisp_object_t *obj = lisp_object_alloc (LISP_TYPE_SYMBOL);
-  obj->v.string = strdup(value); 
+  obj->v.string = strdup (value);
   return obj;
 }
 
 /**
  * Create a string type
  * @param value
- * @return A pointer to a lisp_object_t structure 
+ * @return A pointer to a lisp_object_t structure
  */
 lisp_object_t *
 lispreader::lisp_make_string (const char *value)
 {
   lisp_object_t *obj = lisp_object_alloc (LISP_TYPE_STRING);
-  obj->v.string = strdup(value); 
+  obj->v.string = strdup (value);
   return obj;
 }
 
 /**
- * Create a "cons" element 
+ * Create a "cons" element
  * @param car Contents of Address register (first element)
- * @param value cdr (Contents of Decrement register) 
- * @return A pointer to a lisp_object_t structure 
+ * @param value cdr (Contents of Decrement register)
+ * @return A pointer to a lisp_object_t structure
  */
 lisp_object_t *
 lispreader::lisp_make_cons (lisp_object_t * car, lisp_object_t * cdr)
@@ -487,7 +513,7 @@ lispreader::lisp_make_cons (lisp_object_t * car, lisp_object_t * cdr)
 /**
  * Create a boolean type
  * @param value
- * @return A pointer to a lisp_object_t structure 
+ * @return A pointer to a lisp_object_t structure
  */
 lisp_object_t *
 lispreader::lisp_make_boolean (Sint32 value)
@@ -519,7 +545,6 @@ lispreader::lisp_make_pattern_cons (lisp_object_t * car, lisp_object_t * cdr)
 lisp_object_t *
 lispreader::lisp_read (lisp_stream_t * in)
 {
-  lisp_object_t *last, *car;
   Sint32 token = _scan (in);
   lisp_object_t *obj = lisp_nil ();
   if (token == TOKEN_EOF)
@@ -535,64 +560,64 @@ lispreader::lisp_read (lisp_stream_t * in)
       return &end_marker;
     case TOKEN_OPEN_PAREN:
     case TOKEN_PATTERN_OPEN_PAREN:
-      {
-        last = lisp_nil ();
-        do
-          {
-            car = lisp_read (in);
-            if (car == &error_object || car == &end_marker)
-              {
-                lisp_free (obj);
-                return &error_object;
-              }
-            else if (car == &dot_marker)
-              {
-                if (lisp_nil_p (last))
-                  {
-                    lisp_free (obj);
-                    return &error_object;
-                  }
+    {
+      lisp_object_t *last = lisp_nil (), *car;
+      do
+        {
+          car = lisp_read (in);
+          if (car == &error_object || car == &end_marker)
+            {
+              lisp_free (obj);
+              return &error_object;
+            }
+          else if (car == &dot_marker)
+            {
+              if (lisp_nil_p (last))
+                {
+                  lisp_free (obj);
+                  return &error_object;
+                }
 
-                car = lisp_read (in);
-                if (car == &error_object || car == &end_marker)
-                  {
-                    lisp_free (obj);
-                    return car;
-                  }
-                else
-                  {
-                    last->v.cons.cdr = car;
+              car = lisp_read (in);
+              if (car == &error_object || car == &end_marker)
+                {
+                  lisp_free (obj);
+                  return car;
+                }
+              else
+                {
+                  last->v.cons.cdr = car;
 
-                    if (_scan (in) != TOKEN_CLOSE_PAREN)
-                      {
-                        lisp_free (obj);
-                        return &error_object;
-                      }
+                  if (_scan (in) != TOKEN_CLOSE_PAREN)
+                    {
+                      lisp_free (obj);
+                      return &error_object;
+                    }
 
-                    car = &close_paren_marker;
-                  }
-              }
-            else if (car != &close_paren_marker)
-              {
-                if (lisp_nil_p (last))
-                  {
-                    obj = last =
-                      (token ==
-                       TOKEN_OPEN_PAREN ? lisp_make_cons (car,
-                                                          lisp_nil ()) :
-                       lisp_make_pattern_cons (car, lisp_nil ()));
+                  car = &close_paren_marker;
+                }
+            }
+          else if (car != &close_paren_marker)
+            {
+              if (lisp_nil_p (last))
+                {
+                  obj = last =
+                          (token ==
+                           TOKEN_OPEN_PAREN ? lisp_make_cons (car,
+                               lisp_nil ()) :
+                           lisp_make_pattern_cons (car, lisp_nil ()));
 
-                  }
-                else
-                  {
-                    last = last->v.cons.cdr =
-                      lisp_make_cons (car, lisp_nil ());
-                  }
-              }
-          }
-        while (car != &close_paren_marker);
-      }
-      return obj;
+                }
+              else
+                {
+                  last = last->v.cons.cdr =
+                           lisp_make_cons (car, lisp_nil ());
+                }
+            }
+        }
+      while (car != &close_paren_marker);
+    }
+    return obj;
 
     case TOKEN_CLOSE_PAREN:
       return &close_paren_marker;
@@ -620,7 +645,7 @@ lispreader::lisp_read (lisp_stream_t * in)
     }
 
   //assert (0);
-  throw std::runtime_error("Bad value for the variable tocken");
+  throw std::runtime_error ("Bad value for the variable tocken");
   return &error_object;
 }
 
@@ -651,12 +676,12 @@ lispreader::lisp_integer (lisp_object_t * obj)
   //assert (obj->type == LISP_TYPE_INTEGER);
   if (obj->type != LISP_TYPE_INTEGER)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_INTEGER");
+      throw std::runtime_error ("obj->type is not a LISP_TYPE_INTEGER");
     }
   return obj->v.integer;
 }
 
-/** 
+/**
  * Return string of a symbol type
  * @param obj A pointer to a lisp_object_t structure
  * @return A pointer to a string
@@ -667,12 +692,12 @@ lispreader::lisp_symbol (lisp_object_t * obj)
   //assert (obj->type == LISP_TYPE_SYMBOL);
   if (obj->type != LISP_TYPE_SYMBOL)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_SYMBOL");
+      throw std::runtime_error ("obj->type is not a LISP_TYPE_SYMBOL");
     }
   return obj->v.string;
 }
 
-/** 
+/**
  * Return a string of a string object
  * @param obj A pointer to a lisp_object_t structure
  * @return A pointer to a string
@@ -683,12 +708,12 @@ lispreader::lisp_string (lisp_object_t * obj)
   //assert (obj->type == LISP_TYPE_STRING);
   if (obj->type != LISP_TYPE_STRING)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_STRING");
+      throw std::runtime_error ("obj->type is not a LISP_TYPE_STRING");
     }
   return obj->v.string;
 }
 
-/** 
+/**
  * Return value of a boolean object
  * @param obj A pointer to a lisp_object_t structure
  * @return 0 or 1
@@ -699,12 +724,12 @@ lispreader::lisp_boolean (lisp_object_t * obj)
   //assert (obj->type == LISP_TYPE_BOOLEAN);
   if (obj->type != LISP_TYPE_BOOLEAN)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_BOOLEAN");
+      throw std::runtime_error ("obj->type is not a LISP_TYPE_BOOLEAN");
     }
   return obj->v.integer;
 }
 
-/** 
+/**
  * Return float value of a real type
  * @param obj A pointer to a lisp_object_t structure
  * @return A float value
@@ -715,7 +740,8 @@ lispreader::lisp_real (lisp_object_t * obj)
   //assert (obj->type == LISP_TYPE_REAL || obj->type == LISP_TYPE_INTEGER);
   if (obj->type != LISP_TYPE_REAL && obj->type != LISP_TYPE_INTEGER)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_REAL or LISP_TYPE_INTEGER");
+      throw std::runtime_error
+      ("obj->type is not a LISP_TYPE_REAL or LISP_TYPE_INTEGER");
     }
   if (obj->type == LISP_TYPE_INTEGER)
     {
@@ -733,9 +759,11 @@ lisp_object_t *
 lispreader::lisp_car (lisp_object_t * obj)
 {
   //assert (obj->type == LISP_TYPE_CONS || obj->type == LISP_TYPE_PATTERN_CONS);
+  return obj->v.cons.car;
   if (obj->type != LISP_TYPE_CONS && obj->type != LISP_TYPE_PATTERN_CONS)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_CONS or LISP_TYPE_PATTERN_CONS");
+      throw std::runtime_error
+      ("obj->type is not a LISP_TYPE_CONS or LISP_TYPE_PATTERN_CONS");
     }
   return obj->v.cons.car;
 }
@@ -751,12 +779,13 @@ lispreader::lisp_cdr (lisp_object_t * obj)
   //assert (obj->type == LISP_TYPE_CONS || obj->type == LISP_TYPE_PATTERN_CONS);
   if (obj->type != LISP_TYPE_CONS && obj->type != LISP_TYPE_PATTERN_CONS)
     {
-     throw std::runtime_error("obj->type is not a LISP_TYPE_CONS or LISP_TYPE_PATTERN_CONS");
+      throw std::runtime_error
+      ("obj->type is not a LISP_TYPE_CONS or LISP_TYPE_PATTERN_CONS");
     }
   return obj->v.cons.cdr;
 }
 
-/** 
+/**
  * Dump a lisp_object_t structure
  * @param obj A pointer to a lisp_object_t structure
  * @param FILE A output stream
@@ -794,17 +823,17 @@ lispreader::lisp_dump (lisp_object_t * obj, FILE * out)
       break;
 
     case LISP_TYPE_STRING:
-      {
-        fputc ('"', out);
-        for (p = lisp_string (obj); *p != 0; ++p)
-          {
-            if (*p == '"' || *p == '\\')
-              fputc ('\\', out);
-            fputc (*p, out);
-          }
-        fputc ('"', out);
-      }
-      break;
+    {
+      fputc ('"', out);
+      for (p = lisp_string (obj); *p != 0; ++p)
+        {
+          if (*p == '"' || *p == '\\')
+            fputc ('\\', out);
+          fputc (*p, out);
+        }
+      fputc ('"', out);
+    }
+    break;
 
     case LISP_TYPE_CONS:
     case LISP_TYPE_PATTERN_CONS:
@@ -841,7 +870,7 @@ lispreader::lisp_dump (lisp_object_t * obj, FILE * out)
       break;
     default:
       //assert (0);
-      throw std::runtime_error("Bad value for the variable obj->type");
+      throw std::runtime_error ("Bad value for the variable obj->type");
     }
 }
 
@@ -849,10 +878,10 @@ lispreader::lisp_dump (lisp_object_t * obj, FILE * out)
  * Search a attribute name
  * @param lst Pointer to a lisp_object_t
  * @param name String representing the attribute name
- * @return Pointer to a lisp_object_t object 
+ * @return Pointer to a lisp_object_t object
  */
 lisp_object_t *
-lispreader::search_for (lisp_object_t * lst, const char *name)
+lispreader::search_for (const char *name)
 {
   lisp_object_t *cur;
   lisp_object_t *cursor = lst;
@@ -862,7 +891,7 @@ lispreader::search_for (lisp_object_t * lst, const char *name)
       if (!lisp_cons_p (cur) || !lisp_symbol_p (lisp_car (cur)))
         {
           lisp_dump (cur, stdout);
-          std::cerr << "Read error in search" << std::endl;
+          std::cerr << "(!!!) LispReader: Read error in search!" << std::endl;
         }
       else
         {
@@ -882,21 +911,22 @@ lispreader::search_for (lisp_object_t * lst, const char *name)
  * @param lst Pointer to a lisp_object_t
  * @param name String representing the attribute name
  * @param i Pointer to the integer which will contain the value of the
- *          required attribute 
+ *          required attribute
  * @return true if the attribute were correctly found and read, or false
  *         otherwise
  */
 bool
-lispreader::lisp_read_int (lisp_object_t * lst, const char *name, Sint32 * i)
+lispreader::read_int (const char *name, Sint32 * i)
 {
-  lisp_object_t *obj = search_for (lst, name);
+  lisp_object_t *obj = search_for (name);
   if (obj == NULL)
     {
       return false;
     }
   if (!lisp_integer_p (lisp_car (obj)))
     {
-      std::cerr << "(!) LispReader expected type integer at token: " << name << std::endl;
+      std::cerr << "(!) LispReader expected type integer at token: " << name
+                << std::endl;
       return false;
     }
   *i = lisp_integer (lisp_car (obj));
@@ -908,14 +938,14 @@ lispreader::lisp_read_int (lisp_object_t * lst, const char *name, Sint32 * i)
  * @param lst Pointer to a lisp_object_t
  * @param name String representing the attribute name
  * @param i Pointer to the boolean which will contain the value of the
- *          required attribute 
+ *          required attribute
  * @return true if the attribute were correctly found and read, or false
  *         otherwise
  */
 bool
-lispreader::lisp_read_bool (lisp_object_t * lst, const char *name, bool * b)
+lispreader::read_bool (const char *name, bool * b)
 {
-  lisp_object_t *obj = search_for (lst, name);
+  lisp_object_t *obj = search_for (name);
   if (obj == NULL)
     {
       return false;
@@ -923,7 +953,9 @@ lispreader::lisp_read_bool (lisp_object_t * lst, const char *name, bool * b)
 
   if (!lisp_boolean_p (lisp_car (obj)))
     {
-      std::cerr << "LispReader expected type bool at token: " << name << std::endl;
+      std::
+      cerr << "LispReader expected type bool at token: " << name <<
+           std::endl;
       return false;
     }
   *b = lisp_boolean (lisp_car (obj));
@@ -931,18 +963,44 @@ lispreader::lisp_read_bool (lisp_object_t * lst, const char *name, bool * b)
 }
 
 /**
- * Read a string 
+ * Read a string
  * @param lst Pointer to a lisp_object_t
  * @param name String representing the attribute name
  * @param i Pointer to the string which will contain the value of the
- *          required attribute 
+ *          required attribute
  * @return true if the attribute were correctly found and read, or false
  *         otherwise
  */
 bool
-lispreader::lisp_read_string (lisp_object_t * lst, const char *name, char **str)
+lispreader::lisp_read_string (const char *name, char **str)
 {
-  lisp_object_t *obj = search_for (lst, name);
+  lisp_object_t *obj = search_for (name);
+  if (obj == NULL)
+    {
+      return false;
+    }
+  if (!lisp_string_p (lisp_car (obj)))
+    {
+      std::cerr << "expected type real at token: " << name << std::endl;
+      return false;
+    }
+  *str = lisp_string (lisp_car (obj));
+  return true;
+}
+
+/**
+ * Read a string
+ * @param lst Pointer to a lisp_object_t
+ * @param name String representing the attribute name
+ * @param i Pointer to the string which will contain the value of the
+ *          required attribute
+ * @return true if the attribute were correctly found and read, or false
+ *         otherwise
+ */
+bool
+lispreader::read_string (const char *name, std::string * str)
+{
+  lisp_object_t *obj = search_for (name);
   if (obj == NULL)
     {
       return false;
@@ -964,12 +1022,11 @@ lispreader::lisp_read_string (lisp_object_t * lst, const char *name, char **str)
 lisp_object_t *
 lispreader::lisp_read_file (char *filename)
 {
-  lisp_object_t *root_obj;
   lisp_stream_t *stream;
 
   /* read filedata */
   handler_resources *r = handler_resources::get_instance ();
-  char *filedata = r->read_complete_file(filename);
+  char *filedata = r->read_complete_file (filename);
   if (filedata == NULL)
     {
       return NULL;
@@ -981,15 +1038,17 @@ lispreader::lisp_read_file (char *filename)
     }
   catch (std::bad_alloc &)
     {
-      std::cerr << "not enough memmory to allocate 'lisp_stream_t' " << filename << std::endl;
-      delete[] filedata;
+      std::cerr << "not enough memory to allocate 'lisp_stream_t' " << filename
+                << std::endl;
+      delete[]filedata;
       return NULL;
     }
   stream->type = LISP_STREAM_STRING;
   stream->v.string.buf = filedata;
   stream->v.string.pos = 0;
   root_obj = lisp_read (stream);
+  lst = lisp_cdr (root_obj);
   delete stream;
-  delete[] filedata;
+  delete[]filedata;
   return root_obj;
 }

@@ -31,7 +31,7 @@
 #include "../include/handler_display.h"
 
 /**
- * Create the surface surface object
+ * Create the surface object
  */
 surface_sdl::surface_sdl ()
 {

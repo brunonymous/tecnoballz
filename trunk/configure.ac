@@ -11,6 +11,7 @@ enable_devel=yes, enable_devel=no)
 
 # Checks for programs.
 AC_PROG_CXX
+AC_CHECK_LIB(m, sincos)
 
 # Checks for libraries.
 AM_PATH_SDL
