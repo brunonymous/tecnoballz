@@ -1020,13 +1020,13 @@ lispreader::read_string (const char *name, std::string * str)
  * @return A pointer to a lisp_object_t
  */
 lisp_object_t *
-lispreader::lisp_read_file (char *filename)
+lispreader::lisp_read_file (std::string filename)
 {
   lisp_stream_t *stream;
 
   /* read filedata */
   handler_resources *r = handler_resources::get_instance ();
-  char *filedata = r->read_complete_file (filename);
+  char *filedata = r->read_complete_file (filename.c_str());
   if (filedata == NULL)
     {
       return NULL;
