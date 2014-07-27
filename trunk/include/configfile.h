@@ -2,8 +2,8 @@
  * @file configfile.h
  * @brief Config file handler 
  * @created 2005-01-22
- * @date 2012-09-05 
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27 
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -47,16 +47,18 @@
 #else
 #define MKDIR mkdir
 #endif
-#ifdef _WIN32
-#define CONFIG_DIR_NAME "tlkgames"
-#else
-#define CONFIG_DIR_NAME ".tlkgames"
-#endif
-#define CONFIG_FILE_NAME "tecnoballz.conf"
+//#ifdef _WIN32
+//#define CONFIG_DIR_NAME "tlkgames"
+//#else
+//#define CONFIG_DIR_NAME ".tlkgames"
+//#endif
+//#define CONFIG_FILE_NAME "tecnoballz.conf"
 
 class configfile:public virtual tecnoballz
 {
 private:
+  static const std::string CONF_DIR_NAME;
+  static const std::string CONF_FILENAME;
   typedef enum
   {
     LANGUAGE_EN,
@@ -69,8 +71,10 @@ private:
   static const char *language_to_string[MAX_OF_LANGUAGES]; 
   Uint32 language;
   static char stringname[7];
-  char config_dir[512];
-  char configname[512];
+  std::string conf_filename; 
+  std::string conf_dirname; 
+  //char config_dir[512];
+  //char configname[512];
   char thePlayer1[7];
   char thePlayer2[7];
   char thePlayer3[7];
@@ -95,6 +99,7 @@ private:
   bool check_and_create_dir ();
   void resetvalue ();
   FILE *fopen_data (const char *rel_filename, const char *mode);
+  void get_fullpathname ();
 
 };
 #endif

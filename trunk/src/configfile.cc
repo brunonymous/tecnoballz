@@ -1,13 +1,13 @@
-/** 
- * @file configfile.cc 
- * @brief Config file handler 
+/**
+ * @file configfile.cc
+ * @brief Config file handler
  * @created 2005-01-22
- * @date 2014-07-27 
+ * @date 2014-07-27
  * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
+/*
  * copyright (c) 1991-2012 TLK Games all rights reserved
  * $Id$
  *
@@ -43,7 +43,14 @@ configfile::language_to_string[MAX_OF_LANGUAGES] =
   "fr"
 };
 
-/** 
+const
+std::string
+configfile::CONF_DIR_NAME ("tlk-games");
+const
+std::string
+configfile::CONF_FILENAME ("tecnoballz.conf");
+
+/**
  * Create object
  */
 configfile::configfile ()
@@ -84,7 +91,7 @@ configfile::resetvalue ()
   resolution = 2;
   has_background = false;
   is_verbose = false;
-  handler_display::optionfull = false; 
+  handler_display::optionfull = false;
   difficulty_level = DIFFICULTY_NORMAL;
   initial_num_of_lifes = 5;
   number_of_players = 1;
@@ -121,24 +128,23 @@ configfile::configinfo ()
 }
 
 /**
- * Check if config directory exists; if not create it and set config_dir 
+ * Check if config directory exists; if not create it and set config_dir
  */
-bool
-configfile::check_and_create_dir ()
+bool configfile::check_and_create_dir ()
 {
 #ifdef _WIN32
   /* opendir don't exist on windows
    * create directory if not exist */
-  MKDIR (config_dir, S_IRWXU);
+  MKDIR (conf_dirname.c_str (), S_IRWXU);
 #else
   /* test and create .tlkgames */
-  if (!opendir (config_dir))
+  if (!opendir (conf_dirname.c_str ()))
     {
       fprintf (stderr, "couldn't find/open config directory '%s'\n",
-               config_dir);
+               conf_dirname.c_str ());
       fprintf (stderr, "attempting to create it... ");
-      MKDIR (config_dir, S_IRWXU);
-      if (!opendir (config_dir))
+      MKDIR (conf_dirname.c_str (), S_IRWXU);
+      if (!opendir (conf_dirname.c_str ()))
         {
           fprintf (stderr, "failed\n");
           return false;
@@ -153,49 +159,46 @@ configfile::check_and_create_dir ()
 }
 
 /**
+ * Built the full path of the configuration file.
+ */
+void
+configfile::get_fullpathname ()
+{
+  if (!conf_filename.empty ())
+    {
+      return;
+    }
+  if (getenv ("XDG_CONFIG_HOME") != NULL)
+    {
+      conf_dirname = getenv ("XDG_CONFIG_HOME");
+      conf_dirname += "/" + CONF_DIR_NAME;
+    }
+  else
+    {
+      conf_dirname = (getenv ("HOME") ? getenv ("HOME") : ".");
+      conf_dirname += "/.config/" + CONF_DIR_NAME;
+    }
+  conf_filename += conf_dirname + "/" + CONF_FILENAME;
+}
+
+/**
  * Load configuration file in "~/.tlkgames/tecnoballz.conf"
  */
 void
 configfile::load ()
 {
   resetvalue ();
-
-  /* generate user directory name */
-#ifdef _WIN32
-  _snprintf (config_dir, sizeof (config_dir) - 1, "%s/%s",
-             (getenv ("HOME") ? getenv ("HOME") : "."), CONFIG_DIR_NAME);
-#else
-  snprintf (config_dir, sizeof (config_dir) - 1, "%s/%s",
-            (getenv ("HOME") ? getenv ("HOME") : "."), CONFIG_DIR_NAME);
-#endif
-
-  lispreader *parser = new lispreader();
-  sprintf (configname, "%s/%s", config_dir, CONFIG_FILE_NAME);
-  lisp_object_t * root_obj = parser->lisp_read_file (configname);
+  get_fullpathname ();
+  std::cout << conf_filename << std::endl;
+  lispreader *parser = new lispreader ();
+  lisp_object_t *root_obj = parser->lisp_read_file (conf_filename);
   if (root_obj == NULL)
     {
-       std::cerr << "lispreader::lisp_read_file (" << configname << ") was failed" << std::endl;
-       return;
-    }
-
-
-  /* read configuration file from a user directory */       
-  /*
-  FILE *pfile = NULL;
-  sprintf (configname, "%s/%s", config_dir, CONFIG_FILE_NAME);
-  pfile = fopen_data (configname, "r");
-  if (pfile == NULL)
-    {
+      std::
+      cerr << "lispreader::lisp_read_file (" << conf_filename <<
+           ") was failed" << std::endl;
       return;
     }
-
-
-  lisp_stream_t stream;
-  lisp_object_t *root_obj = NULL;
-  lisp_stream_init_file (&stream, pfile);
-  root_obj = lisp_read (&stream);
-  */
-
   if (root_obj->type == LISP_TYPE_EOF
       || root_obj->type == LISP_TYPE_PARSE_ERROR)
     {
@@ -203,14 +206,16 @@ configfile::load ()
       return;
     }
 
-  if (strcmp (parser->lisp_symbol (parser->lisp_car (root_obj)), "tecnoballz-config") != 0)
+  if (strcmp
+      (parser->lisp_symbol (parser->lisp_car (root_obj)),
+       "tecnoballz-config") != 0)
     {
       fprintf (stderr, "configfile::loadconfig() / conf parsing failed\n");
       return;
     }
-  
+
   std::string ptStr;
-  
+
   if (!parser->read_string ("lang", &ptStr))
     {
       language = LANGUAGE_EN;
@@ -246,8 +251,8 @@ configfile::load ()
       absolute_mouse_positioning = false;
     }
 
-  
-  // read window resolution: 1 = 320*240; 2 = 640*480 
+
+  // read window resolution: 1 = 320*240; 2 = 640*480
   Sint32 res = 0;
   if (!parser->read_int ("resolution", &res))
     {
@@ -268,7 +273,7 @@ configfile::load ()
     }
   has_background = false;
 
-  // read number of lifes from 1 to 9 
+  // read number of lifes from 1 to 9
   if (!parser->read_int ("lifes", &initial_num_of_lifes))
     {
       initial_num_of_lifes = 5;
@@ -279,28 +284,29 @@ configfile::load ()
     }
 
   // read difficulty DIFFICULTY_EASY, DIFFICULTY_NORMAL,
-  // DIFFICULTY_MEDIUM or DIFFICULTY_HARD 
+  // DIFFICULTY_MEDIUM or DIFFICULTY_HARD
   if (!parser->read_int ("difficulty", &difficulty_level))
     {
       difficulty_level = DIFFICULTY_NORMAL;
     }
-  if (difficulty_level < DIFFICULTY_EASY || difficulty_level > DIFFICULTY_HARD)
+  if (difficulty_level < DIFFICULTY_EASY
+      || difficulty_level > DIFFICULTY_HARD)
     {
       difficulty_level = DIFFICULTY_NORMAL;
     }
 
-  //  read number of players from 1 to 6 
+  //  read number of players from 1 to 6
   if (!parser->read_int ("players", &number_of_players))
     {
-      number_of_players =  handler_players::MAX_OF_PLAYERS;
+      number_of_players = handler_players::MAX_OF_PLAYERS;
     }
-  if (number_of_players < 1 
-    || number_of_players > (Sint32)handler_players::MAX_OF_PLAYERS)
+  if (number_of_players < 1
+      || number_of_players > (Sint32) handler_players::MAX_OF_PLAYERS)
     {
       number_of_players = 1;
     }
 
-  // read players names 
+  // read players names
   std::string sName (6, ' ');
   char cName[8] = { "......." };
   for (Uint32 i = 0; i < 6; i++)
@@ -311,7 +317,7 @@ configfile::load ()
           strncpy (thePlayers[i], sName.c_str (), 6);
         }
     }
-  //lisp_free (root_obj);
+  delete parser;
 #ifdef TECNOBALLZ_GP2X
   resolution = 1;
 #endif
@@ -320,7 +326,7 @@ configfile::load ()
 /**
  * Return current player name, which read from config file
  * @param playernum Player number from 0 to 5
- * @return Pointer to a player name 
+ * @return Pointer to a player name
  */
 const char *
 configfile::get_player_name (Uint32 playernum)
@@ -354,7 +360,7 @@ configfile::set_player_name (Uint32 playernum, const char *name)
 const char *
 configfile::get_language ()
 {
-    return language_to_string[language];
+  return language_to_string[language];
 }
 
 /**
@@ -373,7 +379,7 @@ configfile::save ()
     {
       return;
     }
-  FILE *config = fopen_data (configname, "w");
+  FILE *config = fopen_data (conf_filename.c_str (), "w");
   if (config)
     {
       fprintf (config, "(tecnoballz-config\n");
@@ -383,7 +389,8 @@ configfile::save ()
                handler_display::optionfull ? "#t" : "#f");
       fprintf (config, "\t(sound %s)\n", audio ? "#t" : "#f");
       fprintf (config, "\t(verbose %s)\n", is_verbose ? "#t" : "#f");
-      fprintf (config, "\t(absolute_mouse %s)\n", absolute_mouse_positioning ? "#t" : "#f");
+      fprintf (config, "\t(absolute_mouse %s)\n",
+               absolute_mouse_positioning ? "#t" : "#f");
       fprintf (config, "\n\t;; window size 1 (low-res) or 2 (high-res):\n");
       fprintf (config, "\t(resolution  %d)\n", resolution);
       fprintf (config,
@@ -396,9 +403,10 @@ configfile::save ()
       fprintf (config, "\n\t;; players names\n");
       for (Uint32 i = 0; i < handler_players::MAX_OF_PLAYERS; i++)
         {
-          fprintf (config, "\t(player%i      \"%s\")\n", i + 1, thePlayers[i]);
+          fprintf (config, "\t(player%i      \"%s\")\n", i + 1,
+                   thePlayers[i]);
         }
-     fprintf (config, "\n\t;; language en or fr\n");
+      fprintf (config, "\n\t;; language en or fr\n");
       fprintf (config, "\t(lang      ");
       switch (language)
         {
@@ -413,7 +421,7 @@ configfile::save ()
     }
 }
 
-/** 
+/**
  * Open a file
  * @param fname
  * @param fmode
@@ -440,14 +448,13 @@ configfile::fopen_data (const char *fname, const char *fmode)
   return (fi);
 }
 
-/** 
+/**
  * Scan command line arguments
  * @param arg_count the number of arguments
  * @param arg_values he command line arguments
- * @return FALSE if exit, TRUE otherwise 
+ * @return FALSE if exit, TRUE otherwise
  */
-Sint32
-configfile::scan_arguments (Sint32 arg_count, char **arg_values)
+Sint32 configfile::scan_arguments (Sint32 arg_count, char **arg_values)
 {
   Sint32 i;
   for (i = 1; i < arg_count; i++)
@@ -457,8 +464,7 @@ configfile::scan_arguments (Sint32 arg_count, char **arg_values)
           continue;
         }
 
-      if (!strcmp (arg_values[i], "-h") ||
-          !strcmp (arg_values[i], "--help"))
+      if (!strcmp (arg_values[i], "-h") || !strcmp (arg_values[i], "--help"))
         {
           printf ("\noptions:\n");
           printf ("-h, --help     print Help (this message) and exit\n");
@@ -468,7 +474,7 @@ configfile::scan_arguments (Sint32 arg_count, char **arg_values)
           printf ("--verbose      verbose mode\n");
           printf ("--nosound      force no sound\n");
           printf
-            ("--------------------------------------------------------------\n");
+          ("--------------------------------------------------------------\n");
           printf ("keys recognized during the game:\n");
           printf ("CTRL+S         enable/disable sound\n");
           printf ("CTRL+D         enable/disable music\n");
@@ -486,7 +492,7 @@ configfile::scan_arguments (Sint32 arg_count, char **arg_values)
         {
           printf (TECNOBALLZ_VERSION);
           printf ("\n");
-          printf ("copyright (c) 1991-2012 TLK Games\n");
+          printf ("copyright (c) 1991-2014 TLK Games\n");
           printf ("website: http://linux.tlk.fr/games/TecnoballZ/\n");
           return 0;
         }
@@ -562,4 +568,5 @@ configfile::scan_arguments (Sint32 arg_count, char **arg_values)
   return 1;
 }
 
-char configfile::stringname[7] = "YANIS ";
+char
+configfile::stringname[7] = "YANIS ";

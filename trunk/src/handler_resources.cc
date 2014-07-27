@@ -836,7 +836,7 @@ handler_resources::save_high_score_file (char *buffer, Uint32 size)
   if (fhand == -1)
     {
       fprintf (stderr,
-               "handler_resources::saveScores(): file:%s / error:%s\n",
+               "handler_resources::save_high_score_file(): file:%s / error:%s\n",
                fnamescore, strerror (errno));
     }
   left = size;
@@ -848,8 +848,8 @@ handler_resources::save_high_score_file (char *buffer, Uint32 size)
       bytes_written = write (fhand, buffer + size - left, left);
       if (bytes_written == -1)
         {
-          std::cerr << "(!)handler_resources::saveScores():" <<
-             " filename: " << fnamescore << "; error: " << strerror (errno);  
+          std::cerr << "(!)handler_resources::save_high_score_file():" <<
+             " filename: " << fnamescore << "; error: " << strerror (errno) << std::endl;  
           close (fhand);
           return;
         }
@@ -859,13 +859,13 @@ handler_resources::save_high_score_file (char *buffer, Uint32 size)
   if (close (fhand) == -1)
     {
       fprintf (stderr,
-               "handler_resources::saveScores(): file:%s / error:%s\n",
+               "handler_resources::save_high_score_file(): file:%s / error:%s\n",
                fnamescore, strerror (errno));
     }
   else
     {
       if (is_verbose)
-        fprintf (stdout, "handler_resources::saveScores(): "
+        fprintf (stdout, "handler_resources::save_high_score_file(): "
                  "file:%s size:%i\n", fnamescore, size);
     }
 }

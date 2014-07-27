@@ -106,7 +106,7 @@ public:
   bool read_bool (const char *name, bool * b);
   bool lisp_read_string (const char *name, char **str);
   bool read_string (const char *name, std::string* str);
-  lisp_object_t *lisp_read_file (char *filename);
+  lisp_object_t *lisp_read_file (std::string filename);
   char *lisp_symbol (lisp_object_t * obj);
   lisp_object_t *lisp_car (lisp_object_t * obj);
   lisp_object_t *lisp_cdr (lisp_object_t * obj);

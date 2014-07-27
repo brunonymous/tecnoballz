@@ -2,12 +2,13 @@
 TecnoballZ 0.92+
 Fixes warnings with GCC 4.3 and 4.7.2
 Fix Makefile
-Fix bugs sprites (balls and and gems) are drawn on the right panel.
+Fix bugs (Debian #510492) sprites (balls and and gems) are drawn on the right panel 
 Fixed a segfault caused by a calculation of coordinates of sprites unsigned.
 Fix paddle movment restriction when, or after, control reverse penality 
 (bug fixed by Celelibi Debian bug #510603)
 Updates the code that loads the configuration file.
 Migrating Berlios CVS source repository to Google Code Project hosting Subversion
+Added support for XDG_CONFIG_HOME
 
 2007-11-19
 TecnoballZ 0.92
