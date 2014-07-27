@@ -2,8 +2,8 @@
  * @file main.cc 
  * @brief The main function is where the program starts execution 
  * @created 2002-08-21 
- * @date 2007-10-06
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27 
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */

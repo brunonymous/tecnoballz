@@ -2,15 +2,15 @@
  * @file lispreader.h 
  * @brief Parse configuration file 
  * @created 2007-06-15
- * @date 2012-08-26 
+ * @date 2014-07-27 
  * @author Mark Probst 
  * @author Ingo Ruhnke <grumbel@gmx.de>
- * @author Bruno Ethvignot
+ * @author Bruno Ethvignot <bruno at tlk dot biz>
  */
 /*
  * copyright (c) 1998-2000 Mark Probst
  * copyright (c) 2002 Ingo Ruhnke <grumbel@gmx.de>
- * copyright (c) 2007-2012 TLK Games all rights reserved
+ * copyright (c) 2007-2014 TLK Games all rights reserved
  * $Id$
  *
  * Powermanga is free software; you can redistribute it and/or modify
@@ -64,7 +64,7 @@ class lispreader;
       struct
       {
         void *data;
-          Sint32 (*next_char) (void *data);
+         Sint32 (*next_char) (void *data);
         void (*unget_char) (char c, void *data);
       }
       any;
@@ -100,15 +100,20 @@ class lispreader;
 class lispreader:public virtual tecnoballz
 {
 public:
-  bool lisp_read_int (lisp_object_t * lst, const char *name, Sint32 * i);
-  bool lisp_read_bool (lisp_object_t * lst, const char *name, bool * b);
-  bool lisp_read_string (lisp_object_t * lst, const char *name, char **str);
+  lispreader ();
+  ~lispreader ();
+  bool read_int (const char *name, Sint32 * i);
+  bool read_bool (const char *name, bool * b);
+  bool lisp_read_string (const char *name, char **str);
+  bool read_string (const char *name, std::string* str);
   lisp_object_t *lisp_read_file (char *filename);
   char *lisp_symbol (lisp_object_t * obj);
   lisp_object_t *lisp_car (lisp_object_t * obj);
   lisp_object_t *lisp_cdr (lisp_object_t * obj);
   void lisp_free (lisp_object_t * obj);
 private:
+  lisp_object_t *root_obj;
+  lisp_object_t* lst;
   void _token_clear (void);
   void token_append (char c);
   void _token_append (char c);
@@ -129,7 +134,7 @@ private:
   Sint32 lisp_integer (lisp_object_t * obj);
   char * lisp_string (lisp_object_t * obj);
   Sint32 lisp_boolean (lisp_object_t * obj);
-  lisp_object_t * search_for (lisp_object_t * lst, const char *name);
+  lisp_object_t * search_for (const char *name);
   void lisp_dump (lisp_object_t * obj, FILE * out);
   float lisp_real (lisp_object_t * obj);
 

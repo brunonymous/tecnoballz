@@ -2,8 +2,8 @@
  * @file configfile.cc 
  * @brief Config file handler 
  * @created 2005-01-22
- * @date 2012-09-05 
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27 
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -158,7 +158,6 @@ configfile::check_and_create_dir ()
 void
 configfile::load ()
 {
-  //reset all values
   resetvalue ();
 
   /* generate user directory name */
@@ -171,7 +170,6 @@ configfile::load ()
 #endif
 
   lispreader *parser = new lispreader();
-
   sprintf (configname, "%s/%s", config_dir, CONFIG_FILE_NAME);
   lisp_object_t * root_obj = parser->lisp_read_file (configname);
   if (root_obj == NULL)
@@ -205,15 +203,15 @@ configfile::load ()
       return;
     }
 
-  if (strcmp (lisp_symbol (lisp_car (root_obj)), "tecnoballz-config") != 0)
+  if (strcmp (parser->lisp_symbol (parser->lisp_car (root_obj)), "tecnoballz-config") != 0)
     {
       fprintf (stderr, "configfile::loadconfig() / conf parsing failed\n");
       return;
     }
-  LispReader reader (lisp_cdr (root_obj));
-
+  
   std::string ptStr;
-  if (!reader.read_string ("lang", &ptStr))
+  
+  if (!parser->read_string ("lang", &ptStr))
     {
       language = LANGUAGE_EN;
     }
@@ -228,21 +226,22 @@ configfile::load ()
           language = LANGUAGE_EN;
         }
     }
-  if (!reader.read_bool ("fullscreen", &handler_display::optionfull))
+  //exit(0);
+  if (!parser->read_bool ("fullscreen", &handler_display::optionfull))
     {
       handler_display::optionfull = -1;
     }
 #ifndef SOUNDISOFF
-  if (!reader.read_bool ("sound", &handler_audio::is_audio_enable))
+  if (!parser->read_bool ("sound", &handler_audio::is_audio_enable))
     {
       handler_audio::is_audio_enable = true;
     }
 #endif
-  if (!reader.read_bool ("verbose", &is_verbose))
+  if (!parser->read_bool ("verbose", &is_verbose))
     {
       is_verbose = false;
     }
-  if (!reader.read_bool ("absolute_mouse", &absolute_mouse_positioning))
+  if (!parser->read_bool ("absolute_mouse", &absolute_mouse_positioning))
     {
       absolute_mouse_positioning = false;
     }
@@ -250,7 +249,7 @@ configfile::load ()
   
   // read window resolution: 1 = 320*240; 2 = 640*480 
   Sint32 res = 0;
-  if (!reader.read_int ("resolution", &res))
+  if (!parser->read_int ("resolution", &res))
     {
       res = 2;
     }
@@ -270,7 +269,7 @@ configfile::load ()
   has_background = false;
 
   // read number of lifes from 1 to 9 
-  if (!reader.read_int ("lifes", &initial_num_of_lifes))
+  if (!parser->read_int ("lifes", &initial_num_of_lifes))
     {
       initial_num_of_lifes = 5;
     }
@@ -281,7 +280,7 @@ configfile::load ()
 
   // read difficulty DIFFICULTY_EASY, DIFFICULTY_NORMAL,
   // DIFFICULTY_MEDIUM or DIFFICULTY_HARD 
-  if (!reader.read_int ("difficulty", &difficulty_level))
+  if (!parser->read_int ("difficulty", &difficulty_level))
     {
       difficulty_level = DIFFICULTY_NORMAL;
     }
@@ -291,7 +290,7 @@ configfile::load ()
     }
 
   //  read number of players from 1 to 6 
-  if (!reader.read_int ("players", &number_of_players))
+  if (!parser->read_int ("players", &number_of_players))
     {
       number_of_players =  handler_players::MAX_OF_PLAYERS;
     }
@@ -307,13 +306,12 @@ configfile::load ()
   for (Uint32 i = 0; i < 6; i++)
     {
       sprintf (cName, "player%01d", i + 1);
-      if (reader.read_string (cName, &sName))
+      if (parser->read_string (cName, &sName))
         {
           strncpy (thePlayers[i], sName.c_str (), 6);
         }
     }
-  lisp_free (root_obj);
-  */
+  //lisp_free (root_obj);
 #ifdef TECNOBALLZ_GP2X
   resolution = 1;
 #endif
