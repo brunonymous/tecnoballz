@@ -1,13 +1,13 @@
 /**
  * @file sprite_ball.cc 
  * @brief The ball sprite
- * @date 2007-10-01
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2012 TLK Games all rights reserved
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -358,6 +358,29 @@ sprite_ball::accelerate ()
     {
       velocities = velocities_speed_4;
     }
+}
+
+/**
++ * Check collision beetween a ball and another sprite.
++ * Override sprite_object::collision(sprite_object *).
++ * @param sprite Pointer to a sprite object
++ * @return true if collision occurs, otherwise false
++ */
+bool
+sprite_ball::collision (sprite_object * sprite)
+{
+  Sint32 x1 = previous_x_coord;
+  Sint32 y1 = previous_y_coord;
+  Sint32 x2 = x_coord;
+  Sint32 y2 = y_coord;
+  Sint32 w = collision_width;
+
+  /* Check collision between the four segments made by
+   * the "ball-box" during its motion */
+  return sprite->collision(x1, y1, x2, y2) ||
+         sprite->collision(x1 + w, y1, x2 + w, y2) ||
+         sprite->collision(x1, y1 + w, x2, y2 + w) ||
+         sprite->collision(x1 + w, y1 + w, x2 + w, y2 + w);
 }
 
 /** Collision points of the ball 1 with a brick */

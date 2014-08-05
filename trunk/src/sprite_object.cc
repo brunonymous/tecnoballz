@@ -1,8 +1,8 @@
 /**
 * @file sprite_object.cc 
 * @brief Draw a sprite on the screen 
-* @date 2012-10-07
-* @copyright 1991-2012 TLK Games
+* @date 2014-07-27
+* @copyright 1991-2014 TLK Games
 * @author Bruno Ethvignot
 * @version $Revision$
 */
@@ -1737,6 +1737,83 @@ sprite_object::collision (sprite_object * sprite)
           x2 - (Sint32)collision_width < x1 &&
           y2 + (Sint32)sprite->collision_height > y1 &&
           y2 - (Sint32)collision_height < y1);
+}
+
+/**
+ * Check collision beetween a sprite and a segment
+ * @param sprite Pointer to a sprite object
+ * @return true if collision occurs, otherwise false
+ */
+bool
+sprite_object::collision (Sint32 x1, Sint32 y1, Sint32 x2, Sint32 y2)
+{
+  Sint32 xmin, xmax;
+  Sint32 ymin, ymax;
+
+  /* Swap points for x1 < x2 to be true */
+  if (x1 > x2)
+    {
+      Sint32 tmp = x2;
+      x2 = x1;
+      x1 = tmp;
+
+      tmp = y2;
+      y2 = y1;
+      y1 = tmp;
+    }
+  xmin = x1;
+  xmax = x2;
+
+  if (y1 < y2)
+    {
+      ymin = y1;
+      ymax = y2;
+    }
+  else
+    {
+      ymin = y2;
+      ymax = y1;
+    }
+
+  /* Condition sine qua none */
+  if (!(xmin < x_coord + (Sint32)collision_width &&
+        ymin < y_coord + (Sint32)collision_height &&
+        xmax > x_coord &&
+        ymax > y_coord))
+    {
+      return false;
+    }
+
+  /* Both points are in the "vertical band" */
+  if (xmin > x_coord && xmin < x_coord + (Sint32)collision_width &&
+      xmax > x_coord && xmax < x_coord + (Sint32)collision_width)
+    {
+      return true;
+    }
+
+  /* Check for diagonals and every remaining cases */
+  float alpha = (y2 - y1) / (x2 - x1);
+  Sint32 x0 = -alpha * x1 + y1;
+
+  if (x1 < x_coord)
+    {
+      Sint32 ytest = alpha * x_coord + x0;
+      if (ytest > y_coord && ytest < y_coord + (Sint32)collision_height)
+        {
+          return true;
+        }
+    }
+
+  if (x2 > x_coord + (Sint32)collision_width)
+    {
+      Sint32 ytest = alpha * (x_coord + (Sint32)collision_width) + x0;
+      if (ytest > y_coord && ytest < y_coord + (Sint32)collision_height)
+        {
+          return true;
+        }
+    }
+
+  return false;
 }
 
 /**

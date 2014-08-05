@@ -1,8 +1,8 @@
 /**
  * @file sprite_object.h
  * @brief Draw sprites on the screen 
- * @date 2012-10-07 
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27 
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -388,7 +388,8 @@ class sprite_object:public virtual tecnoballz
     void restore_rectangle_background ();
     void pull (sprite_object * sprite, Sint32 xoffset = 0, Sint32 yoffset = 0);
     void attract (sprite_object * sprite, Sint32 xoffset = 0, Sint32 yoffset = 0);
-    bool collision (sprite_object * sprite);
+    virtual bool collision (sprite_object * sprite);
+    virtual bool collision (Sint32 x1, Sint32 y1, Sint32 x2, Sint32 y2);
     void set_frame_delay (Sint32 delay);
     void set_frame_period (Sint32 period);
     bool play_animation_once ();
