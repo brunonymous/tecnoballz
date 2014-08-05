@@ -1,8 +1,8 @@
 /**
  * @file sprite_ball.h
  * @brief The ball sprite
- * @date 2012-09-15 
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27 
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -84,8 +84,13 @@ class sprite_ball:public sprite_object
     /** Top limit of ball in low-res */
     static const Sint32 Y_MINIMUM = 0;
     /** Bottom limit of ball low-res */
-    static const Sint32 Y_MAXIMUM = 230;
+    static const Sint32 Y_MAXIMUM = 232;
 
+    /** Previous X coordinate */
+    Sint32 previous_x_coord;
+    /** Previous Y coordinate */
+    Sint32 previous_y_coord;
+ 
   private:
     /** Ball direction from 0 to 64 step 4
      * 64 = immobile ball */
@@ -107,9 +112,9 @@ class sprite_ball:public sprite_object
     Sint16 *initial_velocities;
     /** Pointer to the current points of collision with a brick */
     Sint32 *brick_collision_points;
-    /* Strength of ball 1, 2 or 3 to decreasing brick strength */
+    /* Strength of ball 1, 2 or 3 to decrease brick strength */
     Sint32 strength1;
-    /* Strength of ball 32, 64 or 96 to decreasing brick address */
+    /* Strength of ball 32, 64 or 96 to decrease brick address */
     Sint32 strength2;
     /** Time delay before ejection of the ball */
     Sint32 ejector_delay;
@@ -195,6 +200,7 @@ class sprite_ball:public sprite_object
     void set_on_ejector (Uint32 eject_id, Uint32 otime = 1);
     void disable_stick ();
     void accelerate ();
+    virtual bool collision (sprite_object * sprite);
 
   private:
     void set_initial_values (sprite_paddle * paddle);

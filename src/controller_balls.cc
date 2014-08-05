@@ -1,8 +1,8 @@
 /**
  * @file controller_balls.cc
  * @brief Control the balls. Move and collisions
- * @date 2012-11-01
- * @copyright 1991-2012 TLK Games
+ * @date 2014-07-27
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -370,6 +370,9 @@ controller_balls::move_balls ()
         {
           continue;
         }
+      /* save previous position */
+      ball->previous_x_coord = ball->x_coord;
+      ball->previous_y_coord = ball->y_coord;
 
       /*  the ball is not sticked */
       if (ball->sticky_paddle_num == 0)
@@ -934,7 +937,7 @@ controller_balls::collisions_with_walls ()
 }
 
 /**
- * Collisions of the balls with the 3 sides in the guarduans levels
+ * Collisions of the balls with the 3 sides in the guardians levels
  */
 void
 controller_balls::collisions_with_sides ()
