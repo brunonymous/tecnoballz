@@ -2,8 +2,8 @@
  * @file handler_display.cc
  * @briefi Handle displaying and updating with SDL
  * @created 2002-08-17
- * @date 2012-11-01
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-15
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -33,10 +33,8 @@
 
 char
 handler_display::window_title[25] = "TecnoballZ by TLK Games\0";
-bool
-handler_display::optionfull = false;
-bool
-handler_display::optionsync = true;
+bool handler_display::optionfull = false;
+bool handler_display::optionsync = true;
 
 /**
  * Create the object
@@ -69,6 +67,16 @@ handler_display::~handler_display ()
     {
       delete background_screen;
       background_screen = NULL;
+    }
+  if (SDL_WasInit (SDL_INIT_VIDEO) != 0)
+    {
+      if (is_verbose)
+        {
+          std::
+          cout << ">handler_display::~handler_display() SDL_VideoQuit()" <<
+               std::endl;
+        }
+      SDL_VideoQuit ();
     }
   SDL_Quit ();
 }
@@ -166,7 +174,8 @@ handler_display::set_video_mode ()
  * Return the screen's width
  * @return the width of the screen in pixels
  */
-Uint32 handler_display::get_width ()
+Uint32
+handler_display::get_width ()
 {
   return sdl_screen->w;
 }
@@ -175,7 +184,8 @@ Uint32 handler_display::get_width ()
  * Return the screen's height
  * @return the height of the screen in lines
  */
-Uint32 handler_display::get_height ()
+Uint32
+handler_display::get_height ()
 {
   return sdl_screen->h;
 }
@@ -204,7 +214,8 @@ handler_display::unlock_surfaces ()
  * Return the number of bits per pixel
  * @return then number of bits per pixel, 8 for 256 colors
  */
-Uint32 handler_display::get_bits_per_pixel ()
+Uint32
+handler_display::get_bits_per_pixel ()
 {
   return bitspixels;
 }
@@ -356,13 +367,11 @@ handler_display::wait_frame ()
  * Return tne number of frames per second
  * @return the frame frequency
  */
-Uint32 handler_display::get_frames_per_second ()
+Uint32
+handler_display::get_frames_per_second ()
 {
   return frames_per_second;
 }
-
-
-
 
 //------------------------------------------------------------------------------
 // buffer & tampon: convert (x,y) to offset
@@ -370,7 +379,8 @@ Uint32 handler_display::get_frames_per_second ()
 //                      => offsx: x coordinate
 //                      => offsy: y coordinate
 //------------------------------------------------------------------------------
-Sint32 handler_display::ecran_next (Sint32 zbase, Sint32 offsx, Sint32 offsy)
+Sint32
+handler_display::ecran_next (Sint32 zbase, Sint32 offsx, Sint32 offsy)
 {
   return (zbase + offsy * game_screen_pitch + offsx);
 }

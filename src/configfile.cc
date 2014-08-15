@@ -138,22 +138,21 @@ bool configfile::check_and_create_dir ()
   MKDIR (conf_dirname.c_str (), S_IRWXU);
 #else
   /* test and create .tlkgames */
-  if (!opendir (conf_dirname.c_str ()))
+  DIR* dp = opendir (conf_dirname.c_str ());
+  if (!dp)
     {
       fprintf (stderr, "couldn't find/open config directory '%s'\n",
                conf_dirname.c_str ());
       fprintf (stderr, "attempting to create it... ");
       MKDIR (conf_dirname.c_str (), S_IRWXU);
-      if (!opendir (conf_dirname.c_str ()))
+      dp = opendir (conf_dirname.c_str ());
+      if (!dp)
         {
-          fprintf (stderr, "failed\n");
+          fprintf (stderr, "opendir() was failed\n");
           return false;
         }
-      else
-        {
-          fprintf (stderr, "ok\n");
-        }
     }
+  closedir (dp);
 #endif
   return true;
 }

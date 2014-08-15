@@ -2,7 +2,7 @@
  * @file lispreader.c
  * @brief Parse configuration file
  * @created 2007-06-15
- * @date 2014-07-27
+ * @date 2014-08-15
  * @author Mark Probst
  * @author Ingo Ruhnke <grumbel@gmx.de>
  * @author Bruno Ethvignot
@@ -10,7 +10,7 @@
 /*
  * copyright (c) 1998-2000 Mark Probst
  * copyright (c) 2002 Ingo Ruhnke <grumbel@gmx.de>
- * copyright (c) 2007-2012 TLK Games all rights reserved
+ * copyright (c) 2007-2014 TLK Games all rights reserved
  * $Id$
  *
  * Powermanga is free software; you can redistribute it and/or modify
@@ -397,8 +397,8 @@ lispreader::lisp_free (lisp_object_t * obj)
       return;
     case LISP_TYPE_SYMBOL:
     case LISP_TYPE_STRING:
-      //free_memory ((char *) obj->v.string);
-      delete obj->v.string;
+      free ((char *) obj->v.string);
+      //delete [] obj->v.string;
       break;
     case LISP_TYPE_CONS:
     case LISP_TYPE_PATTERN_CONS:
