@@ -2,8 +2,8 @@
  * @file handler_levels.cc
  * @brief Levels handler
  * @created 2004-04-06
- * @date 2012-10-13
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-15
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -551,6 +551,12 @@ handler_levels::~handler_levels ()
     {
       delete[]guardians_levels;
       guardians_levels = NULL;
+    }
+
+  if (NULL != xml_levels)
+    {
+      delete xml_levels;
+      xml_levels = NULL;
     }
 }
 

@@ -2,8 +2,8 @@
  * @file surface_sdl.cc
  * @brief an drawing surface
  * @created 2007-02-15
- * @date 2012-11-01
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-15
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
@@ -53,7 +53,7 @@ surface_sdl::surface_sdl (Uint32 w, Uint32 h, Uint32 depth)
 
 surface_sdl::~surface_sdl ()
 {
-  if (NULL == surface)
+  if (NULL != surface)
     {
       SDL_FreeSurface (surface);
       surface = NULL;
