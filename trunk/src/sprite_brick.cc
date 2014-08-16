@@ -1,14 +1,14 @@
-/** 
+/**
  * @file sprite_brick.cc
- * @brief The sprite of the brick 
+ * @brief The sprite of the brick
  * @created 2007-09-12
- * @date 2007-09-30
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-16
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
- * copyright (c) 1991-2012 TLK Games all rights reserved
+/*
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -36,6 +36,7 @@ sprite_brick::sprite_brick ()
   current_cycling = &sprite_object::cycling_01[0];
   set_draw_method (sprite_object::DRAW_CAPSULE);
   clear_sprite_members ();
+  original_color = current_color = 239;
 }
 
 /**
@@ -49,24 +50,23 @@ sprite_brick::~sprite_brick ()
  * Set the brick color
  * @param color Palette index from 239 to 255
  */
-void 
-sprite_brick::set_color (Uint32 color) 
+void
+sprite_brick::set_color (Uint32 color)
 {
   original_color = current_color = color;
 }
 
-void 
+void
 sprite_brick::touch ()
 {
   current_color = original_color + 1;
-  if(current_color > 255)
+  if (current_color > 255)
     {
       current_color = 239;
     }
 }
 
-bool
-sprite_brick::is_cycling()
+bool sprite_brick::is_cycling ()
 {
   if (current_color == original_color)
     {
@@ -81,7 +81,7 @@ sprite_brick::is_cycling()
 /**
  * Change image of brick
  * @param h_pos Brick vertical position in the bricks bitmap
- *              0, 1, 2, 3, 4, 5, 6, 7, or 8  
+ *              0, 1, 2, 3, 4, 5, 6, 7, or 8
  */
 void
 sprite_brick::update_image (Uint32 h_pos)
@@ -90,7 +90,7 @@ sprite_brick::update_image (Uint32 h_pos)
     {
       return;
     }
-  Sint32 index = frame_index - frame_index % 7 + (h_pos >> 1); 
+  Sint32 index = frame_index - frame_index % 7 + (h_pos >> 1);
   set_image (index);
 }
 
@@ -103,13 +103,13 @@ sprite_brick::draw ()
     {
       return;
     }
-  Uint32 color = current_color; 
+  Uint32 color = current_color;
   if (color != original_color)
     {
-      if(++current_color > 255)
-	{
-	  current_color = 239;
-	}
+      if (++current_color > 255)
+        {
+          current_color = 239;
+        }
     }
 
   char *screen = game_screen->get_pixel_data (x_coord, y_coord);
@@ -141,6 +141,3 @@ sprite_brick::draw ()
         }
     }
 }
-
-
-
