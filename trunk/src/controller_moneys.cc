@@ -1,13 +1,13 @@
-/** 
- * @file controller_moneys.cc 
- * @brief Moneys controller 
- * @date 2007-10-17
- * @copyright 1991-2012 TLK Games
+/**
+ * @file controller_moneys.cc
+ * @brief Moneys controller
+ * @date 2014-08-16
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
- * copyright (c) 1991-2012 TLK Games all rights reserved
+/*
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 #include "../include/controller_moneys.h"
 
 /**
- * Create the moneys controller 
+ * Create the moneys controller
  */
 controller_moneys::controller_moneys ()
 {
@@ -37,19 +37,20 @@ controller_moneys::controller_moneys ()
   max_of_sprites = 6;
   sprites_have_shades = true;
   sprite_type_id = sprite_object::MONEY;
+  delay_count = 0;
 }
 
 /**
- * Release the moneys controller 
+ * Release the moneys controller
  */
 controller_moneys::~controller_moneys ()
 {
   release_sprites_list ();
 }
 
-/** 
+/**
  * Initialize the moneys sprites in the bricks levels
- * @param delay time delay before sending a new money capsule 
+ * @param delay time delay before sending a new money capsule
  * @param score
  * @param money
  */
@@ -68,8 +69,8 @@ controller_moneys::initialize (Uint32 delay, right_panel_score * score,
 }
 
 /**
- * Send a money capsule from a brick 
- * @param briPT a pointer to the brick which touched by a ball 
+ * Send a money capsule from a brick
+ * @param briPT a pointer to the brick which touched by a ball
  */
 void
 controller_moneys::send_money_from_brick (brick_redraw * briPT)
@@ -124,9 +125,9 @@ controller_moneys::send_money (sprite_projectile * blast)
     }
 }
 
-/** 
+/**
  * Move money capsules and check collision with the paddles
- * in bricks levels 
+ * in bricks levels
  */
 void
 controller_moneys::move ()
@@ -144,9 +145,9 @@ controller_moneys::move ()
     }
 }
 
-/** 
+/**
  * Initialize the moneys sprites in the guardians levels
- * @param delay time delay before sending a new money capsule 
+ * @param delay time delay before sending a new money capsule
  */
 void
 controller_moneys::initialize (Uint32 delay, controller_indicators * money)
@@ -182,9 +183,9 @@ controller_moneys::send_money_from_guardian (sprite_ball * ball)
     }
 }
 
-/** 
+/**
  * Move money capsules and check collision with the paddle
- * in guardians levels 
+ * in guardians levels
  */
 void
 controller_moneys::move_bottom ()
@@ -193,7 +194,7 @@ controller_moneys::move_bottom ()
     {
       sprite_money *money = sprites_list[i];
       money->play_animation_loop ();
-      Uint32 amount  = money->move_bottom ();
+      Uint32 amount = money->move_bottom ();
       if (amount > 0)
         {
           ptPrntmney->increase_money_amount (amount);

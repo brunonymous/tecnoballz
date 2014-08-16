@@ -1,14 +1,14 @@
-/** 
- * @file tilesmap_scrolling.cc 
+/**
+ * @file tilesmap_scrolling.cc
  * @brief Vertical scrolling tiles map in the main menu
  *        and the guardians levels
- * @date 2007-04-10
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-16
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
- * copyright (c) 1991-2012 TLK Games all rights reserved
+/*
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -39,7 +39,7 @@ tilesmap_scrolling::tilesmap_scrolling ()
   tiles_bitmap = (bitmap_data *) NULL;
   tile_width = 16 * resolution;
   tile_height = 16 * resolution;
-  map_width = MAP_WIDTH; 
+  map_width = MAP_WIDTH;
   is_40_columns = false;
 }
 
@@ -49,10 +49,10 @@ tilesmap_scrolling::tilesmap_scrolling ()
 tilesmap_scrolling::~tilesmap_scrolling ()
 {
   if (NULL != tiles_bitmap)
-  {
-    delete tiles_bitmap;
-    tiles_bitmap = NULL;
-  }
+    {
+      delete tiles_bitmap;
+      tiles_bitmap = NULL;
+    }
   if (NULL != map_tiles)
     {
       delete[]map_tiles;
@@ -63,7 +63,7 @@ tilesmap_scrolling::~tilesmap_scrolling ()
   object_free ();
 }
 
-/** 
+/**
  * Return bitmap object
  * @return a pointer to the bitmap which contains all tiles
  */
@@ -76,15 +76,14 @@ tilesmap_scrolling::get_bitmap ()
 /**
  * Perform some initializations
  * @param pal_id palette number identifier
- * @param map_id map number identifier 
+ * @param map_id map number identifier
  */
 void
 tilesmap_scrolling::initialize (Uint32 pal_id, Uint32 map_id)
 {
   if (is_verbose)
     {
-      std::cout << ">tilesmap_scrolling::initialise() Start!"
-        << std::endl;
+      std::cout << ">tilesmap_scrolling::initialise() Start!" << std::endl;
     }
   if (1 == resolution)
     {
@@ -92,12 +91,12 @@ tilesmap_scrolling::initialize (Uint32 pal_id, Uint32 map_id)
     }
   else
     {
-       is_40_columns = true;
+      is_40_columns = true;
     }
-  
+
   /* load the bitmap of tiles im memory */
   tiles_bitmap = new bitmap_data ();
-  if (!is_40_columns) 
+  if (!is_40_columns)
     {
       tiles_bitmap->load (handler_resources::BITMAP_TILESMAP);
     }
@@ -105,8 +104,9 @@ tilesmap_scrolling::initialize (Uint32 pal_id, Uint32 map_id)
     {
       tile_width = 16;
       tile_height = 16;
-      map_width = MAP_WIDTH * 2; 
-      char *pathname = resources->get_filename (handler_resources::BITMAP_TILESMAP, 1);
+      map_width = MAP_WIDTH * 2;
+      char *pathname =
+        resources->get_filename (handler_resources::BITMAP_TILESMAP, 1);
       tiles_bitmap->load (pathname);
     }
   tileset_width = tiles_bitmap->get_width () / tile_width;
@@ -119,7 +119,7 @@ tilesmap_scrolling::initialize (Uint32 pal_id, Uint32 map_id)
   if (is_verbose)
     {
       std::cout << "tilesmap_scrolling::initialise() tile_width:" <<
-        tile_width << "; tiles_per_row:" << tiles_per_row << std::endl;
+                tile_width << "; tiles_per_row:" << tiles_per_row << std::endl;
     }
   y_coord = 0;
 
@@ -131,8 +131,7 @@ tilesmap_scrolling::initialize (Uint32 pal_id, Uint32 map_id)
 
   if (is_verbose)
     {
-      std::cout << ">tilesmap_scrolling::initialise() End!"
-        << std::endl;
+      std::cout << ">tilesmap_scrolling::initialise() End!" << std::endl;
     }
 }
 
@@ -140,8 +139,7 @@ tilesmap_scrolling::initialize (Uint32 pal_id, Uint32 map_id)
  * Return width of a tile in pixels
  * @return width of a tile in pixels
  */
-Uint32
-tilesmap_scrolling::get_tiles_width ()
+Uint32 tilesmap_scrolling::get_tiles_width ()
 {
   return tile_width;
 }
@@ -150,18 +148,16 @@ tilesmap_scrolling::get_tiles_width ()
  * Return y coordinate in the map
  * @return top left map coordinate
  */
-Sint32
-tilesmap_scrolling::get_y_coord ()
+Sint32 tilesmap_scrolling::get_y_coord ()
 {
   return y_coord;
 }
 
 /**
  * Return number of tiles per row in the map
- * @return number of tiles per row  
+ * @return number of tiles per row
  */
-Uint32
-tilesmap_scrolling::get_map_width()
+Uint32 tilesmap_scrolling::get_map_width ()
 {
   return map_width;
 }
@@ -169,8 +165,8 @@ tilesmap_scrolling::get_map_width()
 /*
  * Load a new map
  * @param pal_id palette number identifier
- * @param map_id map number identifier 
- */ 
+ * @param map_id map number identifier
+ */
 void
 tilesmap_scrolling::switch_map (Uint32 pal_id, Uint32 map_id)
 {
@@ -185,7 +181,7 @@ tilesmap_scrolling::switch_map (Uint32 pal_id, Uint32 map_id)
   y_coord = 0;
 }
 
-/** 
+/**
  * Initialize color palette
  * @param pal_id palette number identifier
  */
@@ -263,7 +259,7 @@ tilesmap_scrolling::scroll (Sint32 index)
   draw ();
 }
 
-/** 
+/**
  * Draw all tiles map
  */
 void
@@ -277,11 +273,11 @@ tilesmap_scrolling::draw ()
   /* calculate the height of the tiles of the first line */
   Uint32 modulo_y = y_coord % tile_height;
   Uint32 first_height = tile_height - modulo_y;
-  /* calculate the height of the tiles of the last line, 
+  /* calculate the height of the tiles of the last line,
    * zero value is * possible */
   Uint32 last_height = (height_box - first_height) % tile_height;
-  SDL_Rect rect_src;
-  SDL_Rect rect_dst;
+  SDL_Rect rect_src = { 0, 0, 0, 0 };
+  SDL_Rect rect_dst = { 0, 0, 0, 0 };
   rect_dst.y = voffset;
   Uint32 vcount = (height_box - first_height) / tile_height + 1;
   rect_src.w = rect_dst.w = tile_width;
@@ -309,22 +305,22 @@ tilesmap_scrolling::draw ()
                 }
               else
                 {
-                 continue;
+                  continue;
                 }
             }
         }
       rect_dst.x = 0;
       for (Uint32 h = 0; h < tiles_per_row; h++)
         {
-           Uint32 offset = *(map++); 
-           rect_src.y = offset / tileset_width;
-           rect_src.x = (offset - rect_src.y * tileset_width) * tile_width; 
-           rect_src.y = rect_src.y * tile_height + yoffset;
+          Uint32 offset = *(map++);
+          rect_src.y = offset / tileset_width;
+          rect_src.x = (offset - rect_src.y * tileset_width) * tile_width;
+          rect_src.y = rect_src.y * tile_height + yoffset;
           if (SDL_BlitSurface
               (tiles_surface, &rect_src, screen_surface, &rect_dst) < 0)
             {
               std::cerr << "(!)tilesmap_scrolling::draw_tiles() " <<
-                "SDL_BlitSurface() return " << SDL_GetError () << std::endl;
+                        "SDL_BlitSurface() return " << SDL_GetError () << std::endl;
             }
           rect_dst.x += tile_width;
         }
@@ -339,11 +335,13 @@ tilesmap_scrolling::draw ()
  * @param num_of_lines the number of lines
  * @return a bitmap data object
  */
-bitmap_data*
-tilesmap_scrolling::alloc_brush (Uint16 *map, Uint32 num_of_cols, Uint32 num_of_lines) 
+bitmap_data *
+tilesmap_scrolling::alloc_brush (Uint16 * map, Uint32 num_of_cols,
+                                 Uint32 num_of_lines)
 {
   bitmap_data *brush = new bitmap_data ();
-  brush->create_surface (num_of_cols * tile_width, num_of_lines * tile_height);
+  brush->create_surface (num_of_cols * tile_width,
+                         num_of_lines * tile_height);
   game_screen->set_palette (brush);
   SDL_Surface *brush_surface = brush->get_surface ();
   SDL_Surface *tiles_surface = tiles_bitmap->get_surface ();
@@ -351,10 +349,10 @@ tilesmap_scrolling::alloc_brush (Uint16 *map, Uint32 num_of_cols, Uint32 num_of_
   SDL_Rect rect_dst;
   rect_src.h = rect_dst.h = tile_height;
   rect_src.w = rect_dst.w = tile_width;
-  if (is_verbose) 
+  if (is_verbose)
     {
-       std::cout << "tilesmap_scrolling::alloc_brush num_of_cols:" <<
-         num_of_cols << " num_of_lines:" <<  num_of_lines << std::endl;
+      std::cout << "tilesmap_scrolling::alloc_brush num_of_cols:" <<
+                num_of_cols << " num_of_lines:" << num_of_lines << std::endl;
     }
   rect_dst.y = 0;
   for (Uint32 v = 0; v < num_of_lines; v++)
@@ -362,15 +360,15 @@ tilesmap_scrolling::alloc_brush (Uint16 *map, Uint32 num_of_cols, Uint32 num_of_
       rect_dst.x = 0;
       for (Uint32 h = 0; h < num_of_cols; h++)
         {
-           Uint32 offset = *(map++); 
-           rect_src.y = offset / tileset_width;
-           rect_src.x = (offset - rect_src.y * tileset_width) * tile_width; 
-           rect_src.y = rect_src.y * tile_height;
+          Uint32 offset = *(map++);
+          rect_src.y = offset / tileset_width;
+          rect_src.x = (offset - rect_src.y * tileset_width) * tile_width;
+          rect_src.y = rect_src.y * tile_height;
           if (SDL_BlitSurface
               (tiles_surface, &rect_src, brush_surface, &rect_dst) < 0)
             {
               std::cerr << "(!)tilesmap_scrolling::draw_tiles() " <<
-                "SDL_BlitSurface() return " << SDL_GetError () << std::endl;
+                        "SDL_BlitSurface() return " << SDL_GetError () << std::endl;
             }
           rect_dst.x += tile_width;
         }
@@ -381,7 +379,7 @@ tilesmap_scrolling::alloc_brush (Uint16 *map, Uint32 num_of_cols, Uint32 num_of_
 
 /**
  * load and convert the map file
- * @param map_id map number identifier 
+ * @param map_id map number identifier
  */
 void
 tilesmap_scrolling::load_map (Uint32 map_id)
@@ -426,7 +424,7 @@ tilesmap_scrolling::load_map (Uint32 map_id)
    * size of file: 10,920 bytes <=> 5,460 map tiles
    * number of column: 20
    * number of raw: 273
-   * size of map code: 2 bytes 
+   * size of map code: 2 bytes
    */
   Uint16 *file_data = (Uint16 *) resources->load_data (map_id);
 
@@ -434,18 +432,17 @@ tilesmap_scrolling::load_map (Uint32 map_id)
   Uint32 add_rows = display->get_height () / tile_height * 2;
   Uint32 map_size = (add_rows + MAP_HEIGHT) * map_width;
   try
-  {
-    map_tiles = new Uint16[map_size];
-  }
+    {
+      map_tiles = new Uint16[map_size];
+    }
   catch (std::bad_alloc &)
-  {
-    std::
-      cerr << "(!)tilesmap_scrolling::load_map() "
-      "not enough memory to allocate " <<
-      map_size << " map elements!" << std::endl;
-    throw;
-  }
- 
+    {
+      std::cerr << "(!)tilesmap_scrolling::load_map() "
+                "not enough memory to allocate " <<
+                map_size << " map elements!" << std::endl;
+      throw;
+    }
+
   /* convert "big-endian" to "little-endian" or "big-endian" */
   Sint32 i = 0;
   unsigned char *ptmap = (unsigned char *) file_data;
@@ -473,7 +470,8 @@ tilesmap_scrolling::load_map (Uint32 map_id)
 /**
  *  Tileset colors palettes (16 colors)
  * */
-const unsigned char tilesmap_scrolling::colors_map[48] =
+const unsigned char
+tilesmap_scrolling::colors_map[48] =
 {
   2, 2, 2,
   17, 33, 50,
