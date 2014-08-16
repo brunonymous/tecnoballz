@@ -115,7 +115,7 @@ public:
   static const Uint32 MAX_OF_BRICKS_VERTICALLY = 30;
   /** Maximum number of bricks */
   static const Uint32 MAX_OF_BRICKS = MAX_OF_BRICKS_HORIZONTALLY
-    * (MAX_OF_BRICKS_VERTICALLY + 8);
+    * (MAX_OF_BRICKS_VERTICALLY + 9);
 
 private:
   /** Brick width in pixels in low-res */

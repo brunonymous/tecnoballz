@@ -122,7 +122,7 @@ handler_display::set_video_mode ()
 
   /* initializes SDL */
   if (SDL_Init
-      (SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE | SDL_INIT_AUDIO |
+      (SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE |
        SDL_INIT_JOYSTICK) < 0)
     {
       std::cerr << "!handler_display::set_video_mode() " <<

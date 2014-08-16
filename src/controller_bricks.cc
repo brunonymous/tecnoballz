@@ -2,13 +2,13 @@
  * @file controller_bricks.cc
  * @brief Control the bricks in bricks levels
  * @created 1996-11-13
- * @date 2012-09-08
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-16
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2012 TLK Games all rights reserved
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -120,6 +120,12 @@ controller_bricks::first_init ()
   if (NULL == bricks_map)
     {
       bricks_map = new brick_info[MAX_OF_BRICKS];
+      brick_info *map = bricks_map;
+      for (Uint32 i = 0; i < MAX_OF_BRICKS; i++)
+        {
+          map->source_offset = 0;
+          map++;
+        }
     }
 }
 
@@ -256,8 +262,7 @@ controller_bricks::initialize ()
  * Return the number of bricks in the current level
  * @return number of bricks
  */
-Uint32
-controller_bricks::get_num_of_bricks ()
+Uint32 controller_bricks::get_num_of_bricks ()
 {
   return num_of_bricks;
 }
@@ -624,18 +629,22 @@ controller_bricks::less_bricks ()
  * Display a brick or restore the background under the brick
  * @return true if the update is not finished
  */
-bool
-controller_bricks::update ()
+bool controller_bricks::update ()
 {
 
-  right_panel_score *panel = right_panel_score::get_instance ();
-  controller_capsules *capsules = controller_capsules::get_instance ();
-  controller_moneys *moneys = controller_moneys::get_instance ();
+  right_panel_score *
+  panel = right_panel_score::get_instance ();
+  controller_capsules *
+  capsules = controller_capsules::get_instance ();
+  controller_moneys *
+  moneys = controller_moneys::get_instance ();
 
 
-  brick_redraw *redraw = bricks_redraw + brique_clr;
+  brick_redraw *
+  redraw = bricks_redraw + brique_clr;
   /* offscreen offset for drawing brick */
-  Sint32 adres = redraw->pixel_offset;
+  Sint32
+  adres = redraw->pixel_offset;
   if (0 == adres)
     {
       return false;
@@ -645,7 +654,8 @@ controller_bricks::update ()
   /* index from 0 to 511 */
   brique_clr &= (MAXBRIKCLR - 1);
   redraw->pixel_offset = 0;
-  brick_info *map = redraw->brick_map;
+  brick_info *
+  map = redraw->brick_map;
 
   /*
    * redraw a new brick
@@ -663,7 +673,8 @@ controller_bricks::update ()
         }
       else
         {
-          char *pixels = bitmap_bricks->get_pixel_data ();
+          char *
+          pixels = bitmap_bricks->get_pixel_data ();
           draw_brick (pixels + redraw->number, adres, map->color);
         }
       return true;
@@ -705,12 +716,16 @@ controller_bricks::update ()
   /**
    * restore background
    */
-  Sint32 line2 = offsDestin;
-  Sint32 *desP1 = adr_desti1;
-  Sint32 *desP2 = adr_desti2;
+  Sint32
+  line2 = offsDestin;
+  Sint32 *
+  desP1 = adr_desti1;
+  Sint32 *
+  desP2 = adr_desti2;
   desP1 = (Sint32 *) ((char *) desP1 + adres);
   desP2 = (Sint32 *) ((char *) desP2 + adres);
-  Sint32 *srcPT = map->save_background;
+  Sint32 *
+  srcPT = map->save_background;
 
 
   map->is_displayed = 0;
@@ -728,7 +743,8 @@ controller_bricks::update ()
   /*
    * clear drop shadow (if needed)
    */
-  Sint32 j;
+  Sint32
+  j;
   /* bottom */
   if ((map + offBri_BB)->is_displayed)
     {
@@ -740,7 +756,8 @@ controller_bricks::update ()
       /* there is not bottom brick: (6 lines to clear) */
       j = shadow_offset;
     }
-  Sint32 decal = display->ecran_next (adres, 0, brick_height);
+  Sint32
+  decal = display->ecran_next (adres, 0, brick_height);
   display->clr_shadow (decal, brick_width - shadow_offset, j);
   /* left-bottom */
   if ((map + offBri_BG)->is_displayed)
@@ -883,8 +900,7 @@ controller_bricks::bricks_redraw_next ()
  * Return the width of a brick in pixels
  * @return width of a brick in pixels
  */
-Sint32
-controller_bricks::get_brick_width ()
+Sint32 controller_bricks::get_brick_width ()
 {
   return brick_width;
 }
@@ -894,7 +910,8 @@ controller_bricks::get_brick_width ()
  * @return pixels offset distance from the upper left corner
  *         of the bricks bitmap (25088 in 640x480 resolution)
  */
-Sint32 controller_bricks::get_indestructible_offset ()
+Sint32
+controller_bricks::get_indestructible_offset ()
 {
   return indestructible_offset;
 }
@@ -902,8 +919,7 @@ Sint32 controller_bricks::get_indestructible_offset ()
 //------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------
-Sint32
-controller_bricks::getYOffset ()
+Sint32 controller_bricks::getYOffset ()
 {
   return brkyoffset;
 }

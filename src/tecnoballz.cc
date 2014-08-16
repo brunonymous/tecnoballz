@@ -2,13 +2,13 @@
  * @file tecnoballz.cc
  * @brief Base of all classes, and main static methods of the game
  * @created 2002-08-18
- * @date 2012-10-07
- * @copyright 1991-2012 TLK Games
+ * @date 2014-08-16
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2012 TLK Games all rights reserved
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -63,11 +63,11 @@ tecnoballz::first_init (configfile * pConf)
   resources = handler_resources::get_instance ();
   high_score = handler_high_score::get_instance ();
   resources->load_sinus ();
+  display = new handler_display ();
+  display->initialize ();
 #ifndef SOUNDISOFF
   audio = handler_audio::get_instance ();
 #endif
-  display = new handler_display ();
-  display->initialize ();
   keyboard = handler_keyboard::get_instance ();
   sprites = new list_sprites ();
   sprites->init (400);
@@ -189,16 +189,10 @@ tecnoballz::release_all_objects (configfile * pConf)
 
   if (is_verbose)
     {
-      std::cout << "(x) 5. delete 'handler_high_score' singleton" << std::
-                endl;
+      std::
+      cout << "(x) 5. delete 'handler_high_score' singleton" << std::endl;
     }
   delete high_score;
-
-  if (is_verbose)
-    {
-      std::cout << "(x) 6. delete 'handler_display' singleton" << std::endl;
-    }
-  delete display;
 
 #ifndef SOUNDISOFF
   if (is_verbose)
@@ -207,6 +201,12 @@ tecnoballz::release_all_objects (configfile * pConf)
     }
   delete audio;
 #endif
+
+  if (is_verbose)
+    {
+      std::cout << "(x) 6. delete 'handler_display' singleton" << std::endl;
+    }
+  delete display;
 
   if (is_verbose)
     {
@@ -347,18 +347,12 @@ tecnoballz::big_endian_to_int (Uint32 * ptsrc, Uint32 * ptdes)
 }
 
 
-Sint32
-tecnoballz::arg_jumper = -1;
-bool
-tecnoballz::force_4_colors_tiles = false;
-bool
-tecnoballz::is_verbose = false;
-Uint32
-tecnoballz::objects_counter = 0;
-Sint32
-tecnoballz::random_counter = 0;
-Uint32
-tecnoballz::frame_counter = 0;
+Sint32 tecnoballz::arg_jumper = -1;
+bool tecnoballz::force_4_colors_tiles = false;
+bool tecnoballz::is_verbose = false;
+Uint32 tecnoballz::objects_counter = 0;
+Sint32 tecnoballz::random_counter = 0;
+Uint32 tecnoballz::frame_counter = 0;
 handler_high_score *
 tecnoballz::high_score = NULL;
 handler_resources *
@@ -382,30 +376,20 @@ tecnoballz::table_cosL = NULL;
 Sint16 *
 tecnoballz::table_sinL = NULL;
 
-Uint32
-tecnoballz::current_phase = BRICKS_LEVEL;
-bool
-tecnoballz::is_exit_game = false;
+Uint32 tecnoballz::current_phase = BRICKS_LEVEL;
+bool tecnoballz::is_exit_game = false;
 bitmap_data *
 tecnoballz::sprites_bitmap = NULL;
-bool
-tecnoballz::is_enabled_cheat_mode = false;
-bool
-tecnoballz::birth_flag = 0;
-Sint32
-tecnoballz::difficulty_level = DIFFICULTY_EASY;
-Sint32
-tecnoballz::initial_num_of_lifes = 8;
-Sint32
-tecnoballz::number_of_players = 1;
+bool tecnoballz::is_enabled_cheat_mode = false;
+bool tecnoballz::birth_flag = 0;
+Sint32 tecnoballz::difficulty_level = DIFFICULTY_EASY;
+Sint32 tecnoballz::initial_num_of_lifes = 8;
+Sint32 tecnoballz::number_of_players = 1;
 const char
 tecnoballz::nomprefix[] = PREFIX;
-Uint32
-tecnoballz::resolution = 2;
-bool
-tecnoballz::has_background = false;
-bool
-tecnoballz::absolute_mouse_positioning = false;
+Uint32 tecnoballz::resolution = 2;
+bool tecnoballz::has_background = false;
+bool tecnoballz::absolute_mouse_positioning = false;
 offscreen_surface *
 tecnoballz::game_screen = NULL;
 offscreen_surface *

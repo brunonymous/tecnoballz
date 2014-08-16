@@ -1097,7 +1097,8 @@ controller_balls::bricks_collision ()
           y *= controller_bricks::MAX_OF_BRICKS_HORIZONTALLY;
           x += y;
           brick_info *brick = (bricks_map + x);
-          //x = brick->source_offset;
+          //printf("x: %i; x_coord: %i; y_coord: %i\n", x, ball->x_coord, ball->y_coord); 
+         //x = brick->source_offset;
           /* collision between a ball and a brick? */
           //if (0 == x)
           if (brick->source_offset == 0)
@@ -1109,6 +1110,7 @@ controller_balls::bricks_collision ()
           redraw->paddle = ball->paddle_touched;
           if (!has_background)
             {
+              //printf("x: %i; x_coord: %i; y_coord: %i; brick->sprite: %p\n", x, ball->x_coord, ball->y_coord, (void*)brick->sprite);
               brick->sprite->touch ();
             }
           //x = x - indestructible; x = x - 25088
