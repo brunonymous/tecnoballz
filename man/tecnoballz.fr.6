@@ -1,4 +1,4 @@
-.TH TecnoballZ 6 "TecnoballZ" "2005" "TLK Games"
+.TH TecnoballZ 6 "TecnoballZ" "2014" "TLK Games"
 .SH NAME
 tecnoballz - Un jeu de casse-briques.
 .SH SYNOPSIS
@@ -12,17 +12,32 @@ Entre certains niveaux, vous devrez battre des gardiens pour passer au niveau su
 Lorsque vous passez à une nouvelle zone, un autre côté du jeu s'ouvre.
 Vous pouvez acheter des armes et des bonus entre chaque niveau avec l'argent gagné surant le jeu.
 .SH KEYBINDINGS
-.B Ctrl S
+.B [Barre d'espace]
+Libère la ou les balles.
+.TP
+.B [Ctrl] Gauche
+Actionne le tir.
+.TP
+.B [Alt] Gauche
+Actionne le tir Gigablitz ou le tilt
+.TP
+.B [Ctrl] + [S]
 Active ou désactive le son pendant le jeu.
 .TP 
-. B Ctrl X 
+.B [Ctrl] + [X] 
 Provoque une abadon de partie (Game Over).
 .TP
-.B ESC
+.B [ESC]
 Revient au menu.
 .TP
-.B P
+.B [P]
 Passe le jeu en pause / réactive le jeu.
+.TP
+.B [PAGE SUIVANTE]
+Augmente le volume
+.TP
+.B [PAGE PRÉCÉDENTE]
+Baisse le volume
 .SH OPTIONS
 .P
 .B \--help
@@ -32,23 +47,28 @@ Affiche un court message d'aide.
 Affiche le numéro de version et quelques informations.
 .TP
 .B \--full
-Lance le jeu en plein-écran (Dépend de votre configuration X).
+Lance le jeu en plein-écran.
+.TP
+.B \--window
+Mode fenêtré (Plein écran par défaut)
 .TP
 .B \--320|--640
-Force la résolution du jeu en 320x200 ou en 640x480 (Dépend de votre configuration de X).
+Force la résolution du jeu en 320x200 ou en 640x480.
 .TP
 .B \--verbose
 Affiche beaucoup de messages de debugging à l'écran.
 .TP
-.B \--nosound
-Désactive le son.
+.B \--nosound|--sound
+Désactive ou active le son.
+.TP
+.B \--bg4
+Force l'utilisation des fonds d'écran en quatre couleurs
 .SH COPYRIGHT
-.if n TecnoballZ est sous Copyright (C) 1992-2004 de la société Tlk Games.
+.if n TecnoballZ est sous Copyright (C) 1992-2004 de la société TLK Games.
 .SH AUTHOR
-TLK Games, http://linux.tlk.fr
+TLK Games, http://linux.tlk.fr/games/TecnoballZ/
 .P
-Bruno Ethvignot, developement et portage Linux.
+Bruno Ethvignot, développement et portage sous GNU/Linux
 .P
 Cette page de mannuel a été écrite par Alexis Sukrieh <sukria@sukria.net> 
 pour le système Debian (mais peut être utilisée pour d'autres).  
-

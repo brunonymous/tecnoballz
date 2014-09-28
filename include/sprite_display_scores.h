@@ -3,12 +3,12 @@
  * @brief Sprite wich display text of the score table 
  * @created 2003-04-30 
  * @date 2007-02-18
- * @copyright 1991-2012 TLK Games
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2012 TLK Games all rights reserved
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify

@@ -2,13 +2,13 @@
  * @file configfile.cc
  * @brief Config file handler
  * @created 2005-01-22
- * @date 2014-07-27
+ * @date 2014-09-28
  * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2012 TLK Games all rights reserved
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -469,9 +469,16 @@ Sint32 configfile::scan_arguments (Sint32 arg_count, char **arg_values)
           printf ("-h, --help     print Help (this message) and exit\n");
           printf ("--version      print version information and exit\n");
           printf ("--full         full screen\n");
+          printf ("--window       windowed mode\n");
           printf ("--320          game run in a 320*200 window\n");
+          printf ("--640          game run in a 640*400 window\n");
           printf ("--verbose      verbose mode\n");
+#ifndef SOUNDISOFF
           printf ("--nosound      force no sound\n");
+          printf ("--sound        enable sound\n");
+#endif
+          printf ("--nosync       disable timer\n");  
+          printf ("--bg4          Force using a four-color background\n");  
           printf
           ("--------------------------------------------------------------\n");
           printf ("keys recognized during the game:\n");
