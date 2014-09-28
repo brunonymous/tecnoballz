@@ -3,12 +3,12 @@
  * @brief The sprite of the brick 
  * @created 2007-09-12
  * @date 2007-09-15
- * @copyright 1991-2012 TLK Games
+ * @copyright 1991-2014 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2012 TLK Games all rights reserved
+ * copyright (c) 1991-2014 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
