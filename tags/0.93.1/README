@@ -1,0 +1,33 @@
+A exciting Brick Breaker with 50 levels of game and 11 special levels,
+distributed on the 2 modes of game to give the player a sophisticated system
+of attack weapons with an enormous power of fire that can be build by
+gaining bonuses.  Numerous decors, musics and sounds complete this great
+game. This game was ported from the Commodore Amiga. 
+
+PREREQUISITES
+
+  You need:
+  - A IA-32, x86-64, PowerPC, ARM or SPARC platform
+  - 32 MB RAM and 80 MB swap
+  - Linux 2.x 
+  - SDL 1.2
+  - SDL_mixer
+  - SDL_image
+  - Mikmod
+  - TinyXML
+  - the GCC C++ compiler
+  - GNU make
+
+COMPILING AND INSTALLING
+
+  To install in /usr/local :
+
+       ./bootstrap
+       ./configure
+        make
+        su -c 'make install'
+
+LEGAL
+
+  TecnoballZ is copyright TLK Games 1991-2014 and available under the
+  terms of the GNU General Public License. See COPYING for details.

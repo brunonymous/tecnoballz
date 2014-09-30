@@ -1,0 +1,2 @@
+Builds now correctly with gcc 4.0 (Bruno Ethvignot)
+Automake used (Alexis Sukrieh).

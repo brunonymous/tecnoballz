@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<levels_data>
+
+<!-- zeCourse10 -->
+<capsules>
+<identifier>0</identifier>
+<id>40</id><id>6</id><id>18</id><id>12</id><id>6</id><id>6</id><id>18</id><id>18</id>
+<id>6</id><id>18</id><id>20</id><id>52</id><id>42</id><id>18</id><id>20</id><id>40</id>
+<id>18</id><id>40</id><id>50</id><id>40</id><id>42</id><id>44</id><id>54</id><id>6</id>
+<id>22</id><id>18</id><id>6</id><id>6</id><id>52</id><id>40</id><id>18</id><id>6</id>
+<id>18</id><id>6</id><id>18</id><id>12</id><id>6</id><id>42</id><id>18</id><id>18</id>
+<id>6</id><id>44</id><id>20</id><id>18</id><id>18</id><id>18</id><id>20</id><id>18</id>
+<id>44</id><id>44</id><id>50</id><id>18</id><id>42</id><id>18</id><id>20</id><id>6</id>
+<id>22</id><id>40</id><id>6</id><id>54</id><id>22</id><id>40</id><id>18</id><id>6</id>
+</capsules>
+<!-- zeCourse11 -->
+<capsules>
+<identifier>1</identifier>
+<id>40</id><id>10</id><id>40</id><id>12</id><id>18</id><id>10</id><id>40</id><id>12</id> 
+<id>06</id><id>10</id><id>02</id><id>18</id><id>18</id><id>42</id><id>02</id><id>12</id>
+<id>18</id><id>02</id><id>44</id><id>18</id><id>18</id><id>02</id><id>42</id><id>10</id>
+<id>10</id><id>18</id><id>12</id><id>02</id><id>18</id><id>18</id><id>52</id><id>12</id>
+<id>40</id><id>10</id><id>18</id><id>12</id><id>40</id><id>10</id><id>40</id><id>12</id>
+<id>06</id><id>46</id><id>02</id><id>18</id><id>18</id><id>42</id><id>02</id><id>12</id>
+<id>18</id><id>02</id><id>18</id><id>44</id><id>54</id><id>02</id><id>42</id><id>10</id>
+<id>10</id><id>44</id><id>12</id><id>02</id><id>18</id><id>18</id><id>10</id><id>12</id>
+</capsules>
+
+
+<!-- zeCourse12 -->
+<capsules>
+<identifier>2</identifier>
+<id>40</id><id>26</id><id>42</id><id>18</id><id>02</id><id>26</id><id>18</id><id>18</id>
+<id>06</id><id>52</id><id>02</id><id>42</id><id>18</id><id>16</id><id>02</id><id>18</id>
+<id>40</id><id>02</id><id>18</id><id>14</id><id>10</id><id>02</id><id>20</id><id>10</id>
+<id>10</id><id>18</id><id>10</id><id>02</id><id>26</id><id>18</id><id>10</id><id>10</id>
+<id>18</id><id>26</id><id>10</id><id>18</id><id>02</id><id>26</id><id>54</id><id>44</id>
+<id>06</id><id>46</id><id>02</id><id>10</id><id>44</id><id>16</id><id>02</id><id>44</id>
+<id>40</id><id>02</id><id>40</id><id>14</id><id>10</id><id>02</id><id>20</id><id>10</id>
+<id>10</id><id>18</id><id>10</id><id>02</id><id>26</id><id>40</id><id>10</id><id>10</id>
+</capsules>
+
+<!-- zeCourse20 -->
+<capsules>
+<identifier>3</identifier>
+<id>42</id><id>26</id><id>10</id><id>10</id><id>10</id><id>42</id><id>18</id><id>44</id>
+<id>10</id><id>14</id><id>10</id><id>10</id><id>10</id><id>10</id><id>10</id><id>10</id>
+<id>42</id><id>10</id><id>26</id><id>10</id><id>10</id><id>16</id><id>10</id><id>44</id>
+<id>10</id><id>18</id><id>10</id><id>42</id><id>10</id><id>10</id><id>18</id><id>10</id>
+<id>42</id><id>26</id><id>10</id><id>40</id><id>10</id><id>10</id><id>18</id><id>10</id>
+<id>46</id><id>14</id><id>10</id><id>10</id><id>10</id><id>10</id><id>10</id><id>10</id>
+<id>42</id><id>10</id><id>26</id><id>10</id><id>10</id><id>16</id><id>44</id><id>54</id>
+<id>10</id><id>18</id><id>10</id><id>10</id><id>42</id><id>10</id><id>18</id><id>10</id>
+</capsules>
+
+<!-- zeCourse30 -->
+<capsules>
+<identifier>4</identifier>
+<id>10</id><id>26</id><id>10</id><id>50</id><id>50</id><id>10</id><id>18</id><id>18</id>
+<id>14</id><id>14</id><id>10</id><id>10</id><id>40</id><id>40</id><id>10</id><id>18</id>
+<id>10</id><id>10</id><id>26</id><id>10</id><id>42</id><id>16</id><id>42</id><id>14</id>
+<id>44</id><id>18</id><id>10</id><id>10</id><id>40</id><id>40</id><id>18</id><id>14</id>
+<id>10</id><id>26</id><id>10</id><id>44</id><id>46</id><id>10</id><id>54</id><id>18</id>
+<id>14</id><id>14</id><id>40</id><id>40</id><id>10</id><id>10</id><id>10</id><id>18</id>
+<id>10</id><id>10</id><id>26</id><id>10</id><id>10</id><id>16</id><id>44</id><id>14</id>
+<id>42</id><id>18</id><id>40</id><id>40</id><id>10</id><id>52</id><id>18</id><id>14</id>
+</capsules>
+
+<!-- zeCourse40 -->
+<capsules>
+<identifier>5</identifier>
+<id>10</id><id>26</id><id>26</id><id>20</id><id>42</id><id>44</id><id>20</id><id>10</id>
+<id>44</id><id>14</id><id>26</id><id>10</id><id>40</id><id>40</id><id>10</id><id>10</id>
+<id>10</id><id>10</id><id>26</id><id>10</id><id>52</id><id>16</id><id>10</id><id>10</id>
+<id>10</id><id>20</id><id>26</id><id>10</id><id>40</id><id>40</id><id>20</id><id>10</id>
+<id>10</id><id>26</id><id>26</id><id>20</id><id>52</id><id>50</id><id>20</id><id>54</id>
+<id>44</id><id>14</id><id>26</id><id>10</id><id>40</id><id>40</id><id>46</id><id>10</id>
+<id>10</id><id>10</id><id>26</id><id>10</id><id>42</id><id>16</id><id>10</id><id>50</id>
+<id>10</id><id>20</id><id>26</id><id>10</id><id>40</id><id>40</id><id>20</id><id>10</id>
+</capsules>
+<!-- zeCourse50 -->
+<capsules>
+<identifier>6</identifier>
+<id>42</id><id>26</id><id>26</id><id>10</id><id>10</id><id>10</id><id>20</id><id>44</id>
+<id>10</id><id>14</id><id>26</id><id>10</id><id>10</id><id>10</id><id>20</id><id>10</id>
+<id>42</id><id>10</id><id>26</id><id>10</id><id>50</id><id>14</id><id>20</id><id>44</id>
+<id>46</id><id>18</id><id>26</id><id>10</id><id>10</id><id>10</id><id>20</id><id>14</id>
+<id>10</id><id>26</id><id>26</id><id>10</id><id>50</id><id>10</id><id>20</id><id>54</id>
+<id>10</id><id>14</id><id>26</id><id>10</id><id>52</id><id>10</id><id>20</id><id>10</id>
+<id>10</id><id>10</id><id>26</id><id>10</id><id>10</id><id>14</id><id>20</id><id>44</id>
+<id>10</id><id>18</id><id>26</id><id>10</id><id>52</id><id>10</id><id>20</id><id>14</id>
+</capsules>
+<!-- zeCourse55 -->
+<capsules>
+<identifier>7</identifier>
+<id>14</id><id>26</id><id>26</id><id>10</id><id>16</id><id>10</id><id>20</id><id>14</id>
+<id>10</id><id>14</id><id>26</id><id>42</id><id>52</id><id>44</id><id>20</id><id>10</id>
+<id>14</id><id>10</id><id>26</id><id>44</id><id>18</id><id>14</id><id>20</id><id>10</id>
+<id>10</id><id>18</id><id>26</id><id>42</id><id>52</id><id>10</id><id>20</id><id>14</id>
+<id>14</id><id>26</id><id>26</id><id>10</id><id>16</id><id>10</id><id>20</id><id>54</id>
+<id>46</id><id>14</id><id>26</id><id>42</id><id>42</id><id>44</id><id>20</id><id>10</id>
+<id>14</id><id>10</id><id>26</id><id>44</id><id>18</id><id>14</id><id>20</id><id>50</id>
+<id>50</id><id>18</id><id>26</id><id>42</id><id>42</id><id>10</id><id>20</id><id>14</id>
+</capsules>
+<!-- zeCourseXX -->
+<!-- list of capsules reserved for all guardians levels -->
+<capsules>
+<identifier>8</identifier>
+<id>04</id><id>22</id><id>20</id><id>24</id><id>20</id><id>20</id><id>04</id><id>20</id>
+<id>20</id><id>04</id><id>20</id><id>24</id><id>20</id><id>04</id><id>22</id><id>04</id>
+<id>20</id><id>22</id><id>04</id><id>16</id><id>04</id><id>24</id><id>22</id><id>20</id>
+<id>20</id><id>22</id><id>20</id><id>04</id><id>24</id><id>20</id><id>22</id><id>20</id>
+<id>04</id><id>22</id><id>20</id><id>24</id><id>20</id><id>20</id><id>04</id><id>20</id>
+<id>20</id><id>04</id><id>20</id><id>24</id><id>20</id><id>04</id><id>22</id><id>04</id>
+<id>20</id><id>22</id><id>04</id><id>16</id><id>04</id><id>24</id><id>22</id><id>20</id>
+<id>20</id><id>22</id><id>20</id><id>04</id><id>24</id><id>20</id><id>22</id><id>20</id>
+</capsules>
+
+<!-- amigaTab10 -->
+<!-- area 1; level 1 -->
+<bricks_level>
+  <id>0</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>45</appearance>
+    <appearance>35</appearance>
+    <appearance>10</appearance>
+    <reappearance>80</reappearance>
+    <strength>1</strength>
+  </ships>
+  <penalties_frequency>8</penalties_frequency>
+  <moneys_frequency>2</moneys_frequency>  
+  <penalties_list_id>0</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>99</acceleration_delay>
+  <ball_release_time>20</ball_release_time>
+  <glue_time>50</glue_time>
+  <tilt_delay>7</tilt_delay>
+</bricks_level>
+
+<!-- amigaTab11 -->
+<!-- area 1; level from 2 to 5 -->
+<bricks_level>
+  <id>1</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>45</appearance>
+    <appearance>25</appearance>
+    <appearance>12</appearance>
+    <reappearance>80</reappearance>
+    <strength>1</strength>
+  </ships>
+  <penalties_frequency>15</penalties_frequency>
+  <moneys_frequency>5</moneys_frequency>  
+  <penalties_list_id>1</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>77</acceleration_delay>
+  <ball_release_time>15</ball_release_time>
+  <glue_time>40</glue_time>
+  <tilt_delay>7</tilt_delay>
+</bricks_level>
+
+<!-- amigaTab12 -->
+<!-- area 1; level from 6 to 11 -->
+<bricks_level>
+  <id>2</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>35</appearance>
+    <appearance>25</appearance>
+    <appearance>12</appearance>
+    <reappearance>70</reappearance>
+    <strength>1</strength>
+  </ships>
+  <penalties_frequency>17</penalties_frequency>
+  <moneys_frequency>6</moneys_frequency>  
+  <penalties_list_id>2</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>67</acceleration_delay>
+  <ball_release_time>10</ball_release_time>
+  <glue_time>30</glue_time>
+  <tilt_delay>7</tilt_delay>
+</bricks_level>
+<!-- amigaTab20 -->
+<!-- area 2; level from 1 to 12 -->
+<bricks_level>
+  <id>3</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>40</appearance>
+    <appearance>30</appearance>
+    <appearance>10</appearance>
+    <reappearance>50</reappearance>
+    <strength>5</strength>
+  </ships>
+  <penalties_frequency>19</penalties_frequency>
+  <moneys_frequency>7</moneys_frequency>  
+  <penalties_list_id>3</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>67</acceleration_delay>
+  <ball_release_time>10</ball_release_time>
+  <glue_time>10</glue_time>
+  <tilt_delay>10</tilt_delay>
+</bricks_level>
+<!-- amigaTab30 -->
+<!-- area 3; level from 1 to 12 -->
+<bricks_level>
+  <id>4</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>30</appearance>
+    <appearance>20</appearance>
+    <appearance>10</appearance>
+    <reappearance>40</reappearance>
+    <strength>10</strength>
+  </ships>
+  <penalties_frequency>20</penalties_frequency>
+  <moneys_frequency>8</moneys_frequency>  
+  <penalties_list_id>4</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>50</acceleration_delay>
+  <ball_release_time>10</ball_release_time>
+  <glue_time>10</glue_time>
+  <tilt_delay>10</tilt_delay>
+</bricks_level>
+<!-- area 4; level from 1 to 12 -->
+<!-- amigaTab40 -->
+<bricks_level>
+  <id>5</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>21</appearance>
+    <appearance>14</appearance>
+    <appearance>17</appearance>
+    <reappearance>30</reappearance>
+    <strength>20</strength>
+  </ships>
+  <penalties_frequency>15</penalties_frequency>
+  <moneys_frequency>8</moneys_frequency>  
+  <penalties_list_id>5</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>50</acceleration_delay>
+  <ball_release_time>10</ball_release_time>
+  <glue_time>7</glue_time>
+  <tilt_delay>11</tilt_delay>
+</bricks_level>
+<!-- amigaTab50 -->
+<!-- area 5; level from 1 to 5 -->
+<bricks_level>
+  <id>6</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>15</appearance>
+    <appearance>10</appearance>
+    <appearance>5</appearance>
+    <reappearance>20</reappearance>
+    <strength>30</strength>
+  </ships>
+  <penalties_frequency>15</penalties_frequency>
+  <moneys_frequency>8</moneys_frequency>  
+  <penalties_list_id>6</penalties_list_id>
+  <starting_speed>1</starting_speed>
+  <acceleration_delay>40</acceleration_delay>
+  <ball_release_time>10</ball_release_time>
+  <glue_time>7</glue_time>
+  <tilt_delay>11</tilt_delay>
+</bricks_level>
+<!-- amigaTab55 -->
+<!-- area 5; level from 6 to 12 -->
+<bricks_level>
+  <id>7</id>
+  <ships>
+    <appearance>1</appearance>
+    <appearance>4</appearance>
+    <appearance>3</appearance>
+    <appearance>2</appearance>
+    <reappearance>5</reappearance>
+    <strength>50</strength>
+  </ships>
+  <penalties_frequency>15</penalties_frequency>
+  <moneys_frequency>15</moneys_frequency>  
+  <penalties_list_id>7</penalties_list_id>
+  <starting_speed>2</starting_speed>
+  <acceleration_delay>30</acceleration_delay>
+  <ball_release_time>10</ball_release_time>
+  <glue_time>5</glue_time>
+  <tilt_delay>15</tilt_delay>
+</bricks_level>
+
+
+<!-- atariTab00 -->
+<!-- area 1; level 6 -->
+<guardians_level>
+  <id>0</id>
+  <starting_speed>3</starting_speed>
+  <ball_release_time>20</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>10</scroll_delay>
+  <scroll_id>1</scroll_id>
+  <capsules_frequency>7</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab04 -->
+<!-- area 1; level 12 -->
+<guardians_level>
+  <id>1</id>
+  <starting_speed>3</starting_speed>
+  <ball_release_time>15</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>10</scroll_delay>
+  <scroll_id>2</scroll_id>
+  <capsules_frequency>8</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab08 -->
+<!-- area 2; level 6 -->
+<guardians_level>
+  <id>2</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>5</scroll_delay>
+  <scroll_id>3</scroll_id>
+  <capsules_frequency>9</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab12 -->
+<!-- area 2; level 12 -->
+<guardians_level>
+  <id>3</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>5</scroll_delay>
+  <scroll_id>4</scroll_id>
+  <capsules_frequency>9</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab16 -->
+<!-- area 3; level 6 -->
+<guardians_level>
+  <id>4</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>5</scroll_delay>
+  <scroll_id>5</scroll_id>
+  <capsules_frequency>10</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab20 -->
+<!-- area 3; level 12 -->
+<guardians_level>
+  <id>5</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>3</scroll_delay>
+  <scroll_id>6</scroll_id>
+  <capsules_frequency>10</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab24 -->
+<!-- area 4; level 6 -->
+<guardians_level>
+  <id>6</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>1</scroll_delay>
+  <scroll_id>7</scroll_id>
+  <capsules_frequency>12</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab28 -->
+<!-- area 4; level 12 -->
+<guardians_level>
+  <id>7</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>1</scroll_delay>
+  <scroll_id>8</scroll_id>
+  <capsules_frequency>12</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab32 -->
+<!-- area 5; level 6 -->
+<guardians_level>
+  <id>8</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>1</scroll_delay>
+  <scroll_id>9</scroll_id>
+  <capsules_frequency>15</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab32 -->
+<!-- area 5; level 12 -->
+<guardians_level>
+  <id>9</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>1</scroll_delay>
+  <scroll_id>10</scroll_id>
+  <capsules_frequency>15</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+<!-- atariTab40 -->
+<!-- area 5; level 13 -->
+<guardians_level>
+  <id>10</id>
+  <starting_speed>4</starting_speed>
+  <ball_release_time>10</ball_release_time>
+  <tilt_delay>10</tilt_delay>
+  <scroll_delay>1</scroll_delay>
+  <scroll_id>11</scroll_id>
+  <capsules_frequency>15</capsules_frequency>
+  <capsules_list_id>8</capsules_list_id>
+</guardians_level>
+
+<!-- area 1 -->
+<!-- type 0: bricks level or 1: guardians level -->
+<level type="0" id="0"/>
+<level type="0" id="1"/>
+<level type="0" id="1"/>
+<level type="0" id="1"/>
+<level type="0" id="1"/>
+ <level type="1" id="0"/>
+<level type="0" id="2"/>
+<level type="0" id="2"/>
+<level type="0" id="2"/>
+<level type="0" id="2"/>
+<level type="0" id="2"/>
+ <level type="1" id="1"/>
+<!-- area 2 -->
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+ <level type="1" id="2"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+<level type="0" id="3"/>
+ <level type="1" id="3"/>
+<!-- area 3 -->
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+ <level type="1" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+<level type="0" id="4"/>
+ <level type="1" id="5"/>
+<!-- area 4 -->
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+ <level type="1" id="6"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+<level type="0" id="5"/>
+ <level type="1" id="7"/>
+<!-- area 5 -->
+<level type="0" id="6"/>
+<level type="0" id="6"/>
+<level type="0" id="6"/>
+<level type="0" id="6"/>
+<level type="0" id="6"/>
+ <level type="1" id="8"/>
+<level type="0" id="7"/>
+<level type="0" id="7"/>
+<level type="0" id="7"/>
+<level type="0" id="7"/>
+<level type="0" id="7"/>
+ <level type="1" id="9"/>
+ <level type="1" id="10"/>
+
+
+
+
+
+
+</levels_data>
