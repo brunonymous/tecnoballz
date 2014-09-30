@@ -1,3 +1,10 @@
+2014-09-30
+TecnoballZ 0.93.1
+add patch from Musuruan
+- make will fail because there is no rule to make supervisor.c
+- make install will fail because it cannot find tecnoballz.hi since it's
+   in the parent directory
+
 2014-09-28
 TecnoballZ 0.93
 Fix warnings with GCC 4.3 and 4.7.2
