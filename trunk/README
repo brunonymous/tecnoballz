@@ -7,7 +7,7 @@ game. This game was ported from the Commodore Amiga.
 PREREQUISITES
 
   You need:
-  - A IA-32, x86-64, PowerPC, ARM or MIPS platform
+  - A IA-32, x86-64, PowerPC, ARM or SPARC platform
   - 32 MB RAM and 80 MB swap
   - Linux 2.x 
   - SDL 1.2
