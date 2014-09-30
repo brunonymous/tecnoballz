@@ -18,7 +18,7 @@ install-data-hook:
 	-chown root:games "$(DESTDIR)/$(gamesdir)/tecnoballz"
 	-chmod 2755 "$(DESTDIR)/$(gamesdir)/tecnoballz"
 	$(INSTALL) -d $(DESTDIR)/$(scoredir)
-	$(INSTALL) $(score) $(DESTDIR)/$(scoredir) 
+	$(INSTALL) ../$(score) $(DESTDIR)/$(scoredir)
 	-chown root:games "$(DESTDIR)/$(scoredir)/$(score)"
 	-chmod 664 "$(DESTDIR)/$(scoredir)/$(score)"
 
@@ -82,7 +82,7 @@ SOURCES_MAIN = \
   sprite_projectile.cc \
   sprite_ship.cc \
   sprite_wall.cc \
-  supervisor.c \
+  supervisor.cc \
   supervisor_bricks_level.cc \
   supervisor_main_menu.cc \
   supervisor_map_editor.cc \
