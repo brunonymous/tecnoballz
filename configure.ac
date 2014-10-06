@@ -65,7 +65,7 @@ if test "x${enable_devel}" = "xyes"; then
   AC_DEFINE(UNDER_DEVELOPMENT,  1, Define to enable development version)
   CXXFLAGS="-Werror -O2 -Wall -pedantic -Wextra -std=gnu++98 -g"
 else
-  CXXFLAGS="-O2 -Werror -Wall -pedantic -Wextra -std=gnu++98"
+  CXXFLAGS="-O2 -Wall -pedantic -Wextra -std=gnu++98 $CXXFLAGS"
 fi
 
 AC_OUTPUT(
