@@ -569,6 +569,7 @@ handler_audio::run ()
    */
   if (keyboard->command_is_pressed (handler_keyboard::TOGGLE_AUDIO, true))
     {
+     printf("[S1] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
       if (!is_music_enable || !is_sound_enable)
         {
           is_music_enable = true;
@@ -581,12 +582,14 @@ handler_audio::run ()
           is_sound_enable = false;
           Mix_VolumeMusic (0);
         }
+     printf("[S2] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
     }
   else
     {
       /* [Ctrl] + [F]: enable/disable sound effects */
       if (keyboard->command_is_pressed (handler_keyboard::TOGGLE_SOUND, true))
         {
+         printf("[F1] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
           is_sound_enable = is_sound_enable ? false : true;
           if (!is_sound_enable)
             {
@@ -595,6 +598,7 @@ handler_audio::run ()
                   sounds_play[i] = false;
                 }
             }
+         printf("[F2] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
         }
       /* [Ctrl] + [D]: enable/disable musics */
       else
@@ -602,6 +606,7 @@ handler_audio::run ()
           if (keyboard->command_is_pressed
               (handler_keyboard::TOGGLE_MUSIC, true))
             {
+             printf("[D1] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
               is_music_enable = is_music_enable ? false : true;
               if (is_music_enable)
                 {
@@ -611,6 +616,7 @@ handler_audio::run ()
                 {
                   Mix_VolumeMusic (0);
                 }
+              printf("[D2] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
             }
         }
     }
