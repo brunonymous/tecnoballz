@@ -1,13 +1,13 @@
-/** 
- * @file right_panel_score.cc 
- * @brief The right panel score in the bricks levels 
- * @date 2012-10-07 
- * @copyright 1991-2014 TLK Games
+/**
+ * @file right_panel_score.cc
+ * @brief The right panel score in the bricks levels
+ * @date 2015-02-08
+ * @copyright 1991-2015 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
-/* 
- * copyright (c) 1991-2014 TLK Games all rights reserved
+/*
+ * copyright (c) 1991-2015 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -29,7 +29,8 @@
 #include "../include/handler_resources.h"
 #include "../include/handler_high_score.h"
 
-right_panel_score * right_panel_score::panel_score_singleton = NULL;
+right_panel_score *
+  right_panel_score::panel_score_singleton = NULL;
 
 /**
  * Create the right panel score
@@ -39,9 +40,8 @@ right_panel_score::right_panel_score ()
   initial_me ();
   gauge_height = GAUGE_HEIGHT * resolution;
   gigablitz_countdown = gauge_height;
-  delay_gigablitz_countdown = 0; 
+  delay_gigablitz_countdown = 0;
   flip_white = false;
-  gauge_height = 0;
   panel_width = 0;
 }
 
@@ -57,7 +57,7 @@ right_panel_score::~right_panel_score ()
 /**
  * Get the object instance
  * right_panel_score is a singleton
- * @return the right_panel_score object 
+ * @return the right_panel_score object
  */
 right_panel_score *
 right_panel_score::get_instance ()
@@ -77,7 +77,7 @@ void
 right_panel_score::first_init ()
 {
   initialize ();
- gauge_pixel = game_screen->get_pixel_data
+  gauge_pixel = game_screen->get_pixel_data
     (GAUGE_XCOORD * resolution, GAUGE_YCOORD * resolution);
   draw_background ();
 }
@@ -92,8 +92,8 @@ right_panel_score::draw_background ()
   bmp->load (handler_resources::BITMAP_RIGHT_PANEL);
 
   /* drawn panel score */
-  offscreen_surface* screen;
-  if (has_background) 
+  offscreen_surface *screen;
+  if (has_background)
     {
       screen = background_screen;
     }
@@ -115,7 +115,8 @@ right_panel_score::draw_background ()
   draw (screen, BEST_SCORE_XCOORD * resolution,
         BEST_SCORE_YCOORD * resolution, high_score->get_best_score (), 6);
   draw (screen, BEST_PLAYER_XCOORD * resolution,
-        BEST_PLAYER_YCOORD * resolution, high_score->get_best_playername (), 0);
+        BEST_PLAYER_YCOORD * resolution, high_score->get_best_playername (),
+        0);
 }
 
 /**
@@ -125,9 +126,9 @@ void
 right_panel_score::text_refresh ()
 {
   draw (game_screen, SCORE_XCOORD * resolution,
-        SCORE_YCOORD * resolution, current_player->score_value, 6); 
+        SCORE_YCOORD * resolution, current_player->score_value, 6);
   draw (game_screen, LIFES_XCOORD * resolution,
-        LIFES_YCOORD * resolution, bricks_counter, 3); 
+        LIFES_YCOORD * resolution, bricks_counter, 3);
   draw (game_screen, BRICKS_XCOORD * resolution,
         BRICKS_YCOORD * resolution, current_player->number_of_lifes, 2);
 }
@@ -153,13 +154,12 @@ right_panel_score::decrease_bricks_counter (Uint32 dec)
  * Return the number of bricks
  * @return the number of bricks
  */
-Uint32
-right_panel_score::get_bricks_counter ()
+Uint32 right_panel_score::get_bricks_counter ()
 {
   return bricks_counter;
 }
 
-/** 
+/**
  * Intialize the bricks counter
  * @param counter the number of bricks
  */
@@ -177,7 +177,7 @@ right_panel_score::draw_gigablizt_gauge ()
 {
   controller_gigablitz *gigablitz = controller_gigablitz::get_instance ();
   controller_balls *balls = controller_balls::get_instance ();
-  if (keyboard->is_gigablitz_or_tilt () 
+  if (keyboard->is_gigablitz_or_tilt ()
       && !gigablitz->is_enable () && !balls->is_sticky_balls_remains ())
     {
       if (++delay_gigablitz_countdown >= DELAY_GIGABLITZ_COUNTDOWN)
@@ -186,10 +186,10 @@ right_panel_score::draw_gigablizt_gauge ()
             {
               delay_gigablitz_countdown = 0;
               gigablitz_countdown = gigablitz_countdown - resolution;
-              /* gauge maximum height reached? */ 
+              /* gauge maximum height reached? */
               if (gigablitz_countdown == 0)
                 {
-                  /* yes, launch the gigablitz!*/
+                  /* yes, launch the gigablitz! */
                   gigablitz->shoot_paddle ();
                 }
             }
@@ -205,7 +205,7 @@ right_panel_score::draw_gigablizt_gauge ()
     }
 
   /* draw the vertical gauge */
-  unsigned char *dest = (unsigned char *)gauge_pixel;
+  unsigned char *dest = (unsigned char *) gauge_pixel;
   Sint32 next = game_screen->get_width ();
   unsigned char pixel = 0;
   if (resolution == 1)
@@ -322,17 +322,16 @@ right_panel_score::reset_gigablitz_countdown ()
 
 /**
  * Return the width of the panel
- * @return Width panel scores in pixels 
+ * @return Width panel scores in pixels
  */
-Uint32
-right_panel_score::get_width ()
+Uint32 right_panel_score::get_width ()
 {
   return panel_width;
 }
 
 /** List of 54 couleurs from gigablitz */
-unsigned char right_panel_score::temoinCol1[GAUGE_HEIGHT] =
-{ 
+unsigned char
+  right_panel_score::temoinCol1[GAUGE_HEIGHT] = {
   255,
   255,
   254,
@@ -362,8 +361,9 @@ unsigned char right_panel_score::temoinCol1[GAUGE_HEIGHT] =
   239
 };
 
-unsigned char right_panel_score::temoinCol2[GAUGE_HEIGHT * 2] =
-{ 255,
+unsigned char
+  right_panel_score::temoinCol2[GAUGE_HEIGHT * 2] = {
+  255,
   255,
   255,
   255,

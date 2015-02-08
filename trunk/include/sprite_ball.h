@@ -1,13 +1,13 @@
 /**
  * @file sprite_ball.h
  * @brief The ball sprite
- * @date 2014-07-27 
- * @copyright 1991-2014 TLK Games
+ * @date 2015-02-08 
+ * @copyright 1991-2015 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2014 TLK Games all rights reserved
+ * copyright (c) 1991-2015 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -200,6 +200,7 @@ class sprite_ball:public sprite_object
     void set_on_ejector (Uint32 eject_id, Uint32 otime = 1);
     void disable_stick ();
     void accelerate ();
+    void move_sticked_paddle(sprite_paddle * paddle); 
     virtual bool collision (sprite_object * sprite);
 
   private:

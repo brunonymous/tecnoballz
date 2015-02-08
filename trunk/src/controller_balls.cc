@@ -1,13 +1,13 @@
 /**
  * @file controller_balls.cc
  * @brief Control the balls. Move and collisions
- * @date 2014-07-27
- * @copyright 1991-2014 TLK Games
+ * @date 2015-02-08
+ * @copyright 1991-2015 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2014 TLK Games all rights reserved
+ * copyright (c) 1991-2015 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -232,6 +232,7 @@ controller_balls::check_outside_balls ()
       num_of_sprites = 1;
       ball->paddle_touched->stick_ball (ball);
       ball->starts_again (ball->paddle_touched);
+      ball->move_sticked_paddle (paddle);
       head_anim->start_interference ();
       current_player->remove_life (1);
       ships->force_explosion ();
@@ -382,7 +383,7 @@ controller_balls::move_balls ()
           if (j > 64)
             {
               std::cerr << "controller_balls::" <<
-                        "move_balls() ball->direction = " << j << std::endl;
+                "move_balls() ball->direction = " << j << std::endl;
               j = 60;
             }
           Sint16 *velocities = ball->velocities;
@@ -408,50 +409,9 @@ controller_balls::move_balls ()
           continue;
         }
 
+
       /* displacement of the balls sticked to the paddle */
-      switch (ball->sticky_paddle_num)
-        {
-        case controller_paddles::BOTTOM_PADDLE:
-          j = (paddle->collision_width >> 1) -
-              ((ball->collision_width >> 1) + 1);
-          j += paddle->x_coord;
-          ball->x_coord = j;
-          j = (paddle->y_coord) - (ball->collision_height + 1);
-          ball->y_coord = j;
-          break;
-
-        case controller_paddles::RIGHT_PADDLE:
-          j = (paddle->x_coord) - (ball->collision_width - 1);
-          ball->x_coord = j;
-          j =
-            (paddle->collision_height >> 1) -
-            ((ball->collision_height >> 1) + 1);
-          j += paddle->y_coord;
-          ball->y_coord = j;
-          break;
-
-        case controller_paddles::TOP_PADDLE:
-          j =
-            (paddle->collision_width >> 1) -
-            ((ball->collision_width >> 1) + 1);
-          j += paddle->x_coord;
-          ball->x_coord = j;
-          j = (paddle->y_coord) + paddle->collision_height + 1;
-          ball->y_coord = j;
-          break;
-
-        case controller_paddles::LEFT_PADDLE:
-          j = (paddle->x_coord) + (paddle->collision_width) + 1;
-          ball->x_coord = j;
-          j =
-            (paddle->collision_height >> 1) -
-            ((ball->collision_height >> 1) + 1);
-          j += paddle->y_coord;
-          ball->y_coord = j;
-          break;
-
-        }
-
+      ball->move_sticked_paddle (paddle);
 
       if (--ball->viewfinder_delay < 0)
         {
@@ -491,8 +451,8 @@ controller_balls::move_balls_in_guards_level ()
           if (j > 64)
             {
               std::cerr << "controller_balls::" <<
-                        "move_balls_in_guards_level() ball->direction = " <<
-                        j << std::endl;
+                "move_balls_in_guards_level() ball->direction = " <<
+                j << std::endl;
               j = 60;
             }
           Sint16 *velocities = ball->velocities;
@@ -521,7 +481,7 @@ controller_balls::move_balls_in_guards_level ()
         {
         case controller_paddles::BOTTOM_PADDLE:
           j = (paddle->collision_width >> 1) -
-              ((ball->collision_width >> 1) + 1);
+            ((ball->collision_width >> 1) + 1);
           j += paddle->x_coord;
           ball->x_coord = j;
           j = (paddle->y_coord) - (ball->collision_height + 1);
@@ -651,8 +611,8 @@ controller_balls::collisions_with_paddles ()
           if (j > 64)
             {
               std::cerr <<
-                        "controller_balls::collisions_with_paddles() "
-                        << "(1) ball->direction " << j;
+                "controller_balls::collisions_with_paddles() "
+                << "(1) ball->direction " << j;
               j = 64;
             }
           const Sint32 *bounces = touched_paddle->current_bounces;
@@ -844,8 +804,8 @@ controller_balls::handle_ejectors ()
               if (ball->collision (eject1))
                 {
                   ball->pull (eject1, 10 * resolution, 5 * resolution);
-                  ball->
-                  set_on_ejector (controller_ejectors::BOTTOM_LEFT_EJECTOR);
+                  ball->set_on_ejector (controller_ejectors::
+                                        BOTTOM_LEFT_EJECTOR);
                 }
               else
                 {
@@ -853,9 +813,8 @@ controller_balls::handle_ejectors ()
                   if (ball->collision (eject2))
                     {
                       ball->pull (eject2, 5 * resolution, 5 * resolution);
-                      ball->
-                      set_on_ejector (controller_ejectors::
-                                      BOTTOM_RIGHT_EJECTOR);
+                      ball->set_on_ejector
+                        (controller_ejectors::BOTTOM_RIGHT_EJECTOR);
                     }
                 }
             }
@@ -1097,8 +1056,8 @@ controller_balls::bricks_collision ()
           y *= controller_bricks::MAX_OF_BRICKS_HORIZONTALLY;
           x += y;
           brick_info *brick = (bricks_map + x);
-          //printf("x: %i; x_coord: %i; y_coord: %i\n", x, ball->x_coord, ball->y_coord); 
-         //x = brick->source_offset;
+          //printf("x: %i; x_coord: %i; y_coord: %i\n", x, ball->x_coord, ball->y_coord);
+          //x = brick->source_offset;
           /* collision between a ball and a brick? */
           //if (0 == x)
           if (brick->source_offset == 0)
@@ -1144,8 +1103,8 @@ controller_balls::bricks_collision ()
                     {
                       //x = 2;
 #ifndef SOUNDISOFF
-                      audio->
-                      play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK2);
+                      audio->play_sound (handler_audio::
+                                         HIT_INDESTRUCTIBLE_BRICK2);
 #endif
                     }
                 }
@@ -1154,8 +1113,8 @@ controller_balls::bricks_collision ()
                   /* brick's really indestructible */
                   //x = 1;
 #ifndef SOUNDISOFF
-                  audio->
-                  play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK1);
+                  audio->play_sound (handler_audio::
+                                     HIT_INDESTRUCTIBLE_BRICK1);
 #endif
                 }
             }
@@ -1718,14 +1677,13 @@ controller_balls::controll_balls ()
  * Check if there remains at least a ball glue
  * @return True if remains at least a ball glue
  */
-bool controller_balls::is_sticky_balls_remains ()
+bool
+controller_balls::is_sticky_balls_remains ()
 {
-  sprite_ball **
-  balls = sprites_list;
+  sprite_ball **balls = sprites_list;
   for (Uint32 i = 0; i < max_of_sprites; i++)
     {
-      sprite_ball *
-      ball = *(balls++);
+      sprite_ball *ball = *(balls++);
       if (ball->sticky_paddle_num > 0)
         {
           return 1;
@@ -1737,67 +1695,48 @@ bool controller_balls::is_sticky_balls_remains ()
 /*
  * directions of the ball after a rebound on a brick
  */
-Sint32
-controller_balls::rb0[16] =
+Sint32 controller_balls::rb0[16] =
 {
-  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64
-};
+64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64};
 
 /* right rebound */
-Sint32
-controller_balls::rb1[16] =
+Sint32 controller_balls::rb1[16] =
 {
-  32, 28, 24, 20, 20, 24, 24, 28, 32, 36, 40, 40, 44, 44, 40, 36
-};
+32, 28, 24, 20, 20, 24, 24, 28, 32, 36, 40, 40, 44, 44, 40, 36};
 
-Sint32
-controller_balls::rb2[16] =
+Sint32 controller_balls::rb2[16] =
 {
-  48, 36, 40, 44, 32, 44, 24, 28, 32, 36, 40, 44, 48, 48, 44, 40
-};
+48, 36, 40, 44, 32, 44, 24, 28, 32, 36, 40, 44, 48, 48, 44, 40};
 
 /* top rebond */
-Sint32
-controller_balls::rb3[16] =
+Sint32 controller_balls::rb3[16] =
 {
-  60, 60, 56, 52, 48, 44, 40, 36, 36, 40, 40, 44, 48, 52, 56, 56
-};
+60, 60, 56, 52, 48, 44, 40, 36, 36, 40, 40, 44, 48, 52, 56, 56};
 
-Sint32
-controller_balls::rb4[16] =
+Sint32 controller_balls::rb4[16] =
 {
-  0, 4, 8, 0, 0, 52, 56, 60, 48, 52, 56, 44, 48, 52, 56, 60
-};
+0, 4, 8, 0, 0, 52, 56, 60, 48, 52, 56, 44, 48, 52, 56, 60};
 
 /* left rebond */
-Sint32
-controller_balls::rb5[16] =
+Sint32 controller_balls::rb5[16] =
 {
-  0, 4, 8, 8, 12, 12, 8, 4, 0, 60, 56, 52, 52, 36, 56, 60
-};
+0, 4, 8, 8, 12, 12, 8, 4, 0, 60, 56, 52, 52, 36, 56, 60};
 
-Sint32
-controller_balls::rb6[16] =
+Sint32 controller_balls::rb6[16] =
 {
-  0, 4, 8, 12, 16, 20, 24, 12, 16, 12, 8, 4, 0, 4, 8, 60
-};
+0, 4, 8, 12, 16, 20, 24, 12, 16, 12, 8, 4, 0, 4, 8, 60};
 
 /* bottom rebond */
-Sint32
-controller_balls::rb7[16] =
+Sint32 controller_balls::rb7[16] =
 {
-  4, 8, 12, 12, 16, 20, 20, 24, 28, 28, 24, 20, 16, 12, 8, 4
-};
+4, 8, 12, 12, 16, 20, 20, 24, 28, 28, 24, 20, 16, 12, 8, 4};
 
-Sint32
-controller_balls::rb8[16] =
+Sint32 controller_balls::rb8[16] =
 {
-  16, 20, 24, 12, 16, 20, 24, 28, 32, 36, 40, 28, 32, 20, 24, 28
-};
+16, 20, 24, 12, 16, 20, 24, 28, 32, 36, 40, 28, 32, 20, 24, 28};
 
 Sint32 *
-controller_balls::brick_jump[15] =
-{
+  controller_balls::brick_jump[15] = {
   rb1, rb3, rb2, rb5, rb1, rb4, rb3, rb7, rb8, rb2, rb1, rb6, rb7, rb5,
   rb1
 };
