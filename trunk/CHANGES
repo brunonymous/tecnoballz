@@ -1,9 +1,13 @@
-2015-02-08
+2015-06-14
 TecnoballZ 0.94.0
-Fix bugs (Debian #776342) Buggy Gigablitz jauge.
-  Thanks to Celelibi for bug reports 
-Fix bugs (Debian #776263) Right click cause game over.
-  Thanks to Celelibi for bug reports 
+Fix minimum distance of bouncers to walls in boss levels. 
+(Debian #776342) Thanks to Celelibi for bug reports
+Fix gigablitz gauge was not working. (Debian #776342) 
+Thanks to Celelibi for bug reports.
+Fix right click game over bug. (Debian #776263)
+Thanks to Celelibi for bug reports.
+Fix bug (Debian #776339)  Ball resize not relocated while
+  in corner relaunchers. Thanks to Celelibi for bug reports 
 
 2014-09-30
 TecnoballZ 0.93.1
