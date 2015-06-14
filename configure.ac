@@ -46,6 +46,8 @@ AC_CHECK_LIB([tinyxml], [main], [
   AC_MSG_ERROR([tinyxml library is not present in your system])
 ])
 AC_SUBST(TINYXML_LIBS)
+XTRA_CPPLIBS=-lstdc++
+AC_SUBST(XTRA_CPPLIBS)
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h stddef.h stdlib.h string.h sys/time.h unistd.h])
@@ -63,6 +65,7 @@ AC_CHECK_FUNCS([atexit memmove strchr strdup strerror])
 
 if test "x${enable_devel}" = "xyes"; then
   AC_DEFINE(UNDER_DEVELOPMENT,  1, Define to enable development version)
+  #CXXFLAGS="-Werror -O2 -Wall -pedantic -Wextra -std=gnu++98 -g $CXXFLAGS"
   CXXFLAGS="-Werror -O2 -Wall -pedantic -Wextra -std=gnu++98 -g"
 else
   CXXFLAGS="-O2 -Wall -pedantic -Wextra -std=gnu++98 $CXXFLAGS"

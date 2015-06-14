@@ -1,7 +1,7 @@
 /**
  * @file controller_balls.cc
  * @brief Control the balls. Move and collisions
- * @date 2015-02-08
+ * @date 2015-06-14
  * @copyright 1991-2015 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
@@ -104,11 +104,6 @@ controller_balls::init (Uint32 start,
   ball->init_first_ball (paddle_bottom->collision_width);
   /* one ball on the screen */
   num_of_sprites = 1;
-  if (current_phase == BRICKS_LEVEL)
-    {
-      controller_ejectors *ejectors = controller_ejectors::get_instance ();
-      ejectors->initialize_ball_positions (&sprite_ball::ejector_coords[0]);
-    }
 }
 
 /**
@@ -747,13 +742,13 @@ void
 controller_balls::handle_ejectors ()
 {
   controller_ejectors *ejectors = controller_ejectors::get_instance ();
-  sprite_object *eject0 =
+  sprite_ejector *eject0 =
     ejectors->get_ejector (controller_ejectors::TOP_LEFT_EJECTOR);
-  sprite_object *eject1 =
+  sprite_ejector *eject1 =
     ejectors->get_ejector (controller_ejectors::BOTTOM_LEFT_EJECTOR);
-  sprite_object *eject2 =
+  sprite_ejector *eject2 =
     ejectors->get_ejector (controller_ejectors::BOTTOM_RIGHT_EJECTOR);
-  sprite_object *eject3 =
+  sprite_ejector *eject3 =
     ejectors->get_ejector (controller_ejectors::TOP_RIGHT_EJECTOR);
 
   for (Uint32 i = 0; i < max_of_sprites; i++)
@@ -787,7 +782,7 @@ controller_balls::handle_ejectors ()
       /* top-left */
       if (ball->collision (eject0))
         {
-          ball->pull (eject0, 10 * resolution, 10 * resolution);
+          eject0->stick (ball);
           ball->set_on_ejector (controller_ejectors::TOP_LEFT_EJECTOR);
         }
       else
@@ -795,7 +790,7 @@ controller_balls::handle_ejectors ()
           /* top-right */
           if (ball->collision (eject3))
             {
-              ball->pull (eject3, 5 * resolution, 10 * resolution);
+              eject3->stick (ball);
               ball->set_on_ejector (controller_ejectors::TOP_RIGHT_EJECTOR);
             }
           else
@@ -803,16 +798,16 @@ controller_balls::handle_ejectors ()
               /* bottom-left */
               if (ball->collision (eject1))
                 {
-                  ball->pull (eject1, 10 * resolution, 5 * resolution);
-                  ball->set_on_ejector (controller_ejectors::
-                                        BOTTOM_LEFT_EJECTOR);
+                  eject1->stick (ball);
+                  ball->
+                    set_on_ejector (controller_ejectors::BOTTOM_LEFT_EJECTOR);
                 }
               else
                 {
                   /* bottom-right */
                   if (ball->collision (eject2))
                     {
-                      ball->pull (eject2, 5 * resolution, 5 * resolution);
+                      eject2->stick (ball);
                       ball->set_on_ejector
                         (controller_ejectors::BOTTOM_RIGHT_EJECTOR);
                     }
@@ -1056,10 +1051,7 @@ controller_balls::bricks_collision ()
           y *= controller_bricks::MAX_OF_BRICKS_HORIZONTALLY;
           x += y;
           brick_info *brick = (bricks_map + x);
-          //printf("x: %i; x_coord: %i; y_coord: %i\n", x, ball->x_coord, ball->y_coord);
-          //x = brick->source_offset;
           /* collision between a ball and a brick? */
-          //if (0 == x)
           if (brick->source_offset == 0)
             {
               /* no collision */
@@ -1069,11 +1061,8 @@ controller_balls::bricks_collision ()
           redraw->paddle = ball->paddle_touched;
           if (!has_background)
             {
-              //printf("x: %i; x_coord: %i; y_coord: %i; brick->sprite: %p\n", x, ball->x_coord, ball->y_coord, (void*)brick->sprite);
               brick->sprite->touch ();
             }
-          //x = x - indestructible; x = x - 25088
-          //if (x >= 0)
           if (brick->source_offset >= indestructible)
             {
               /*
@@ -1082,7 +1071,6 @@ controller_balls::bricks_collision ()
               /* collision with indestructible brick */
               indes_col = true;
               /* indestructible/destructible bricks? */
-              //if ((x -= brick_width) > 0)
               if (brick->source_offset >
                   (Sint32) (indestructible + brick_width))
                 {
@@ -1101,20 +1089,18 @@ controller_balls::bricks_collision ()
                     }
                   else
                     {
-                      //x = 2;
 #ifndef SOUNDISOFF
-                      audio->play_sound (handler_audio::
-                                         HIT_INDESTRUCTIBLE_BRICK2);
+                      audio->
+                        play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK2);
 #endif
                     }
                 }
               else
                 {
                   /* brick's really indestructible */
-                  //x = 1;
 #ifndef SOUNDISOFF
-                  audio->play_sound (handler_audio::
-                                     HIT_INDESTRUCTIBLE_BRICK1);
+                  audio->
+                    play_sound (handler_audio::HIT_INDESTRUCTIBLE_BRICK1);
 #endif
                 }
             }
@@ -1484,6 +1470,7 @@ controller_balls::add_balls (Uint32 nball)
   Uint32 count = 0;
   Uint32 ejector_id = random_counter & 3;
   Uint32 delay = 1;
+  controller_ejectors *ejectors = controller_ejectors::get_instance ();
   for (Uint32 i = 0; i < max_of_sprites && count < nball; i++)
     {
       sprite_ball *ball = *(balls++);
@@ -1491,7 +1478,10 @@ controller_balls::add_balls (Uint32 nball)
         {
           continue;
         }
-      ball->enbale_on_ejector (ejector_id++, delay);
+      sprite_ejector *ejector = ejectors->get_ejector (ejector_id);
+      ball->enable_on_ejector (ejector_id, delay, ejector);
+      ejector_id++;
+      ejector_id &= 3;
       count++;
       num_of_sprites++;
       delay += 2;
@@ -1677,13 +1667,14 @@ controller_balls::controll_balls ()
  * Check if there remains at least a ball glue
  * @return True if remains at least a ball glue
  */
-bool
-controller_balls::is_sticky_balls_remains ()
+bool controller_balls::is_sticky_balls_remains ()
 {
-  sprite_ball **balls = sprites_list;
+  sprite_ball **
+    balls = sprites_list;
   for (Uint32 i = 0; i < max_of_sprites; i++)
     {
-      sprite_ball *ball = *(balls++);
+      sprite_ball *
+        ball = *(balls++);
       if (ball->sticky_paddle_num > 0)
         {
           return 1;
@@ -1695,45 +1686,54 @@ controller_balls::is_sticky_balls_remains ()
 /*
  * directions of the ball after a rebound on a brick
  */
-Sint32 controller_balls::rb0[16] =
-{
-64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64};
+Sint32
+  controller_balls::rb0[16] = {
+  64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64
+};
 
 /* right rebound */
-Sint32 controller_balls::rb1[16] =
-{
-32, 28, 24, 20, 20, 24, 24, 28, 32, 36, 40, 40, 44, 44, 40, 36};
+Sint32
+  controller_balls::rb1[16] = {
+  32, 28, 24, 20, 20, 24, 24, 28, 32, 36, 40, 40, 44, 44, 40, 36
+};
 
-Sint32 controller_balls::rb2[16] =
-{
-48, 36, 40, 44, 32, 44, 24, 28, 32, 36, 40, 44, 48, 48, 44, 40};
+Sint32
+  controller_balls::rb2[16] = {
+  48, 36, 40, 44, 32, 44, 24, 28, 32, 36, 40, 44, 48, 48, 44, 40
+};
 
 /* top rebond */
-Sint32 controller_balls::rb3[16] =
-{
-60, 60, 56, 52, 48, 44, 40, 36, 36, 40, 40, 44, 48, 52, 56, 56};
+Sint32
+  controller_balls::rb3[16] = {
+  60, 60, 56, 52, 48, 44, 40, 36, 36, 40, 40, 44, 48, 52, 56, 56
+};
 
-Sint32 controller_balls::rb4[16] =
-{
-0, 4, 8, 0, 0, 52, 56, 60, 48, 52, 56, 44, 48, 52, 56, 60};
+Sint32
+  controller_balls::rb4[16] = {
+  0, 4, 8, 0, 0, 52, 56, 60, 48, 52, 56, 44, 48, 52, 56, 60
+};
 
 /* left rebond */
-Sint32 controller_balls::rb5[16] =
-{
-0, 4, 8, 8, 12, 12, 8, 4, 0, 60, 56, 52, 52, 36, 56, 60};
+Sint32
+  controller_balls::rb5[16] = {
+  0, 4, 8, 8, 12, 12, 8, 4, 0, 60, 56, 52, 52, 36, 56, 60
+};
 
-Sint32 controller_balls::rb6[16] =
-{
-0, 4, 8, 12, 16, 20, 24, 12, 16, 12, 8, 4, 0, 4, 8, 60};
+Sint32
+  controller_balls::rb6[16] = {
+  0, 4, 8, 12, 16, 20, 24, 12, 16, 12, 8, 4, 0, 4, 8, 60
+};
 
 /* bottom rebond */
-Sint32 controller_balls::rb7[16] =
-{
-4, 8, 12, 12, 16, 20, 20, 24, 28, 28, 24, 20, 16, 12, 8, 4};
+Sint32
+  controller_balls::rb7[16] = {
+  4, 8, 12, 12, 16, 20, 20, 24, 28, 28, 24, 20, 16, 12, 8, 4
+};
 
-Sint32 controller_balls::rb8[16] =
-{
-16, 20, 24, 12, 16, 20, 24, 28, 32, 36, 40, 28, 32, 20, 24, 28};
+Sint32
+  controller_balls::rb8[16] = {
+  16, 20, 24, 12, 16, 20, 24, 28, 32, 36, 40, 28, 32, 20, 24, 28
+};
 
 Sint32 *
   controller_balls::brick_jump[15] = {

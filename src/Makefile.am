@@ -67,6 +67,7 @@ SOURCES_MAIN = \
   sprite_bullet.cc \
   sprite_brick.cc \
   sprite_capsule.cc \
+  sprite_ejector.cc \
   sprite_display_menu.cc \
   sprite_display_scores.cc \
   sprite_eye.cc \
