@@ -1,0 +1,1 @@
+TecnoballZ is a Breakout or Arkanoid like game with a lot of bonus stages. You can buy weapons and bonus between stages. Sometimes you have to defeat a guardian. This game was ported from the Commodore Amiga.
