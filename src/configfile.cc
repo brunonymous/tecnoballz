@@ -417,6 +417,7 @@ configfile::save ()
           break;
         }
       fprintf (config, ")\n");
+      fclose (config);
     }
 }
 
