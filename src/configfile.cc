@@ -189,6 +189,14 @@ configfile::load ()
   resetvalue ();
   get_fullpathname ();
   std::cout << conf_filename << std::endl;
+
+  /* Check if .conf exist and create it if not */
+  FILE *fi = fopen (conf_filename.c_str (), "r");
+  if (fi == NULL)
+    save();
+  else
+    fclose (fi);
+
   lispreader *parser = new lispreader ();
   lisp_object_t *root_obj = parser->lisp_read_file (conf_filename);
   if (root_obj == NULL)
