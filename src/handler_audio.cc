@@ -91,8 +91,8 @@ handler_audio::~handler_audio ()
 {
   if (NULL != song_module)
     {
-      Mix_HaltMusic ();
-      Mix_FreeMusic (current_music);
+      Player_Stop ();
+      Player_Free (song_module);
       song_module = NULL;
     }
 
@@ -106,6 +106,8 @@ handler_audio::~handler_audio ()
         }
       sounds_play[i] = false;
     }
+
+  MikMod_Exit();
 
   if (is_audio_enable)
     {
@@ -184,8 +186,18 @@ handler_audio::initialize ()
     {
       query_spec ();
     }
+
+  MikMod_RegisterDriver(&drv_nos);
+  /* MikMod_RegisterAllLoaders(); fail for some reason */
+  MikMod_RegisterLoader(&load_xm); /* area1-game2.mod is .xm in disguise */
+  MikMod_RegisterLoader(&load_mod);
+  MikMod_RegisterLoader(&load_m15);
+  md_mixfreq = audio_rate;
+  md_mode = DMODE_STEREO | DMODE_16BITS | DMODE_SURROUND | DMODE_SOFT_MUSIC | DMODE_SOFT_SNDFX;
+  MikMod_Init((CHAR *)"");
+
   /* get the current volume music setting */
-  music_volume = Mix_VolumeMusic (-1);
+  music_volume = md_volume;
   Mix_AllocateChannels (8);
   /* get the current volume channels setting */
   channels_volume = Mix_Volume (-1, -1);
@@ -302,9 +314,8 @@ handler_audio::play_level_music (Uint32 area_num, Uint32 level)
       music_2_position = ptMusicpos[music].level_completed - 1;
     }
   play_music (music);
-  Mix_SetMusicPosition (music_1_position);
+  Player_SetPosition (music_1_position);
   current_portion_music = GAME_PORTION;
-  Player_Stop ();
 }
 
 /**
@@ -324,7 +335,7 @@ handler_audio::play_shop_music (Uint32 area_num)
   music_2_position = song_module->numpos - 1;
   restart_position = music_1_position;
   play_music (music);
-  Mix_SetMusicPosition (music_1_position);
+  Player_SetPosition (music_1_position);
   current_portion_music = SHOP_PORTION;
 }
 
@@ -342,7 +353,7 @@ handler_audio::play_win_music ()
   music_1_position = ptMusicpos[music].level_completed;
   music_2_position = ptMusicpos[music].pos_losing - 1;
   restart_position = music_1_position;
-  Mix_SetMusicPosition (music_1_position);
+  Player_SetPosition (music_1_position);
   current_portion_music = WIN_PORTION;
 }
 
@@ -360,7 +371,7 @@ handler_audio::play_lost_music ()
   music_1_position = ptMusicpos[music].pos_losing;
   music_2_position = ptMusicpos[music].shop_music - 1;
   restart_position = music_1_position;
-  Mix_SetMusicPosition (music_1_position);
+  Player_SetPosition (music_1_position);
   current_portion_music = LOST_PORTION;
 }
 
@@ -398,6 +409,23 @@ handler_audio::is_win_music_finished ()
     }
 }
 
+static void Player_Hook(void *userdata, Uint8 *stream, int len)
+{
+  (void)userdata;
+
+  if (Player_Paused())
+    {
+      VC_SilenceBytes((SBYTE *) stream, (ULONG)len);
+    }
+  else
+    {
+        int got = (int) VC_WriteBytes((SBYTE *) stream, (ULONG)len);
+        if (got < len) {	/* fill the rest with silence, then */
+            VC_SilenceBytes((SBYTE *) &stream[got], (ULONG)(len-got));
+        }
+    }
+}
+
 /**
  * If a music is played, it is stopped
  */
@@ -408,10 +436,11 @@ handler_audio::stop_music ()
     {
       return;
     }
-  Mix_HaltMusic ();
-  Mix_FreeMusic (current_music);
+  Player_Stop ();
+  Player_Free (song_module);
   song_module = NULL;
   current_music_id = -1;
+  Mix_HookMusic(NULL, NULL);
 }
 
 /**
@@ -446,27 +475,22 @@ handler_audio::play_music (Uint32 music_id)
     }
 
   /* load the music in memory */
-  current_music = Mix_LoadMUS (pathname);
-  if (NULL == current_music)
+  song_module = Player_Load (pathname, 64, 0);
+  if (NULL == song_module)
     {
       std::cerr << "handler_audio::play_music() " <<
-                "Mix_LoadMUS return " << SDL_GetError () << std::endl;
+                "Player_Load() returned " << MikMod_strerror (MikMod_errno) << std::endl;
       return;
     }
-  /* Ugly way to access sdl-mixer's internal structures */
-  union
-  {
-    int i;
-    void *p;
-  } dummy;
-  memcpy (&song_module, (Uint8 *) current_music + sizeof (dummy),
-          sizeof (void *));
+
+  Mix_HookMusic(Player_Hook, NULL);
 
   /* start the music */
-  if (Mix_PlayMusic (current_music, -1) == -1)
+  Player_Start (song_module);
+  if (MikMod_errno)
     {
       std::cerr << "(!)handler_audio::play_music() " <<
-                SDL_GetError () << std::endl;
+                MikMod_strerror (MikMod_errno) << std::endl;
       return;
     }
 
@@ -480,11 +504,11 @@ handler_audio::play_music (Uint32 music_id)
     }
   if (is_music_enable)
     {
-      Mix_VolumeMusic (music_volume);
+      Player_SetVolume (music_volume);
     }
   else
     {
-      Mix_VolumeMusic (0);
+      Player_SetVolume (0);
     }
   return;
 }
@@ -542,7 +566,7 @@ handler_audio::sound_volume_ctrl (void)
 
   if (mvol != music_volume)
     {
-      Mix_VolumeMusic (music_volume);
+      Player_SetVolume (music_volume);
     }
   if (cvol != channels_volume)
     {
@@ -574,13 +598,13 @@ handler_audio::run ()
         {
           is_music_enable = true;
           is_sound_enable = true;
-          Mix_VolumeMusic (music_volume);
+          Player_SetVolume (music_volume);
         }
       else
         {
           is_music_enable = false;
           is_sound_enable = false;
-          Mix_VolumeMusic (0);
+          Player_SetVolume (0);
         }
      printf("[S2] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
     }
@@ -610,11 +634,11 @@ handler_audio::run ()
               is_music_enable = is_music_enable ? false : true;
               if (is_music_enable)
                 {
-                  Mix_VolumeMusic (music_volume);
+                  Player_SetVolume (music_volume);
                 }
               else
                 {
-                  Mix_VolumeMusic (0);
+                  Player_SetVolume (0);
                 }
               printf("[D2] is_music_enable: %i; is_sound_enable: %i\n ", is_music_enable, is_sound_enable);
             }
@@ -697,7 +721,7 @@ handler_audio::control_music_position ()
               std::cout << "handler_audio::execution1() " <<
                         " - Player_SetPosition(" << posgo << ")" << std::endl;
             }
-          Mix_SetMusicPosition (posgo);
+          Player_SetPosition (posgo);
         }
       break;
 
