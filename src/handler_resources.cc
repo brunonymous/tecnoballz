@@ -826,12 +826,8 @@ handler_resources::save_high_score_file (char *buffer, Uint32 size)
 {
   size_t left;
   ssize_t bytes_written;
-#ifdef WIN32
   /* set umask so that files are group-writable */
-  _umask (0002);
-#else
   umask (0002);
-#endif
   Sint32 fhand = open (fnamescore, O_WRONLY | O_CREAT, 00666);
   if (fhand == -1)
     {
@@ -842,9 +838,6 @@ handler_resources::save_high_score_file (char *buffer, Uint32 size)
   left = size;
   while (left > 0)
     {
-#ifdef WIN32
-      bytes_written = _write (fhand, buffer + size - left, left);
-#else
       bytes_written = write (fhand, buffer + size - left, left);
       if (bytes_written == -1)
         {
@@ -855,7 +848,6 @@ handler_resources::save_high_score_file (char *buffer, Uint32 size)
         }
         left -= bytes_written;
     }
-#endif
   if (close (fhand) == -1)
     {
       fprintf (stderr,

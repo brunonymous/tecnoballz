@@ -828,12 +828,8 @@ bool supervisor_map_editor::save_tilesmap ()
       map++;
       buffer += 2;
     }
-#ifdef WIN32
   /* set umask so that files are group-writable */
-  _umask (0002);
-#else
   umask (0002);
-#endif
   const char *
   filename = "edmap.data";
   Sint32
@@ -848,9 +844,6 @@ bool supervisor_map_editor::save_tilesmap ()
   left = bytes_size;
   while (left > 0)
     {
-#ifdef WIN32
-      bytes_written = _write (handle, filedata + bytes_size - left, left);
-#else
       bytes_written = write (handle, filedata + bytes_size - left, left);
       if (bytes_written == -1)
        {
@@ -862,7 +855,6 @@ bool supervisor_map_editor::save_tilesmap ()
        }
       left -= bytes_written;
     }
-#endif
   if (close (handle) == -1)
     {
       std::cerr << "supervisor_map_editor::save_tilesmap() file " <<
