@@ -60,7 +60,6 @@ AC_TYPE_SSIZE_T
 AC_CHECK_TYPES([ptrdiff_t])
 
 # Checks for library functions.
-AC_FUNC_MALLOC
 AC_CHECK_FUNCS([atexit memmove strchr strdup strerror])
 
 if test "x${enable_devel}" = "xyes"; then
