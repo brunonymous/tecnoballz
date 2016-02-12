@@ -96,7 +96,7 @@ configfile::resetvalue ()
   initial_num_of_lifes = 5;
   number_of_players = 1;
   char *user = getenv ("USER");
-  if (user != NULL)
+  if (user == NULL)
     {
       user = stringname;
     }
