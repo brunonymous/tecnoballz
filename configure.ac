@@ -46,8 +46,8 @@ AC_CHECK_LIB([tinyxml], [main], [
   AC_MSG_ERROR([tinyxml library is not present in your system])
 ])
 AC_SUBST(TINYXML_LIBS)
-XTRA_CPPLIBS=-lstdc++
-AC_SUBST(XTRA_CPPLIBS)
+#XTRA_CPPLIBS=-lstdc++
+#AC_SUBST(XTRA_CPPLIBS)
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h stddef.h stdlib.h string.h sys/time.h unistd.h])

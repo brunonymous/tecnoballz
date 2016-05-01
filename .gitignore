@@ -1,3 +1,5 @@
+
+# Autotools
 Makefile.in
 Makefile
 
@@ -13,9 +15,12 @@ Makefile
 /config.log
 /config.status
 
-
+# C++
 /src/*.o
 /src/tecnoballz
 /src/.deps/*
+
+# Vim
+*.swp
 
 
