@@ -10,7 +10,7 @@
 /*
  * copyright (c) 1998-2000 Mark Probst
  * copyright (c) 2002 Ingo Ruhnke <grumbel@gmx.de>
- * copyright (c) 2007-2014 TLK Games all rights reserved
+ * copyright (c) 2007-2016 TLK Games all rights reserved
  * $Id$
  *
  * Powermanga is free software; you can redistribute it and/or modify

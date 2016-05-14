@@ -9,7 +9,7 @@
  */
 /*
  * copyright (c) 1991-2015 TLK Games all rights reserved
- * $Id: sprite_ejector.cc 24 2014-09-28 15:30:04Z bruno.ethvignot@gmail.com $
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

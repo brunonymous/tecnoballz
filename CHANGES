@@ -1,13 +1,33 @@
-2015-06-14
+2016-05-14
 TecnoballZ 0.94.0
 Fix minimum distance of bouncers to walls in boss levels. 
 (Debian #776342) Thanks to Celelibi for bug reports
 Fix gigablitz gauge was not working. (Debian #776342) 
-Thanks to Celelibi for bug reports.
+ Thanks to Celelibi for bug reports.
 Fix right click game over bug. (Debian #776263)
-Thanks to Celelibi for bug reports.
+ Thanks to Celelibi for bug reports.
 Fix bug (Debian #776339)  Ball resize not relocated while
-  in corner relaunchers. Thanks to Celelibi for bug reports 
+  in corner relaunchers. Thanks to Celelibi for bug reports.
+Fix bug (Debian #806690) Graphical glitch in boss sprite.
+ Thanks to Celelibi for bug reports. 
+Close file tecnoballz.conf after creation.
+
+Thank to to GitHub user dmitrysmagin for the following fixes:
+ Create tecnoballz.conf with default values if it's absent.
+ Remove forgotten SCROREFILE define from tecnoballz.h
+ Remove some WIN32-specific code in creation of tecnoballz.hi
+  (not needed, common code works)
+ Remove checking for malloc as it checks not for malloc presence
+  but if malloc(0) returns valid pointer. And malloc is not used
+  at all in game code.
+ Don't rely on SDL_mixer using libmikmod. As on different platforms
+  it may use libmodplug. Instead, use mikmod directly for music and
+  catch output with Mix_HookMusic().
+  This is pretty hacky as 'no sound' driver is used with
+  direct calling to VC_WriteBytes() to fill the buffer.
+  MikMod_RegisterAllLoaders() fail for some platforms so use
+  MikMod_RegisterLoader() separately.
+  
 
 2014-09-30
 TecnoballZ 0.93.1

@@ -3,13 +3,13 @@
  * @brief Sprite ejector located in the corners
  * @created 2015-04-12
  * @date 2015-06-14
- * @copyright 1991-2015 TLK Games
+ * @copyright 1991-2016 TLK Games
  * @author Bruno Ethvignot
- * @version $Revision: 24 $
+ * @version $Revision$
  */
 /*
- * copyright (c) 1991-2015 TLK Games all rights reserved
- * $Id: sprite_ejector.h 24 2014-09-28 15:30:04Z bruno.ethvignot@gmail.com $
+ * copyright (c) 1991-2016 TLK Games all rights reserved
+ * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

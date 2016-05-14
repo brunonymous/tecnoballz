@@ -3,12 +3,12 @@
  * @brief Config file handler
  * @created 2005-01-22
  * @date 2014-09-28
- * @copyright 1991-2014 TLK Games
+ * @copyright 1991-2016 TLK Games
  * @author Bruno Ethvignot
  * @version $Revision$
  */
 /*
- * copyright (c) 1991-2014 TLK Games all rights reserved
+ * copyright (c) 1991-2016 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -507,7 +507,7 @@ Sint32 configfile::scan_arguments (Sint32 arg_count, char **arg_values)
         {
           printf (TECNOBALLZ_VERSION);
           printf ("\n");
-          printf ("copyright (c) 1991-2014 TLK Games\n");
+          printf ("copyright (c) 1991-2016 TLK Games\n");
           printf ("website: http://linux.tlk.fr/games/TecnoballZ/\n");
           return 0;
         }

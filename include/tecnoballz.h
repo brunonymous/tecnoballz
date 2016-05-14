@@ -8,7 +8,7 @@
  * @version $Revision$
  */
 /* 
- * copyright (c) 1991-2014 TLK Games all rights reserved
+ * copyright (c) 1991-2016 TLK Games all rights reserved
  * $Id$
  *
  * TecnoballZ is free software; you can redistribute it and/or modify
@@ -53,9 +53,9 @@
 #define __TECNOBALLZ__
 
 #if !defined(PACKAGE_STRING)
-#define PACKAGE_STRING "TECNOBALLZ 0.93.2"
+#define PACKAGE_STRING "TECNOBALLZ 0.94.0"
 #endif
-#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2015-06-14)"
+#define TECNOBALLZ_VERSION  PACKAGE_STRING " (2016-05-14)"
 
 
 /** Force bytes copy (SPARC unaligned memory access) */
